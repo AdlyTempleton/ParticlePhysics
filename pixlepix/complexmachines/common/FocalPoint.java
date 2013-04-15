@@ -27,8 +27,9 @@ public class FocalPoint extends BlockAdvanced
 	public FocalPoint(int id)
     {
         super(id, UniversalElectricity.machine);
-        this.setUnlocalizedName("focal point");
         this.setCreativeTab(CreativeTabs.tabMisc);
+
+        this.setUnlocalizedName("focal point");
     }
     
     public FocalPoint()

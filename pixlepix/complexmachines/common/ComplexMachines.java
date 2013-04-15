@@ -31,13 +31,14 @@ public class ComplexMachines {
 	private GuiHandler guiHandler = new GuiHandler();
 	public static ComplexMachinesTab creativeTab=new ComplexMachinesTab();
 	
-	public final static Block focalPoint = new FocalPoint(blockStartingID+3)
-    .setHardness(0.5F).setStepSound(Block.soundGravelFootstep).setCreativeTab(creativeTab);
 	
 
 	public final static Block focalPointControlled = new FocalPointControlled(blockStartingID+8)
     .setHardness(0.5F).setStepSound(Block.soundGravelFootstep).setCreativeTab(creativeTab);
 	
+
+	public final static Block focalPoint = new FocalPoint(blockStartingID+3)
+    .setHardness(0.5F).setStepSound(Block.soundGravelFootstep).setCreativeTab(creativeTab);
 
 	public final static Block grinder = new Grinder(blockStartingID+7)
     .setHardness(0.5F).setStepSound(Block.soundGravelFootstep).setCreativeTab(creativeTab);

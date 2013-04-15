@@ -141,7 +141,7 @@ public class OceanGeneratorTileEntity extends TileEntityElectrical implements IP
         			for(int cycleY=lowerBoundY;cycleY<upperBoundY;cycleY++){
         				for(int cycleZ=lowerBoundZ;cycleZ<upperBoundZ;cycleZ++){
                 			if(worldObj.getBlockId(cycleX,cycleY,cycleZ)==0){
-                				powerRunning+=0.025;
+                				powerRunning+=0.0025;
                 			}
                 		}
             		}

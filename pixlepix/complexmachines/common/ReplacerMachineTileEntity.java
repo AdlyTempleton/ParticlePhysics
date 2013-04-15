@@ -147,7 +147,7 @@ public class ReplacerMachineTileEntity extends TileEntityElectricityRunnable imp
                 	ticks++;
                 	if(ticks>2){
                 	ticks=0;
-                	if(worldObj.getBlockTileEntity(xCoord,yCoord+1,zCoord)!=null){
+                	if(worldObj.getBlockTileEntity(xCoord,yCoord+1,zCoord)!=null&&worldObj.getBlockTileEntity(xCoord,yCoord+1,zCoord) instanceof TileEntityChest){
                 		TileEntityChest inputChest=(TileEntityChest)worldObj.getBlockTileEntity(xCoord,yCoord+1,zCoord);
                 		int idToReplace=getBlockFromChest(inputChest);
                 		int lowerBoundX=xCoord;
