@@ -4,6 +4,7 @@ import pixlepix.complexmachines.client.GuiHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
@@ -35,9 +36,15 @@ public class ComplexMachines {
 
 	public final static Block focalPointControlled = new FocalPointControlled(blockStartingID+8)
     .setHardness(0.5F).setStepSound(Block.soundGravelFootstep).setCreativeTab(creativeTab);
-	
 
 	public final static Block focalPoint = new FocalPoint(blockStartingID+3)
+    .setHardness(0.5F).setStepSound(Block.soundGravelFootstep).setCreativeTab(creativeTab);
+
+	public final static Block laserEmitter = new LaserEmitter(blockStartingID+9)
+    .setHardness(0.5F).setStepSound(Block.soundGravelFootstep).setCreativeTab(creativeTab);
+	
+
+	public final static Block laserBlock = new LaserBlock(blockStartingID+10)
     .setHardness(0.5F).setStepSound(Block.soundGravelFootstep).setCreativeTab(creativeTab);
 
 	public final static Block grinder = new Grinder(blockStartingID+7)
@@ -112,6 +119,18 @@ public class ComplexMachines {
                 GameRegistry.registerBlock(extractorMachine, "Extractor Machine");
                 
                 
+
+                LanguageRegistry.addName(laserBlock, "Beam");
+                MinecraftForge.setBlockHarvestLevel(laserBlock, "pickaxe", 0);
+                GameRegistry.registerBlock(laserBlock, "Beam");
+                
+                
+
+                LanguageRegistry.addName(laserEmitter, "Laser Emitter");
+                MinecraftForge.setBlockHarvestLevel(laserEmitter, "pickaxe", 0);
+                GameRegistry.registerBlock(laserEmitter, "Laser Emitter");
+                
+                
                 LanguageRegistry.addName(focalPoint, "Focal Point");
                 MinecraftForge.setBlockHarvestLevel(focalPoint, "pickaxe", 0);
                 GameRegistry.registerBlock(focalPoint, "Focal point");
@@ -142,10 +161,14 @@ public class ComplexMachines {
                 ItemStack oceanGenerator=new ItemStack(blockStartingID+5,1,0);
                 ItemStack replacerMachine=new ItemStack(blockStartingID+6,1,0);
                 ItemStack grinder=new ItemStack(blockStartingID+7,1,0);
-
+                ItemStack emitter=new ItemStack(blockStartingID+7,1,0);
+                ItemStack glowstone=new ItemStack(Block.blocksList[89]);
+                ItemStack diamond=new ItemStack(Item.diamond);
                 
                 
 
+                GameRegistry.addRecipe(emitter, "xyx", "yzy", "xyx",
+                        'x', diamond, 'y', glowstone, 'z', eliteCircuit);
                 GameRegistry.addRecipe(grinder, "xxx", "xyx", "xxx",
                         'x', steelPlate, 'y', eliteCircuit);
                 GameRegistry.addRecipe(replacerMachine, "xxx", "yzy", "xxx",
@@ -169,6 +192,9 @@ public class ComplexMachines {
                 
                 GameRegistry.registerWorldGenerator(new ComplexMachinesWorldGen());
 
+                GameRegistry.registerTileEntity(LaserBeamTileEntity.class, "Laser Beam");
+
+                GameRegistry.registerTileEntity(LaserEmitterTileEntity.class, "Emitter");
                 GameRegistry.registerTileEntity(GrinderTileEntity.class, "Grinder");
                 GameRegistry.registerTileEntity(OceanGeneratorTileEntity.class, "Ocean Generator");
                 GameRegistry.registerTileEntity(SinglePointTileEntity.class, "Single Point generator");
