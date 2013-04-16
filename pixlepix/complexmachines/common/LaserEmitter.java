@@ -56,6 +56,25 @@ public class LaserEmitter extends BlockContainer {
 
 		((LaserEmitterTileEntity) par1World.getBlockTileEntity(x, y, z))
 				.initiate();
+		int angle = MathHelper.floor_double((par5EntityLiving.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+		int change = 0;
+
+		switch (angle)
+		{
+			case 0:
+				change = 1;
+				break;
+			case 1:
+				change = 2;
+				break;
+			case 2:
+				change = 0;
+				break;
+			case 3:
+				change = 3;
+				break;
+		}
+		par1World.setBlockMetadataWithNotify(x, y, z, change, 2);
 		par1World.notifyBlocksOfNeighborChange(x, y, z, this.blockID);
 	}
 

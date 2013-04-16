@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -57,7 +58,7 @@ public class ComplexMachines {
 	public final static Block laserBlock = new LaserBlock(blockStartingID + 10)
 			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
 
-	public final static Block glassLaserBlock = new GlassLaserBlock(blockStartingID + 12)
+	public final static Block glassLaserBlock = new GlassLaserBlock(blockStartingID+12)
 			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
 	
 	public final static Block harmingLaserBlock = new HarmingLaserBlock(blockStartingID + 11)
@@ -194,6 +195,10 @@ public class ComplexMachines {
 		ItemStack emitter = new ItemStack(blockStartingID + 7, 1, 0);
 		ItemStack glowstone = new ItemStack(Block.blocksList[89]);
 		ItemStack diamond = new ItemStack(Item.diamond);
+		
+		
+		
+		
 
 		GameRegistry.addRecipe(emitter, "xyx", "yzy", "xyx", 'x', diamond, 'y',
 				glowstone, 'z', eliteCircuit);
