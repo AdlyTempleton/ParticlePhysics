@@ -21,6 +21,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class SinglePointGenerator extends BlockAdvanced {
 	private Icon connectorIcon;
+	private Icon topIcon;
 
 	public SinglePointGenerator(int id) {
 		super(id, UniversalElectricity.machine);
@@ -90,16 +91,21 @@ public class SinglePointGenerator extends BlockAdvanced {
 	public void registerIcons(IconRegister par1IconRegister) {
 
 		blockIcon = par1IconRegister
-				.registerIcon("ComplexMachines:SinglePoint");
+				.registerIcon("ComplexMachines:SingleFront");
 		connectorIcon = par1IconRegister
-				.registerIcon("ComplexMachines:InputSide");
+				.registerIcon("ComplexMachines:SingleInput");
+		topIcon = par1IconRegister.registerIcon("ComplexMachines:ExtractorTop");
 	}
 
 	@Override
 	public Icon getIcon(int side, int meta) {
+
 		if (side == meta + 2) {
 			return connectorIcon;
 		} else {
+			if (side == 1 || side == 0) {
+				return topIcon;
+			}
 			return blockIcon;
 		}
 	}

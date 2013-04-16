@@ -21,6 +21,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class LaserEmitter extends BlockAdvanced {
 	private Icon connectorIcon;
 	private Icon laserIcon;
+	private Icon topIcon;
 
 	public LaserEmitter(int id) {
 		super(id, UniversalElectricity.machine);
@@ -68,12 +69,17 @@ public class LaserEmitter extends BlockAdvanced {
 	 */
 	@Override
 	public boolean isOpaqueCube() {
-		return true;
+		return false;
 	}
 
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
+	}
+	@Override
+	public int getRenderBlockPass() {
+		return 1;
+
 	}
 
 	
@@ -99,22 +105,22 @@ public class LaserEmitter extends BlockAdvanced {
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister) {
 
-		blockIcon = par1IconRegister.registerIcon("ComplexMachines:LaserBase");
+		blockIcon = par1IconRegister
+				.registerIcon("ComplexMachines:LaserFront");
 		connectorIcon = par1IconRegister
-				.registerIcon("ComplexMachines:InputSide");
-		laserIcon = par1IconRegister.registerIcon("ComplexMachines:LaserFace");
-
+				.registerIcon("ComplexMachines:LaserInput");
+		topIcon = par1IconRegister.registerIcon("ComplexMachines:LaserTop");
 	}
 
 	@Override
 	public Icon getIcon(int side, int meta) {
 
-		if (side == meta + 4) {
-			return laserIcon;
-		}
 		if (side == meta + 2) {
 			return connectorIcon;
 		} else {
+			if (side == 1 || side == 0) {
+				return topIcon;
+			}
 			return blockIcon;
 		}
 	}

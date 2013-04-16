@@ -22,6 +22,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class FocalPointControlled extends BlockAdvanced {
 	private Icon connectorIcon;
+	private Icon topIcon;
 
 	public FocalPointControlled(int id) {
 		super(id, UniversalElectricity.machine);
@@ -31,7 +32,6 @@ public class FocalPointControlled extends BlockAdvanced {
 
 	public FocalPointControlled() {
 		super(ComplexMachines.blockStartingID + 8, UniversalElectricity.machine);
-		this.setStepSound(soundMetalFootstep);
 		this.setUnlocalizedName("focal point controlled");
 		this.setCreativeTab(CreativeTabs.tabMisc);
 	}
@@ -94,16 +94,21 @@ public class FocalPointControlled extends BlockAdvanced {
 	public void registerIcons(IconRegister par1IconRegister) {
 
 		blockIcon = par1IconRegister
-				.registerIcon("ComplexMachines:FocalPointHarnessed");
+				.registerIcon("ComplexMachines:ControlledFront");
 		connectorIcon = par1IconRegister
-				.registerIcon("ComplexMachines:InputSide");
+				.registerIcon("ComplexMachines:FocalInput");
+		topIcon = par1IconRegister.registerIcon("ComplexMachines:FocalTop");
 	}
 
 	@Override
 	public Icon getIcon(int side, int meta) {
+
 		if (side == meta + 2) {
 			return connectorIcon;
 		} else {
+			if (side == 1 || side == 0) {
+				return topIcon;
+			}
 			return blockIcon;
 		}
 	}

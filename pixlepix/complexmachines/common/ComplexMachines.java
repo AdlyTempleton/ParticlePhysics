@@ -23,7 +23,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "ComplexMachines", name = "Complex Machines", version = "0.2.4")
+@Mod(modid = "ComplexMachines", name = "Complex Machines", version = "0.2.5")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class ComplexMachines {
 
@@ -32,6 +32,11 @@ public class ComplexMachines {
 	private GuiHandler guiHandler = new GuiHandler();
 	public static ComplexMachinesTab creativeTab = new ComplexMachinesTab();
 
+
+	public final static Block grinder = new Grinder(blockStartingID + 7)
+			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep)
+			.setCreativeTab(creativeTab);
+	
 	public final static Block focalPointControlled = new FocalPointControlled(
 			blockStartingID + 8).setHardness(0.5F)
 			.setStepSound(Block.soundGravelFootstep)
@@ -47,17 +52,12 @@ public class ComplexMachines {
 			.setCreativeTab(creativeTab);
 
 	public final static Block laserBlock = new LaserBlock(blockStartingID + 10)
-			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep)
-			.setCreativeTab(creativeTab);
+			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
 	
 	public final static Block harmingLaserBlock = new HarmingLaserBlock(blockStartingID + 11)
-	.setHardness(0.5F).setStepSound(Block.soundGravelFootstep)
-	.setCreativeTab(creativeTab);
+	.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
 
 
-	public final static Block grinder = new Grinder(blockStartingID + 7)
-			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep)
-			.setCreativeTab(creativeTab);
 
 	public final static Block extractorMachine = new ExtractorMachine(
 			blockStartingID + 2).setHardness(0.5F)

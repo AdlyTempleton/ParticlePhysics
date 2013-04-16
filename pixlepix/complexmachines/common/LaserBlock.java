@@ -28,14 +28,12 @@ public class LaserBlock extends Block {
 		super(id, UniversalElectricity.machine);
 		this.setUnlocalizedName("Beam");
 		this.setBlockUnbreakable();
-		this.setCreativeTab(CreativeTabs.tabMisc);
 	}
 
 	public LaserBlock() {
 		super(ComplexMachines.blockStartingID + 9, UniversalElectricity.machine);
 		this.setStepSound(soundMetalFootstep);
 		this.setUnlocalizedName("Beam");
-		this.setCreativeTab(CreativeTabs.tabMisc);
 	}
 
 	@Override

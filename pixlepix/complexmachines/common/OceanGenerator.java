@@ -21,6 +21,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class OceanGenerator extends BlockAdvanced {
 	private Icon connectorIcon;
+	private Icon topIcon;
 
 	public OceanGenerator(int id) {
 		super(id, UniversalElectricity.machine);
@@ -88,16 +89,21 @@ public class OceanGenerator extends BlockAdvanced {
 	public void registerIcons(IconRegister par1IconRegister) {
 
 		blockIcon = par1IconRegister
-				.registerIcon("ComplexMachines:OceanGenerator");
+				.registerIcon("ComplexMachines:OceanFront");
 		connectorIcon = par1IconRegister
-				.registerIcon("ComplexMachines:InputSide");
+				.registerIcon("ComplexMachines:OceanInput");
+		topIcon = par1IconRegister.registerIcon("ComplexMachines:OceanTop");
 	}
 
 	@Override
 	public Icon getIcon(int side, int meta) {
+
 		if (side == meta + 2) {
 			return connectorIcon;
 		} else {
+			if (side == 1 || side == 0) {
+				return topIcon;
+			}
 			return blockIcon;
 		}
 	}

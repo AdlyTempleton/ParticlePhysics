@@ -17,14 +17,12 @@ public class HarmingLaserBlock extends LaserBlock {
 		super(id);
 		this.setUnlocalizedName("Harming Beam");
 		this.setBlockUnbreakable();
-		this.setCreativeTab(CreativeTabs.tabMisc);
 	}
 
 	public HarmingLaserBlock() {
 		super(ComplexMachines.blockStartingID + 11);
 		this.setStepSound(soundMetalFootstep);
 		this.setUnlocalizedName("Harming Beam");
-		this.setCreativeTab(CreativeTabs.tabMisc);
 	}
 	
 	@Override

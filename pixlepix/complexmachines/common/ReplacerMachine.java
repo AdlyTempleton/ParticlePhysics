@@ -19,6 +19,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ReplacerMachine extends BlockAdvanced {
 	private Icon connectorIcon;
+	private Icon topIcon;
 
 	public ReplacerMachine(int id) {
 		super(id, UniversalElectricity.machine);
@@ -81,16 +82,21 @@ public class ReplacerMachine extends BlockAdvanced {
 	public void registerIcons(IconRegister par1IconRegister) {
 
 		blockIcon = par1IconRegister
-				.registerIcon("ComplexMachines:ReplacerMachine");
+				.registerIcon("ComplexMachines:ReplacerFront");
 		connectorIcon = par1IconRegister
-				.registerIcon("ComplexMachines:InputSide");
+				.registerIcon("ComplexMachines:ReplacerInput");
+		topIcon = par1IconRegister.registerIcon("ComplexMachines:ReplacerTop");
 	}
 
 	@Override
 	public Icon getIcon(int side, int meta) {
+
 		if (side == meta + 2) {
 			return connectorIcon;
 		} else {
+			if (side == 1 || side == 0) {
+				return topIcon;
+			}
 			return blockIcon;
 		}
 	}

@@ -19,6 +19,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class FillerMachine extends BlockAdvanced {
 	private Icon connectorIcon;
+	private Icon topIcon;
 
 	public FillerMachine(int id) {
 		super(id, UniversalElectricity.machine);
@@ -86,17 +87,23 @@ public class FillerMachine extends BlockAdvanced {
 	public void registerIcons(IconRegister par1IconRegister) {
 
 		blockIcon = par1IconRegister
-				.registerIcon("ComplexMachines:FillerMachine");
+				.registerIcon("ComplexMachines:FillerFront");
 		connectorIcon = par1IconRegister
-				.registerIcon("ComplexMachines:InputSide");
+				.registerIcon("ComplexMachines:FillerInput");
+		topIcon = par1IconRegister.registerIcon("ComplexMachines:FillerTop");
 	}
 
 	@Override
 	public Icon getIcon(int side, int meta) {
+
 		if (side == meta + 2) {
 			return connectorIcon;
 		} else {
+			if (side == 1 || side == 0) {
+				return topIcon;
+			}
 			return blockIcon;
 		}
 	}
+
 }

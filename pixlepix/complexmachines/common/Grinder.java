@@ -19,6 +19,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class Grinder extends BlockAdvanced {
 	private Icon connectorIcon;
+	private Icon topIcon;
 
 	public Grinder(int id) {
 		super(id, UniversalElectricity.machine);
@@ -26,8 +27,10 @@ public class Grinder extends BlockAdvanced {
 		this.setCreativeTab(CreativeTabs.tabMisc);
 	}
 
+	
+	
 	public Grinder() {
-		super(ComplexMachines.blockStartingID + 1, UniversalElectricity.machine);
+		super(ComplexMachines.blockStartingID + 7, UniversalElectricity.machine);
 		this.setStepSound(soundMetalFootstep);
 		this.setUnlocalizedName("Grinder");
 		this.setCreativeTab(CreativeTabs.tabMisc);
@@ -90,18 +93,24 @@ public class Grinder extends BlockAdvanced {
 	public void registerIcons(IconRegister par1IconRegister) {
 
 		blockIcon = par1IconRegister
-				.registerIcon("ComplexMachines:GrinderMachine");
+				.registerIcon("ComplexMachines:GrinderFront");
 		connectorIcon = par1IconRegister
-				.registerIcon("ComplexMachines:InputSide");
+				.registerIcon("ComplexMachines:GrinderInput");
+		topIcon = par1IconRegister.registerIcon("ComplexMachines:GrinderTop");
 	}
 
 	@Override
 	public Icon getIcon(int side, int meta) {
+
 		if (side == meta + 2) {
 			return connectorIcon;
 		} else {
+			if (side == 1 || side == 0) {
+				return topIcon;
+			}
 			return blockIcon;
 		}
 	}
+
 
 }

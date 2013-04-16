@@ -6,6 +6,8 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
@@ -157,13 +159,40 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 		}
 	}
 
-	/**
-	 * Reads a tile entity from NBT.
-	 */
+	@Override
+	public void readFromNBT(NBTTagCompound par1NBTTagCompound) {
+		super.readFromNBT(par1NBTTagCompound);
+		try {
+			this.joulesStored = par1NBTTagCompound.getDouble("joulesStored");
+			this.internalId = par1NBTTagCompound.getInteger("InternalId");
+		} catch (Exception e) {
+		}
+
+		NBTTagList var2 = par1NBTTagCompound.getTagList("Items");
+		
+	}
 
 	/**
 	 * Writes a tile entity to NBT.
 	 */
+	@Override
+	public void writeToNBT(NBTTagCompound par1NBTTagCompound) {
+		super.writeToNBT(par1NBTTagCompound);
+		par1NBTTagCompound.setDouble("joulesStored", this.getJoules());
+		par1NBTTagCompound.setInteger("InternalId", this.internalId);
+		
+		NBTTagList var2 = new NBTTagList();
+
+		for (int var3 = 0; var3 < this.inventory.length; ++var3) {
+			if (this.inventory[var3] != null) {
+				NBTTagCompound var4 = new NBTTagCompound();
+				var4.setByte("Slot", (byte) var3);
+				this.inventory[var3].writeToNBT(var4);
+				var2.appendTag(var4);
+			}
+		}
+		par1NBTTagCompound.setTag("Items", var2);
+	}
 
 	@Override
 	public double getVoltage() {
