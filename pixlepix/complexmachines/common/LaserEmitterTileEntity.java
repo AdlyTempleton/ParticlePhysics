@@ -206,9 +206,13 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 	public boolean onMachineActivated(World world, int x, int y, int z,
 			EntityPlayer entityPlayer, int side, float hitX, float hitY,
 			float hitZ) {
-		ItemStack target=entityPlayer.getHeldItem();
-			internalId=target.itemID;
 		
+		ItemStack target=entityPlayer.getHeldItem();
+		if(target!=null){
+			internalId=target.itemID;
+		}else{
+			internalId=0;
+		}
 		return true;
 	}
 

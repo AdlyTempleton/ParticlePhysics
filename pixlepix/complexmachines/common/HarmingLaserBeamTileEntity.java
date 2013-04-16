@@ -9,12 +9,13 @@ import net.minecraft.util.DamageSource;
 
 public class HarmingLaserBeamTileEntity extends LaserBeamTileEntity {
 	public void updateEntity(){
+		
 		super.updateEntity();
 		List<EntityLiving> entities=worldObj.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(xCoord-.5, yCoord-.5, zCoord-.5, xCoord+.5, yCoord+.5, zCoord+.5));
 		System.out.println(entities);
 		for(int i=0;i<entities.size();i++){
 			
-			entities.get(i).attackEntityFrom(DamageSource.onFire, 1);
+			entities.get(i).attackEntityFrom(DamageSource.onFire, 2.5);
 			
 		}
 	}

@@ -39,7 +39,7 @@ public class HarmingLaserBlock extends LaserBlock {
 	
 	@Override
 	public TileEntity createTileEntity(World var1, int metadata) {
-		return new LaserBeamTileEntity();
+		return new HarmingLaserBeamTileEntity();
 
 	}
 	
