@@ -31,135 +31,120 @@ import universalelectricity.prefab.tile.TileEntityElectricityRunnable;
 import com.google.common.io.ByteArrayDataInput;
 
 import cpw.mods.fml.common.Loader;
-public class SinglePointTileEntity extends TileEntityElectrical implements IPacketReceiver, IElectricityStorage{
-    public final double WATTS_PER_TICK = 5000;
-    public final double TRANSFER_LIMIT = 12500;
-    private int drawingTicks = 0;
-    private double joulesStored = 0;
-    public static double maxJoules = 2000000;
-    public int ticks=10000;
-    /**
-     * The ItemStacks that hold the items currently being used in the wire mill;
-     * 0 = battery; 1 = input; 2 = output;
-     */
-    
-    private int playersUsing = 0;
-    public int orientation;
-    private int targetID = 0;
-    private int targetMeta = 0;
-    
-    private boolean initialized;
-	private IConductor connectedElectricUnit;
-    
-    @Override
-    public void initiate()
-    {
-        this.initialized = true;
-    }
-   
 
-    public void updateEntity()
-	{
-    	//System.out.println("Focal Points have been spawned at "+"  "+xCoord+"  "+yCoord+"  "+zCoord);
+public class SinglePointTileEntity extends TileEntityElectrical implements
+		IPacketReceiver, IElectricityStorage {
+	public final double WATTS_PER_TICK = 5000;
+	public final double TRANSFER_LIMIT = 12500;
+	private int drawingTicks = 0;
+	private double joulesStored = 0;
+	public static double maxJoules = 2000000;
+	public int ticks = 10000;
+	/**
+	 * The ItemStacks that hold the items currently being used in the wire mill;
+	 * 0 = battery; 1 = input; 2 = output;
+	 */
+
+	private int playersUsing = 0;
+	public int orientation;
+	private int targetID = 0;
+	private int targetMeta = 0;
+
+	private boolean initialized;
+	private IConductor connectedElectricUnit;
+
+	@Override
+	public void initiate() {
+		this.initialized = true;
+	}
+
+	public void updateEntity() {
+		// System.out.println("Focal Points have been spawned at "+"  "+xCoord+"  "+yCoord+"  "+zCoord);
 		super.updateEntity();
 
-		if (!this.worldObj.isRemote)
-		{
-			if(atCorrectLocation()){
-				// Check nearby blocks and see if the conductor is full. If so, then it is connected
-				ForgeDirection outputDirection = ForgeDirection.getOrientation(this.getBlockMetadata() + 2);
-				TileEntity outputTile = VectorHelper.getConnectorFromSide(this.worldObj, new Vector3(this.xCoord, this.yCoord, this.zCoord), outputDirection);
-	
-				IElectricityNetwork network = ElectricityNetworkHelper.getNetworkFromTileEntity(outputTile, outputDirection);
-	
-				if (network != null)
-				{
-					if (network.getRequest().getWatts() > 0)
-					{
+		if (!this.worldObj.isRemote) {
+			if (atCorrectLocation()) {
+				// Check nearby blocks and see if the conductor is full. If so,
+				// then it is connected
+				ForgeDirection outputDirection = ForgeDirection
+						.getOrientation(this.getBlockMetadata() + 2);
+				TileEntity outputTile = VectorHelper.getConnectorFromSide(
+						this.worldObj, new Vector3(this.xCoord, this.yCoord,
+								this.zCoord), outputDirection);
+
+				IElectricityNetwork network = ElectricityNetworkHelper
+						.getNetworkFromTileEntity(outputTile, outputDirection);
+
+				if (network != null) {
+					if (network.getRequest().getWatts() > 0) {
 						this.connectedElectricUnit = (IConductor) outputTile;
-					}
-					else
-					{
+					} else {
 						this.connectedElectricUnit = null;
 					}
-				}
-				else
-				{
+				} else {
 					this.connectedElectricUnit = null;
 				}
-	
-				if (!this.isDisabled())
-				{
-					
-	
-	
-					if (this.connectedElectricUnit != null)
-					{
-						
-							this.connectedElectricUnit.getNetwork().startProducing(this, (500000 / this.getVoltage()) / 20, this.getVoltage());
-						
-						
+
+				if (!this.isDisabled()) {
+
+					if (this.connectedElectricUnit != null) {
+
+						this.connectedElectricUnit.getNetwork().startProducing(
+								this, (500000 / this.getVoltage()) / 20,
+								this.getVoltage());
+
 					}
 				}
 
-		}
+			}
 
 		}
 	}
 
-    private boolean atCorrectLocation() {
-		if((xCoord==5000||xCoord==-5000)&&(zCoord==5000||zCoord==-5000)&&yCoord==60){
+	private boolean atCorrectLocation() {
+		if ((xCoord == 5000 || xCoord == -5000)
+				&& (zCoord == 5000 || zCoord == -5000) && yCoord == 60) {
 			return true;
 		}
 		return false;
 	}
 
+	@Override
+	public void handlePacketData(INetworkManager inputNetwork, int type,
+			Packet250CustomPayload packet, EntityPlayer player,
+			ByteArrayDataInput dataStream) {
+		try {
+			this.drawingTicks = dataStream.readInt();
+			this.disabledTicks = dataStream.readInt();
+			this.joulesStored = dataStream.readDouble();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
-    public void handlePacketData(INetworkManager inputNetwork, int type, Packet250CustomPayload packet,
-            EntityPlayer player, ByteArrayDataInput dataStream)
-    {
-        try
-        {
-            this.drawingTicks = dataStream.readInt();
-            this.disabledTicks = dataStream.readInt();
-            this.joulesStored = dataStream.readDouble();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }    
+	public double getVoltage() {
+		return 120;
+	}
 
-    @Override
-    public double getVoltage()
-    {
-        return 120;
-    }
-    
-    
-    @Override
-    public double getJoules()
-    {
-        return this.joulesStored;
-    }
-    
-    @Override
-    public void setJoules(double joules)
-    {
-        this.joulesStored = joules;
-    }
-    
-    @Override
-    public double getMaxJoules()
-    {
-        return FillerMachineTileEntity.maxJoules;
-    }   
-    @Override
-    public boolean canConnect(ForgeDirection direction)
-    {
-        return direction.ordinal() == this.getBlockMetadata() + 2;
-    }
-    
-    
+	@Override
+	public double getJoules() {
+		return this.joulesStored;
+	}
+
+	@Override
+	public void setJoules(double joules) {
+		this.joulesStored = joules;
+	}
+
+	@Override
+	public double getMaxJoules() {
+		return FillerMachineTileEntity.maxJoules;
+	}
+
+	@Override
+	public boolean canConnect(ForgeDirection direction) {
+		return direction.ordinal() == this.getBlockMetadata() + 2;
+	}
+
 }
