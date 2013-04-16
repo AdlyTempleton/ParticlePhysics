@@ -101,6 +101,14 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 						case 276:
 							laserBeamId=ComplexMachines.blockStartingID+11;
 							break;
+						case 20:
+							laserBeamId=ComplexMachines.blockStartingID+12;
+							//System.out.println("Laser of glass");
+							break;
+						case 399:
+							laserBeamId=ComplexMachines.blockStartingID+13;
+							//System.out.println("Laser of glass");
+							break;
 						default:
 							laserBeamId=ComplexMachines.blockStartingID+10;
 							break;

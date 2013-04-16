@@ -11,10 +11,11 @@ public class ComplexMachinesWorldGen implements IWorldGenerator {
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world,
 			IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-		world.setBlock(chunkX * 16 + random.nextInt(16),
-				random.nextInt(10) + 5, chunkZ * 16 + random.nextInt(16),
-				ComplexMachines.blockStartingID + 3);
-
+		
+		
+		if(world.provider.isSurfaceWorld()&&world.provider.getAverageGroundLevel()>20){
+			world.setBlock(chunkX * 16 + random.nextInt(16),random.nextInt(10) + 5, chunkZ * 16 + random.nextInt(16), ComplexMachines.blockStartingID + 3);
+		}
 	}
 
 }

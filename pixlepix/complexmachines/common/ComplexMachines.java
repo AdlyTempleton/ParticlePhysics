@@ -23,7 +23,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "ComplexMachines", name = "Complex Machines", version = "0.2.5")
+@Mod(modid = "ComplexMachines", name = "Complex Machines", version = "0.2.7")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class ComplexMachines {
 
@@ -31,7 +31,10 @@ public class ComplexMachines {
 
 	private GuiHandler guiHandler = new GuiHandler();
 	public static ComplexMachinesTab creativeTab = new ComplexMachinesTab();
+	
 
+	public final static Block debuffLaser = new DebuffLaserBlock(blockStartingID + 13)
+			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
 
 	public final static Block grinder = new Grinder(blockStartingID + 7)
 			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep)
@@ -52,6 +55,9 @@ public class ComplexMachines {
 			.setCreativeTab(creativeTab);
 
 	public final static Block laserBlock = new LaserBlock(blockStartingID + 10)
+			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
+
+	public final static Block glassLaserBlock = new GlassLaserBlock(blockStartingID + 12)
 			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
 	
 	public final static Block harmingLaserBlock = new HarmingLaserBlock(blockStartingID + 11)
@@ -120,6 +126,16 @@ public class ComplexMachines {
 		LanguageRegistry.addName(grinder, "Grinder");
 		MinecraftForge.setBlockHarvestLevel(grinder, "pickaxe", 0);
 		GameRegistry.registerBlock(grinder, "Grinder");
+		
+
+		LanguageRegistry.addName(debuffLaser, "Debuff Laser");
+		MinecraftForge.setBlockHarvestLevel(debuffLaser, "pickaxe", 0);
+		GameRegistry.registerBlock(debuffLaser, "Debuff Laser");
+		
+
+		LanguageRegistry.addName(glassLaserBlock, "Glass laser");
+		MinecraftForge.setBlockHarvestLevel(glassLaserBlock, "pickaxe", 0);
+		GameRegistry.registerBlock(glassLaserBlock, "Glass laser");
 
 		LanguageRegistry.addName(replacerMachine, "Replacer Machine");
 		MinecraftForge.setBlockHarvestLevel(replacerMachine, "pickaxe", 0);

@@ -3,6 +3,7 @@ package pixlepix.complexmachines.common;
 import pixlepix.complexmachines.client.ClientProxy;
 import universalelectricity.core.UniversalElectricity;
 import universalelectricity.prefab.block.BlockAdvanced;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
@@ -17,7 +18,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class Grinder extends BlockAdvanced {
+public class Grinder extends BlockContainer {
 	private Icon connectorIcon;
 	private Icon topIcon;
 
@@ -48,7 +49,7 @@ public class Grinder extends BlockAdvanced {
 	}
 
 	@Override
-	public boolean onMachineActivated(World par1World, int x, int y, int z,
+	public boolean onBlockActivated(World par1World, int x, int y, int z,
 			EntityPlayer par5EntityPlayer, int side, float hitX, float hitY,
 			float hitZ) {
 		if (!par1World.isRemote) {
@@ -110,6 +111,14 @@ public class Grinder extends BlockAdvanced {
 			}
 			return blockIcon;
 		}
+	}
+
+
+
+	@Override
+	public TileEntity createNewTileEntity(World world) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

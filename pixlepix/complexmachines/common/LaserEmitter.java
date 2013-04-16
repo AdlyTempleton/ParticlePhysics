@@ -3,6 +3,7 @@ package pixlepix.complexmachines.common;
 import pixlepix.complexmachines.client.ClientProxy;
 import universalelectricity.core.UniversalElectricity;
 import universalelectricity.prefab.block.BlockAdvanced;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
@@ -18,7 +19,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class LaserEmitter extends BlockAdvanced {
+public class LaserEmitter extends BlockContainer {
 	private Icon connectorIcon;
 	private Icon laserIcon;
 	private Icon topIcon;
@@ -42,7 +43,7 @@ public class LaserEmitter extends BlockAdvanced {
 	 */
 	
 	@Override
-	public boolean onMachineActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ){
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ){
 		LaserEmitterTileEntity entity=(LaserEmitterTileEntity)world.getBlockTileEntity(x,y,z);
 		return entity.onMachineActivated(world, x, y,z, entityPlayer, side, hitX, hitY, hitZ);
 	}
@@ -123,5 +124,11 @@ public class LaserEmitter extends BlockAdvanced {
 			}
 			return blockIcon;
 		}
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World world) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -3,6 +3,7 @@ package pixlepix.complexmachines.common;
 import pixlepix.complexmachines.client.ClientProxy;
 import universalelectricity.core.UniversalElectricity;
 import universalelectricity.prefab.block.BlockAdvanced;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
@@ -17,7 +18,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class FillerMachine extends BlockAdvanced {
+public class FillerMachine extends BlockContainer {
 	private Icon connectorIcon;
 	private Icon topIcon;
 
@@ -104,6 +105,12 @@ public class FillerMachine extends BlockAdvanced {
 			}
 			return blockIcon;
 		}
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World world) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

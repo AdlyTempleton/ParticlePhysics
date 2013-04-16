@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class FocalPointControlled extends BlockAdvanced {
+public class FocalPointControlled extends BlockContainer {
 	private Icon connectorIcon;
 	private Icon topIcon;
 
@@ -111,6 +111,12 @@ public class FocalPointControlled extends BlockAdvanced {
 			}
 			return blockIcon;
 		}
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World world) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
