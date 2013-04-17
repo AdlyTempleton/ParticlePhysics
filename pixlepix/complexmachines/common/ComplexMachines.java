@@ -24,7 +24,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "ComplexMachines", name = "Complex Machines", version = "0.2.7")
+@Mod(modid = "ComplexMachines", name = "Complex Machines", version = "0.2.8")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class ComplexMachines {
 
@@ -34,6 +34,8 @@ public class ComplexMachines {
 	public static ComplexMachinesTab creativeTab = new ComplexMachinesTab();
 	
 
+	public final static Block miningLaser = new MiningLaserBlock(blockStartingID + 15)
+			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
 	public final static Block redstoneLaser = new RedstoneLaserBlock(blockStartingID + 14)
 			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
 
@@ -121,6 +123,12 @@ public class ComplexMachines {
 		NetworkRegistry networkRegistry = NetworkRegistry.instance();
 		networkRegistry.registerGuiHandler(this, guiHandler);
 
+		
+
+		LanguageRegistry.addName(miningLaser, "mining Laser");
+		MinecraftForge.setBlockHarvestLevel(miningLaser, "pickaxe", 0);
+		GameRegistry.registerBlock(miningLaser, "mining Laser");
+		
 		LanguageRegistry
 				.addName(focalPointControlled, "Controlled focal point");
 		MinecraftForge.setBlockHarvestLevel(focalPointControlled, "pickaxe", 0);

@@ -115,21 +115,26 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 							laserBeamId=ComplexMachines.blockStartingID+13;
 							//System.out.println("Laser of glass");
 							break;
+						case 278:
+							laserBeamId=ComplexMachines.blockStartingID+15;
+							//System.out.println("Laser of glass");
+							break;
 						default:
 							laserBeamId=ComplexMachines.blockStartingID+10;
 							break;
 							
 						
 						}
-						for (int i = 1; i < 50; i++) {
+						for (int i = 1; i < 150; i++) {
+							if(worldObj.getBlockId(xCoord + laserDirection.offsetX * i, yCoord, zCoord + laserDirection.offsetZ * i) == 1&&internalId==278){
+								if(getJoules()>50000){
+									setJoules(getJoules()-50000);
+									worldObj.setBlock(xCoord + laserDirection.offsetX * i, yCoord, zCoord + laserDirection.offsetZ * i, 0);
+								}
+							}
 							if (worldObj.getBlockId(xCoord + laserDirection.offsetX * i, yCoord, zCoord + laserDirection.offsetZ * i) == 0) {
-								worldObj.setBlock(xCoord
-										+ laserDirection.offsetX * i, yCoord,
-										zCoord + laserDirection.offsetZ * i,
-										laserBeamId);
-								if (worldObj.getBlockTileEntity(xCoord
-										+ laserDirection.offsetX * i, yCoord,
-										zCoord + laserDirection.offsetZ * i) instanceof LaserBeamTileEntity) {
+								worldObj.setBlock(xCoord+ laserDirection.offsetX * i, yCoord,zCoord + laserDirection.offsetZ * i,laserBeamId);
+								if (worldObj.getBlockTileEntity(xCoord+ laserDirection.offsetX * i, yCoord,zCoord + laserDirection.offsetZ * i) instanceof LaserBeamTileEntity) {
 									LaserBeamTileEntity entity = (LaserBeamTileEntity) worldObj
 											.getBlockTileEntity(xCoord
 													+ laserDirection.offsetX
