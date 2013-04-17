@@ -93,7 +93,7 @@ public class FocalPointControledTileEntity extends TileEntityElectrical
 				if (this.connectedElectricUnit != null) {
 
 					this.connectedElectricUnit.getNetwork().startProducing(
-							this, (10000 / this.getVoltage()) / 20,
+							this, (4000 / this.getVoltage()) / 20,
 							this.getVoltage());
 
 				}

@@ -8,7 +8,7 @@ public class LaserBeamTileEntity extends TileEntity {
 
 	public void updateEntity() {
 		ticks++;
-		if (ticks > 190) {
+		if (ticks > 40) {
 			worldObj.setBlock(xCoord, yCoord, zCoord, 0);
 		}
 

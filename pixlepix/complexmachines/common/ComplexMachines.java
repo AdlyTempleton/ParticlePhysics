@@ -34,6 +34,9 @@ public class ComplexMachines {
 	public static ComplexMachinesTab creativeTab = new ComplexMachinesTab();
 	
 
+	public final static Block redstoneLaser = new RedstoneLaserBlock(blockStartingID + 14)
+			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
+
 	public final static Block debuffLaser = new DebuffLaserBlock(blockStartingID + 13)
 			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
 
@@ -132,6 +135,11 @@ public class ComplexMachines {
 		LanguageRegistry.addName(debuffLaser, "Debuff Laser");
 		MinecraftForge.setBlockHarvestLevel(debuffLaser, "pickaxe", 0);
 		GameRegistry.registerBlock(debuffLaser, "Debuff Laser");
+		
+
+		LanguageRegistry.addName(redstoneLaser, "Redstone Laser");
+		MinecraftForge.setBlockHarvestLevel(redstoneLaser, "pickaxe", 0);
+		GameRegistry.registerBlock(redstoneLaser, "Redstone Laser");
 		
 
 		LanguageRegistry.addName(glassLaserBlock, "Glass laser");

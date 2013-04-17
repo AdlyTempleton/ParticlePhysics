@@ -91,10 +91,12 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 				}
 				ticks++;
 				if (getJoules() > 10000) {
-					if (ticks % 40 == 0) {
+					ForgeDirection laserDirection = inputDirection
+							.getOpposite();
+					int id=worldObj.getBlockId(xCoord+ laserDirection.offsetX, yCoord, zCoord + laserDirection.offsetZ);
+					if (ticks % 40 == 0||id==0) {
 						setJoules(getJoules() - 10000);
-						ForgeDirection laserDirection = inputDirection
-								.getOpposite();
+						
 						int laserBeamId;
 						switch(internalId){
 						
@@ -103,6 +105,10 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 							break;
 						case 20:
 							laserBeamId=ComplexMachines.blockStartingID+12;
+							//System.out.println("Laser of glass");
+							break;
+						case 331:
+							laserBeamId=ComplexMachines.blockStartingID+14;
 							//System.out.println("Laser of glass");
 							break;
 						case 399:
@@ -115,7 +121,7 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 							
 						
 						}
-						for (int i = 1; i < 25; i++) {
+						for (int i = 1; i < 50; i++) {
 							if (worldObj.getBlockId(xCoord + laserDirection.offsetX * i, yCoord, zCoord + laserDirection.offsetZ * i) == 0) {
 								worldObj.setBlock(xCoord
 										+ laserDirection.offsetX * i, yCoord,
