@@ -4,10 +4,10 @@
 package pixlepix.complexmachines.client;
 
 // These are all the imports you will need
-import pixlepix.complexmachines.common.ContainerExtractor;
-import pixlepix.complexmachines.common.ContainerGrinder;
-import pixlepix.complexmachines.common.ExtractorMachineTileEntity;
-import pixlepix.complexmachines.common.GrinderTileEntity;
+import pixlepix.complexmachines.common.container.ContainerExtractor;
+import pixlepix.complexmachines.common.container.ContainerGrinder;
+import pixlepix.complexmachines.common.tileentity.ExtractorMachineTileEntity;
+import pixlepix.complexmachines.common.tileentity.GrinderTileEntity;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.src.*;

@@ -1,6 +1,36 @@
 package pixlepix.complexmachines.common;
 
 import pixlepix.complexmachines.client.GuiHandler;
+import pixlepix.complexmachines.common.block.ExtractorMachine;
+import pixlepix.complexmachines.common.block.FillerMachine;
+import pixlepix.complexmachines.common.block.FocalPoint;
+import pixlepix.complexmachines.common.block.FocalPointControlled;
+import pixlepix.complexmachines.common.block.Grinder;
+import pixlepix.complexmachines.common.block.OceanGenerator;
+import pixlepix.complexmachines.common.block.ReplacerMachine;
+import pixlepix.complexmachines.common.block.SinglePointGenerator;
+import pixlepix.complexmachines.common.laser.LaserEmitter;
+import pixlepix.complexmachines.common.laser.LaserEmitterTileEntity;
+import pixlepix.complexmachines.common.laser.block.DebuffLaserBlock;
+import pixlepix.complexmachines.common.laser.block.ElecrtricLaserBlock;
+import pixlepix.complexmachines.common.laser.block.GlassLaserBlock;
+import pixlepix.complexmachines.common.laser.block.HarmingLaserBlock;
+import pixlepix.complexmachines.common.laser.block.LaserBlock;
+import pixlepix.complexmachines.common.laser.block.MiningLaserBlock;
+import pixlepix.complexmachines.common.laser.block.RedstoneLaserBlock;
+import pixlepix.complexmachines.common.laser.block.SuctionLaserBlock;
+import pixlepix.complexmachines.common.laser.tileentity.DebuffLaserBeamTileEntity;
+import pixlepix.complexmachines.common.laser.tileentity.ElectricLaserBeamTileEntity;
+import pixlepix.complexmachines.common.laser.tileentity.HarmingLaserBeamTileEntity;
+import pixlepix.complexmachines.common.laser.tileentity.LaserBeamTileEntity;
+import pixlepix.complexmachines.common.laser.tileentity.SuctionLaserBeamTileEntity;
+import pixlepix.complexmachines.common.tileentity.ExtractorMachineTileEntity;
+import pixlepix.complexmachines.common.tileentity.FillerMachineTileEntity;
+import pixlepix.complexmachines.common.tileentity.FocalPointControledTileEntity;
+import pixlepix.complexmachines.common.tileentity.GrinderTileEntity;
+import pixlepix.complexmachines.common.tileentity.OceanGeneratorTileEntity;
+import pixlepix.complexmachines.common.tileentity.ReplacerMachineTileEntity;
+import pixlepix.complexmachines.common.tileentity.SinglePointTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -24,7 +54,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "ComplexMachines", name = "Complex Machines", version = "0.2.8")
+@Mod(modid = "ComplexMachines", name = "Complex Machines", version = "0.2.9")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class ComplexMachines {
 
@@ -34,6 +64,10 @@ public class ComplexMachines {
 	public static ComplexMachinesTab creativeTab = new ComplexMachinesTab();
 	
 
+	public final static Block suctionLaser = new SuctionLaserBlock(blockStartingID + 17)
+			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
+	public final static Block electricLaser = new ElecrtricLaserBlock(blockStartingID + 16)
+			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
 	public final static Block miningLaser = new MiningLaserBlock(blockStartingID + 15)
 			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
 	public final static Block redstoneLaser = new RedstoneLaserBlock(blockStartingID + 14)
@@ -123,7 +157,14 @@ public class ComplexMachines {
 		NetworkRegistry networkRegistry = NetworkRegistry.instance();
 		networkRegistry.registerGuiHandler(this, guiHandler);
 
+
+		LanguageRegistry.addName(suctionLaser, "suction Laser");
+		MinecraftForge.setBlockHarvestLevel(suctionLaser, "pickaxe", 0);
+		GameRegistry.registerBlock(suctionLaser, "suction Laser");
 		
+		LanguageRegistry.addName(electricLaser, "electric Laser");
+		MinecraftForge.setBlockHarvestLevel(electricLaser, "pickaxe", 0);
+		GameRegistry.registerBlock(electricLaser, "electric Laser");
 
 		LanguageRegistry.addName(miningLaser, "mining Laser");
 		MinecraftForge.setBlockHarvestLevel(miningLaser, "pickaxe", 0);
@@ -255,8 +296,17 @@ public class ComplexMachines {
 				"Focal Point");
 		GameRegistry.registerTileEntity(FillerMachineTileEntity.class,
 				"Filler Machine");
+
+		GameRegistry.registerTileEntity(SuctionLaserBeamTileEntity.class,
+				"Suction Laser");
+
+		GameRegistry.registerTileEntity(DebuffLaserBeamTileEntity.class,
+				"Debugg Laser");
+		GameRegistry.registerTileEntity(ElectricLaserBeamTileEntity.class,
+				"Electric Laser");
 		GameRegistry.registerTileEntity(ExtractorMachineTileEntity.class,
 				"Extractor");
+		
 		GameRegistry.registerTileEntity(ReplacerMachineTileEntity.class,
 				"Replacer");
 
