@@ -56,7 +56,7 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 	public void initiate() {
 		this.initialized = true;
 	}
-	
+
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
@@ -93,10 +93,10 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 					int id=worldObj.getBlockId(xCoord+ laserDirection.offsetX, yCoord, zCoord + laserDirection.offsetZ);
 					if (ticks % 40 == 0||id==0) {
 						setJoules(getJoules() - 10000);
-						
+
 						int laserBeamId;
 						switch(internalId){
-						
+
 						case 276:
 							laserBeamId=ComplexMachines.blockStartingID+11;
 							break;
@@ -127,8 +127,8 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 						default:
 							laserBeamId=ComplexMachines.blockStartingID+10;
 							break;
-							
-						
+
+
 						}
 						for (int i = 1; i < 150; i++) {
 							if(worldObj.getBlockId(xCoord + laserDirection.offsetX * i, yCoord, zCoord + laserDirection.offsetZ * i) == 1&&internalId==278){
@@ -194,7 +194,7 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 		}
 
 		NBTTagList var2 = par1NBTTagCompound.getTagList("Items");
-		
+
 	}
 
 	/**
@@ -205,7 +205,7 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 		super.writeToNBT(par1NBTTagCompound);
 		par1NBTTagCompound.setDouble("joulesStored", this.getJoules());
 		par1NBTTagCompound.setInteger("InternalId", this.internalId);
-		
+
 		NBTTagList var2 = new NBTTagList();
 
 		for (int var3 = 0; var3 < this.inventory.length; ++var3) {
@@ -252,15 +252,15 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 		return direction.ordinal() == this.getBlockMetadata() + 2;
 	}
 
-	
 
-	
+
+
 
 
 	public boolean onMachineActivated(World world, int x, int y, int z,
 			EntityPlayer entityPlayer, int side, float hitX, float hitY,
 			float hitZ) {
-		
+
 		ItemStack target=entityPlayer.getHeldItem();
 		if(target!=null){
 			internalId=target.itemID;
@@ -270,6 +270,6 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 		return true;
 	}
 
-	
+
 
 }

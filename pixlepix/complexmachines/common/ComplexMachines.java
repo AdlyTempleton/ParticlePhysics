@@ -3,9 +3,13 @@ package pixlepix.complexmachines.common;
 import pixlepix.complexmachines.client.GuiHandler;
 import pixlepix.complexmachines.common.block.ExtractorMachine;
 import pixlepix.complexmachines.common.block.FillerMachine;
+import pixlepix.complexmachines.common.block.Flux;
+import pixlepix.complexmachines.common.block.FluxTileEntity;
 import pixlepix.complexmachines.common.block.FocalPoint;
 import pixlepix.complexmachines.common.block.FocalPointControlled;
 import pixlepix.complexmachines.common.block.Grinder;
+import pixlepix.complexmachines.common.block.IntermediateFlux;
+import pixlepix.complexmachines.common.block.IntermediateFluxTileEntity;
 import pixlepix.complexmachines.common.block.OceanGenerator;
 import pixlepix.complexmachines.common.block.ReplacerMachine;
 import pixlepix.complexmachines.common.block.SinglePointGenerator;
@@ -53,6 +57,8 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = "ComplexMachines", name = "Complex Machines", version = "0.2.9")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
@@ -64,6 +70,11 @@ public class ComplexMachines {
 	public static ComplexMachinesTab creativeTab = new ComplexMachinesTab();
 	
 
+	public final static Block flux = new Flux(blockStartingID + 18)
+			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
+
+	public final static Block intermediateFlux = new IntermediateFlux(blockStartingID + 19)
+			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
 	public final static Block suctionLaser = new SuctionLaserBlock(blockStartingID + 17)
 			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
 	public final static Block electricLaser = new ElecrtricLaserBlock(blockStartingID + 16)
@@ -138,6 +149,8 @@ public class ComplexMachines {
 	@SidedProxy(clientSide = "pixlepix.complexmachines.client.ClientProxy", serverSide = "pixlepix.complexmachines.common.CommonProxy")
 	public static CommonProxy proxy;
 
+	public static FluxController controller=new FluxController();
+
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event) {
 		Configuration config = new Configuration(
@@ -152,11 +165,23 @@ public class ComplexMachines {
 	@Init
 	public void load(FMLInitializationEvent event) {
 
+		TickRegistry.registerTickHandler(controller, Side.CLIENT);
+		
 		proxy.registerRenderers();
 
 		NetworkRegistry networkRegistry = NetworkRegistry.instance();
 		networkRegistry.registerGuiHandler(this, guiHandler);
+		
 
+		LanguageRegistry.addName(flux, "Flux");
+		MinecraftForge.setBlockHarvestLevel(flux, "pickaxe", 0);
+		GameRegistry.registerBlock(flux, "Flux");
+		
+
+		LanguageRegistry.addName(intermediateFlux, "Intermediate Flux");
+		MinecraftForge.setBlockHarvestLevel(intermediateFlux, "pickaxe", 0);
+		GameRegistry.registerBlock(intermediateFlux, "Intermediate Flux");
+		
 
 		LanguageRegistry.addName(suctionLaser, "suction Laser");
 		MinecraftForge.setBlockHarvestLevel(suctionLaser, "pickaxe", 0);
@@ -309,6 +334,14 @@ public class ComplexMachines {
 		
 		GameRegistry.registerTileEntity(ReplacerMachineTileEntity.class,
 				"Replacer");
+		
+
+		GameRegistry.registerTileEntity(FluxTileEntity.class,
+				"Flux");
+		
+
+		GameRegistry.registerTileEntity(IntermediateFluxTileEntity.class,
+				"Intermediate Flux");
 
 	}
 

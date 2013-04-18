@@ -65,42 +65,7 @@ public class FocalPointControledTileEntity extends TileEntityElectrical
 	public void updateEntity() {
 		// System.out.println("Focal Points have been spawned at "+"  "+xCoord+"  "+yCoord+"  "+zCoord);
 		super.updateEntity();
-
-		if (!this.worldObj.isRemote) {
-
-			// Check nearby blocks and see if the conductor is full. If so, then
-			// it is connected
-			ForgeDirection outputDirection = ForgeDirection.getOrientation(this
-					.getBlockMetadata() + 2);
-			TileEntity outputTile = VectorHelper.getConnectorFromSide(
-					this.worldObj, new Vector3(this.xCoord, this.yCoord,
-							this.zCoord), outputDirection);
-
-			IElectricityNetwork network = ElectricityNetworkHelper
-					.getNetworkFromTileEntity(outputTile, outputDirection);
-
-			if (network != null) {
-				if (network.getRequest().getWatts() > 0) {
-					this.connectedElectricUnit = (IConductor) outputTile;
-				} else {
-					this.connectedElectricUnit = null;
-				}
-			} else {
-				this.connectedElectricUnit = null;
-			}
-
-			if (!this.isDisabled()) {
-
-				if (this.connectedElectricUnit != null) {
-
-					this.connectedElectricUnit.getNetwork().startProducing(
-							this, (4000 / this.getVoltage()) / 20,
-							this.getVoltage());
-
-				}
-			}
-
-		}
+		
 	}
 
 	@Override

@@ -9,7 +9,7 @@ public class LaserBeamTileEntity extends TileEntity {
 	public void updateEntity() {
 		//System.out.println(ticks);
 		ticks++;
-		if (ticks > 10) {
+		if (ticks > 100) {
 			worldObj.setBlock(xCoord, yCoord, zCoord, 0);
 			
 		}

@@ -30,6 +30,7 @@ public class LaserBlock extends Block {
 	public LaserBlock(int id) {
 		super(id, Material.portal);
 		this.setUnlocalizedName("Beam");
+		this.setLightValue(1.0F);
 		
 	}
 
@@ -37,6 +38,7 @@ public class LaserBlock extends Block {
 		super(ComplexMachines.blockStartingID + 9, UniversalElectricity.machine);
 		this.setStepSound(soundMetalFootstep);
 		this.setUnlocalizedName("Beam");
+		this.setLightValue(1.0F);
 	}
 
 	@Override
