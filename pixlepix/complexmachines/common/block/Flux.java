@@ -6,6 +6,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import pixlepix.complexmachines.common.ComplexMachines;
+import pixlepix.complexmachines.common.tileentity.FluxTileEntity;
 import universalelectricity.core.UniversalElectricity;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -30,10 +31,7 @@ public class Flux extends Block {
 		this.setCreativeTab(CreativeTabs.tabMisc);
 	}
 	
-	@Override
-	public int quantityDropped(Random rand) {
-		return 0;
-	}
+	
 	
 	@Override
 	public void onBlockPlacedBy(World par1World, int x, int y, int z,
