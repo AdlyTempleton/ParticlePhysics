@@ -7,12 +7,19 @@ public class LaserBeamTileEntity extends TileEntity {
 	private boolean initialized;
 
 	public void updateEntity() {
+		//System.out.println(ticks);
 		ticks++;
-		if (ticks > 40) {
+		if (ticks > 10) {
 			worldObj.setBlock(xCoord, yCoord, zCoord, 0);
 			
 		}
 
+	}
+	
+	public void assure(){
+		//System.out.println("Assuring");
+		this.ticks=0;
+		//System.out.println("Ticks at reassure:"+ticks);
 	}
 
 	public void initiate() {

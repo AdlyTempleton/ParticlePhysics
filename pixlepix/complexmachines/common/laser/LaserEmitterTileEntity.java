@@ -74,15 +74,9 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 
 			if (inputNetwork != null) {
 				if (this.joulesStored < LaserEmitterTileEntity.maxJoules) {
-					inputNetwork.startRequesting(
-							this,
-							Math.min(this.getMaxJoules() - this.getJoules(),
-									this.TRANSFER_LIMIT) / this.getVoltage(),
-							this.getVoltage());
-					ElectricityPack electricityPack = inputNetwork
-							.consumeElectricity(this);
-					this.setJoules(this.joulesStored
-							+ electricityPack.getWatts());
+					inputNetwork.startRequesting(this,Math.min(this.getMaxJoules() - this.getJoules(),this.TRANSFER_LIMIT) / this.getVoltage(),this.getVoltage());
+					ElectricityPack electricityPack = inputNetwork.consumeElectricity(this);
+					this.setJoules(this.joulesStored+ electricityPack.getWatts());
 
 					if (UniversalElectricity.isVoltageSensitive) {
 						if (electricityPack.voltage > this.getVoltage()) {
@@ -95,8 +89,7 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 				}
 				ticks++;
 				if (getJoules() > 10000) {
-					ForgeDirection laserDirection = inputDirection
-							.getOpposite();
+					ForgeDirection laserDirection = inputDirection.getOpposite();
 					int id=worldObj.getBlockId(xCoord+ laserDirection.offsetX, yCoord, zCoord + laserDirection.offsetZ);
 					if (ticks % 40 == 0||id==0) {
 						setJoules(getJoules() - 10000);
@@ -151,14 +144,10 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 									entity.xDirection=-1*laserDirection.offsetX;
 									entity.zDirection=-1*laserDirection.offsetZ;
 								}
+								TileEntity tileEntity=worldObj.getBlockTileEntity(xCoord+ laserDirection.offsetX * i, yCoord,zCoord + laserDirection.offsetZ * i);
 								if (worldObj.getBlockTileEntity(xCoord+ laserDirection.offsetX * i, yCoord,zCoord + laserDirection.offsetZ * i) instanceof LaserBeamTileEntity) {
-									LaserBeamTileEntity entity = (LaserBeamTileEntity) worldObj
-											.getBlockTileEntity(xCoord
-													+ laserDirection.offsetX
-													* i, yCoord, zCoord
-													+ laserDirection.offsetZ
-													* i);
-									entity.ticks = 0;
+									LaserBeamTileEntity entity = (LaserBeamTileEntity) worldObj.getBlockTileEntity(xCoord+ laserDirection.offsetX* i, yCoord, zCoord+ laserDirection.offsetZ* i);
+									entity.assure();
 								}
 							} else {
 								return;
