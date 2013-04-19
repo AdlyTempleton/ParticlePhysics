@@ -1,0 +1,13 @@
+{
+"modid": "ComplexMachines",
+  "name": "ComplexMachines",
+  "description": "A Universal Electricity mod adding many high-end machines and lasers.",
+  "logoFile": "",
+  "url": "https://github.com/pixlepix/ComplexMachines.git",
+  "updateUrl": "",
+  "authors": ["Pixlepix"],
+  "credits": "Thanks for archtikz to textures.",
+  "parent": "",
+  "screenshots": [],
+  "dependencies": []
+}
