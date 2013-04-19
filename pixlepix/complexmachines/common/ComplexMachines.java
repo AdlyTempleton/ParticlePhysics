@@ -65,6 +65,8 @@ public class ComplexMachines {
 	public static int blockStartingID = 670;
 
 	private GuiHandler guiHandler = new GuiHandler();
+
+	private boolean vanillaRecipies;
 	public static ComplexMachinesTab creativeTab = new ComplexMachinesTab();
 	
 
@@ -151,7 +153,7 @@ public class ComplexMachines {
 		Configuration config = new Configuration(
 				event.getSuggestedConfigurationFile());
 		config.load();
-
+		vanillaRecipies = config.get(Configuration.CATEGORY_GENERAL, "Vanilla (Easy) Recipies Enabled ", false).getBoolean(true);
 		blockStartingID = config.getBlock("BlockStartingID", 670).getInt();
 
 		config.save();
@@ -265,9 +267,34 @@ public class ComplexMachines {
 		ItemStack emitter = new ItemStack(blockStartingID + 7, 1, 0);
 		ItemStack glowstone = new ItemStack(Block.blocksList[89]);
 		ItemStack diamond = new ItemStack(Item.diamond);
+		ItemStack diamondBlock = new ItemStack(57,1,0);
+		ItemStack goldBlock = new ItemStack(41,1,0);
+		ItemStack ironBlock = new ItemStack(42,1,0);
+		ItemStack ironIngot = new ItemStack(Item.ingotIron);
 		
-		
-		
+		if(vanillaRecipies){
+			GameRegistry.addRecipe(emitter, "xyx", "yzy", "xyx", 'x', diamond, 'y',
+					glowstone, 'z', diamondBlock);
+			
+			GameRegistry.addRecipe(grinder, "xxx", "xyx", "xxx", 'x', ironIngot,
+					'y', diamondBlock);
+			
+			GameRegistry.addRecipe(replacerMachine, "xxx", "yzy", "xxx", 'x',
+					ironIngot, 'y', result, 'z', diamond);
+			
+			GameRegistry.addRecipe(singlePoint, "xyx", "yxy", "xyx", 'x',
+					diamond, 'y', diamondBlock);
+			
+			GameRegistry.addRecipe(extractor, "xyx", "xzx", "xxx", 'x', ironIngot,
+					'y', diamondPickaxe, 'z', diamondBlock);
+
+
+			GameRegistry.addRecipe(oceanGenerator, "xyx", "zyz", "xyx", 'x',
+					waterBucket, 'y', diamondBlock, 'z', ironIngot);
+
+			GameRegistry.addRecipe(result, "xyx", "yzy", "xyx", 'x', stone, 'y',
+					diamond, 'z', ironIngot);
+		}
 		
 
 		GameRegistry.addRecipe(emitter, "xyx", "yzy", "xyx", 'x', diamond, 'y',
