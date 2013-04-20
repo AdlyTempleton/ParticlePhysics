@@ -36,6 +36,7 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 	public final double TRANSFER_LIMIT = 12500;
 	private int drawingTicks = 0;
 	private double joulesStored = 0;
+	private boolean decay=false;
 	public static double maxJoules = 100000;
 	public int ticks = 0;
 	/**
@@ -51,6 +52,7 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 
 	private boolean initialized;
 	private int internalId;
+	private int laserBeamId;
 
 	@Override
 	public void initiate() {
@@ -91,10 +93,9 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 				if (getJoules() > 10000) {
 					ForgeDirection laserDirection = inputDirection.getOpposite();
 					int id=worldObj.getBlockId(xCoord+ laserDirection.offsetX, yCoord, zCoord + laserDirection.offsetZ);
-					if (ticks % 40 == 0||id==0) {
-						setJoules(getJoules() - 200);
+					if (ticks % 40 == 0||id==0||decay) {
+						setJoules(getJoules() - 8000);
 
-						int laserBeamId;
 						switch(internalId){
 
 						case 276:
@@ -138,7 +139,7 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 
 
 						}
-						int max=150;
+						int max=30;
 						if(laserBeamId==ComplexMachines.blockStartingID+18){
 							max=3;
 						}
@@ -147,14 +148,19 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 								if(getJoules()>50000){
 									setJoules(getJoules()-50000);
 									worldObj.setBlock(xCoord + laserDirection.offsetX * i, yCoord, zCoord + laserDirection.offsetZ * i, 0);
+									
+									
 								}
 							}
-							if (worldObj.getBlockId(xCoord + laserDirection.offsetX * i, yCoord, zCoord + laserDirection.offsetZ * i) == 0) {
+							if (worldObj.getBlockId(xCoord + laserDirection.offsetX * i, yCoord, zCoord + laserDirection.offsetZ * i) == 0||worldObj.getBlockTileEntity(xCoord + laserDirection.offsetX * i, yCoord, zCoord + laserDirection.offsetZ * i) instanceof LaserBeamTileEntity) {
 								worldObj.setBlock(xCoord+ laserDirection.offsetX * i, yCoord,zCoord + laserDirection.offsetZ * i,laserBeamId);
+								TileEntity entity=worldObj.getBlockTileEntity(xCoord + laserDirection.offsetX*i, yCoord, zCoord + laserDirection.offsetZ * i);
+								LaserBeamTileEntity laserEntity=(LaserBeamTileEntity)entity;
+								laserEntity.setEntity(this);
 								if (worldObj.getBlockTileEntity(xCoord+ laserDirection.offsetX * i, yCoord,zCoord + laserDirection.offsetZ * i) instanceof SuctionLaserBeamTileEntity) {
-									SuctionLaserBeamTileEntity entity = (SuctionLaserBeamTileEntity) worldObj.getBlockTileEntity(xCoord+ laserDirection.offsetX* i, yCoord, zCoord+ laserDirection.offsetZ* i);
-									entity.xDirection=-1*laserDirection.offsetX;
-									entity.zDirection=-1*laserDirection.offsetZ;
+									SuctionLaserBeamTileEntity suctionEntity = (SuctionLaserBeamTileEntity) worldObj.getBlockTileEntity(xCoord+ laserDirection.offsetX* i, yCoord, zCoord+ laserDirection.offsetZ* i);
+									suctionEntity.xDirection=-1*laserDirection.offsetX;
+									suctionEntity.zDirection=-1*laserDirection.offsetZ;
 								}
 							} else {
 								return;
@@ -275,6 +281,22 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 			internalId=0;
 		}
 		return true;
+	}
+
+	public boolean isValidBeam(int x, int y, int z) {
+		// TODO Auto-generated method stub
+		
+			if(worldObj.getBlockId(x, y, z)==laserBeamId){
+				if(this.getJoules()>50000)
+				return false;
+			}
+		
+		return true;
+	}
+
+	public void notifyDecay() {
+		decay=true;
+		
 	}
 
 
