@@ -92,7 +92,7 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 					ForgeDirection laserDirection = inputDirection.getOpposite();
 					int id=worldObj.getBlockId(xCoord+ laserDirection.offsetX, yCoord, zCoord + laserDirection.offsetZ);
 					if (ticks % 40 == 0||id==0) {
-						setJoules(getJoules() - 10000);
+						setJoules(getJoules() - 200);
 
 						int laserBeamId;
 						switch(internalId){
@@ -122,6 +122,10 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 							break;
 						case 328:
 							laserBeamId=ComplexMachines.blockStartingID+17;
+							//System.out.println("Laser of glass");
+							break;
+						case 4:
+							laserBeamId=ComplexMachines.blockStartingID+19;
 							//System.out.println("Laser of glass");
 							break;
 						case 278:

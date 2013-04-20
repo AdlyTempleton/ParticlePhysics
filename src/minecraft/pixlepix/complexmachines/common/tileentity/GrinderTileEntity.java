@@ -63,18 +63,7 @@ public class GrinderTileEntity extends TileEntityElectricityRunnable implements
 
 	private boolean initialized;
 
-	public void initiateMappings() {
-		values.put(Item.appleRed, new GrinderFuelData(20000, 1000));
-
-		values.put(Item.coal, new GrinderFuelData(20, 200000));
-
-		values.put(Item.ingotIron, new GrinderFuelData(1200, 50000));
-
-		values.put(Item.diamond, new GrinderFuelData(72000, 10000));
-
-		values.put(Item.ingotGold, new GrinderFuelData(720000, 10000));
-
-	}
+	
 
 	@Override
 	public void initiate() {
@@ -107,7 +96,7 @@ public class GrinderTileEntity extends TileEntityElectricityRunnable implements
 			if (this.connectedElectricUnit != null) {
 
 				this.connectedElectricUnit.getNetwork().startProducing(this,
-						(10000 / this.getVoltage()) / 20, this.getVoltage());
+						(2000 / this.getVoltage()) / 20, this.getVoltage());
 				if (ticksOfPowerRemaining <= 0) {
 					this.connectedElectricUnit.getNetwork().stopProducing(this);
 				}
