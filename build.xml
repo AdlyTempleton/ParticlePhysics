@@ -43,7 +43,7 @@
 			<arg line="recompile.sh" />
 		</exec>
 		<exec dir="${dir.mcp}" executable="bash" osfamily="unix">
-			<arg line="reobfuscate.sh" />
+			<arg line="reobfuscate_srg.sh" />
 		</exec>
 
 		<copy todir="coreContents">

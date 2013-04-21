@@ -10,6 +10,13 @@ import pixlepix.complexmachines.common.block.Grinder;
 import pixlepix.complexmachines.common.block.OceanGenerator;
 import pixlepix.complexmachines.common.block.ReplacerMachine;
 import pixlepix.complexmachines.common.block.SinglePointGenerator;
+import pixlepix.complexmachines.common.itemblock.ExtractorItemBlock;
+import pixlepix.complexmachines.common.itemblock.FillerItemBlock;
+import pixlepix.complexmachines.common.itemblock.GrinderItemBlock;
+import pixlepix.complexmachines.common.itemblock.LaserItemBlock;
+import pixlepix.complexmachines.common.itemblock.OceanGeneratorItemBlock;
+import pixlepix.complexmachines.common.itemblock.ReplacerItemBlock;
+import pixlepix.complexmachines.common.itemblock.SinglePointItemBlock;
 import pixlepix.complexmachines.common.laser.LaserEmitter;
 import pixlepix.complexmachines.common.laser.LaserEmitterTileEntity;
 import pixlepix.complexmachines.common.laser.block.DebuffLaserBlock;
@@ -19,6 +26,7 @@ import pixlepix.complexmachines.common.laser.block.HarmingLaserBlock;
 import pixlepix.complexmachines.common.laser.block.LaserBlock;
 import pixlepix.complexmachines.common.laser.block.MiningLaserBlock;
 import pixlepix.complexmachines.common.laser.block.RedstoneLaserBlock;
+import pixlepix.complexmachines.common.laser.block.StoneLaserBlock;
 import pixlepix.complexmachines.common.laser.block.SuctionLaserBlock;
 import pixlepix.complexmachines.common.laser.tileentity.DebuffLaserBeamTileEntity;
 import pixlepix.complexmachines.common.laser.tileentity.ElectricLaserBeamTileEntity;
@@ -73,6 +81,8 @@ public class ComplexMachines {
 	public final static Block flux = new Flux(blockStartingID + 18)
 			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
 
+	public final static Block stoneLaser = new StoneLaserBlock(blockStartingID + 19)
+			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
 	public final static Block suctionLaser = new SuctionLaserBlock(blockStartingID + 17)
 			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
 	public final static Block electricLaser = new ElecrtricLaserBlock(blockStartingID + 16)
@@ -177,6 +187,11 @@ public class ComplexMachines {
 		MinecraftForge.setBlockHarvestLevel(suctionLaser, "pickaxe", 0);
 		GameRegistry.registerBlock(suctionLaser, "suction Laser");
 		
+
+		LanguageRegistry.addName(stoneLaser, "Bridge Laser");
+		MinecraftForge.setBlockHarvestLevel(stoneLaser, "pickaxe", 0);
+		GameRegistry.registerBlock(stoneLaser, "Bridge Laser");
+		
 		LanguageRegistry.addName(electricLaser, "electric Laser");
 		MinecraftForge.setBlockHarvestLevel(electricLaser, "pickaxe", 0);
 		GameRegistry.registerBlock(electricLaser, "electric Laser");
@@ -188,12 +203,11 @@ public class ComplexMachines {
 		LanguageRegistry
 				.addName(focalPointControlled, "Controlled focal point");
 		MinecraftForge.setBlockHarvestLevel(focalPointControlled, "pickaxe", 0);
-		GameRegistry.registerBlock(focalPointControlled,
-				"Controlled focal point");
+		GameRegistry.registerBlock(focalPointControlled, "Controlled focal point");
 
 		LanguageRegistry.addName(grinder, "Grinder");
 		MinecraftForge.setBlockHarvestLevel(grinder, "pickaxe", 0);
-		GameRegistry.registerBlock(grinder, "Grinder");
+		GameRegistry.registerBlock(grinder, GrinderItemBlock.class);
 		
 
 		LanguageRegistry.addName(debuffLaser, "Debuff Laser");
@@ -212,15 +226,15 @@ public class ComplexMachines {
 
 		LanguageRegistry.addName(replacerMachine, "Replacer Machine");
 		MinecraftForge.setBlockHarvestLevel(replacerMachine, "pickaxe", 0);
-		GameRegistry.registerBlock(replacerMachine, "Replacer Machine");
+		GameRegistry.registerBlock(replacerMachine, ReplacerItemBlock.class);
 
 		LanguageRegistry.addName(oceanGenerator, "Ocean Generator");
 		MinecraftForge.setBlockHarvestLevel(oceanGenerator, "pickaxe", 0);
-		GameRegistry.registerBlock(oceanGenerator, "Ocean Generator");
+		GameRegistry.registerBlock(oceanGenerator, OceanGeneratorItemBlock.class);
 
 		LanguageRegistry.addName(extractorMachine, "Extractor");
 		MinecraftForge.setBlockHarvestLevel(extractorMachine, "pickaxe", 0);
-		GameRegistry.registerBlock(extractorMachine, "Extractor Machine");
+		GameRegistry.registerBlock(extractorMachine, ExtractorItemBlock.class);
 
 		LanguageRegistry.addName(laserBlock, "Beam");
 		MinecraftForge.setBlockHarvestLevel(laserBlock, "pickaxe", 0);
@@ -234,7 +248,7 @@ public class ComplexMachines {
 
 		LanguageRegistry.addName(laserEmitter, "Laser Emitter");
 		MinecraftForge.setBlockHarvestLevel(laserEmitter, "pickaxe", 0);
-		GameRegistry.registerBlock(laserEmitter, "Laser Emitter");
+		GameRegistry.registerBlock(laserEmitter, LaserItemBlock.class);
 
 		LanguageRegistry.addName(focalPoint, "Focal Point");
 		MinecraftForge.setBlockHarvestLevel(focalPoint, "pickaxe", 0);
@@ -242,11 +256,11 @@ public class ComplexMachines {
 
 		LanguageRegistry.addName(fillerMachine, "Filler");
 		MinecraftForge.setBlockHarvestLevel(fillerMachine, "pickaxe", 0);
-		GameRegistry.registerBlock(fillerMachine, "Filler Machine");
+		GameRegistry.registerBlock(fillerMachine, FillerItemBlock.class);
 
 		LanguageRegistry.addName(singlePoint, "Single Point Generator");
 		MinecraftForge.setBlockHarvestLevel(singlePoint, "pickaxe", 0);
-		GameRegistry.registerBlock(singlePoint, "Single Point");
+		GameRegistry.registerBlock(singlePoint, SinglePointItemBlock.class);
 
 		LanguageRegistry.instance().addStringLocalization(
 				"itemGroup.tabComplexMachines", "Complex Machines");
@@ -345,7 +359,7 @@ public class ComplexMachines {
 		GameRegistry.registerTileEntity(ElectricLaserBeamTileEntity.class,
 				"Electric Laser");
 		GameRegistry.registerTileEntity(ExtractorMachineTileEntity.class,
-				"Extractor");
+				"Extractor Machine");
 		
 		GameRegistry.registerTileEntity(ReplacerMachineTileEntity.class,
 				"Replacer");
