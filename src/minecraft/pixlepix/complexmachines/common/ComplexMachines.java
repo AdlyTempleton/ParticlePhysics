@@ -66,7 +66,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = "ComplexMachines", name = "Complex Machines", version = "0.2.9")
+@Mod(modid = "ComplexMachines", name = "Complex Machines", version = "0.3.2")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class ComplexMachines {
 
@@ -76,79 +76,98 @@ public class ComplexMachines {
 
 	private boolean vanillaRecipies;
 	public static ComplexMachinesTab creativeTab = new ComplexMachinesTab();
+	public static Block flux;
+	public static Block stoneLaser;
+	public static Block suctionLaser;
+	public static Block electricLaser;
+	public static Block miningLaser;
+	public static Block redstoneLaser;
+	public static Block debuffLaser;
+	public static Block grinder;
+	public static Block focalPointControlled;
+	public static Block focalPoint;
+	public static Block laserEmitter;
+	public static Block laserBlock;
+	public static Block glassLaserBlock;
+	public static Block harmingLaserBlock;
+	public static Block extractorMachine;
+	public static Block fillerMachine;
+	public static Block replacerMachine;
+	public static Block oceanGenerator;
+	public static Block singlePoint;
 	
-
-	public final static Block flux = new Flux(blockStartingID + 18)
+	public void loadBlocks(){
+	flux = new Flux(blockStartingID + 18)
 			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
 
-	public final static Block stoneLaser = new StoneLaserBlock(blockStartingID + 19)
+	stoneLaser = new StoneLaserBlock(blockStartingID + 19)
 			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
-	public final static Block suctionLaser = new SuctionLaserBlock(blockStartingID + 17)
+	suctionLaser = new SuctionLaserBlock(blockStartingID + 17)
 			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
-	public final static Block electricLaser = new ElecrtricLaserBlock(blockStartingID + 16)
+	electricLaser = new ElecrtricLaserBlock(blockStartingID + 16)
 			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
-	public final static Block miningLaser = new MiningLaserBlock(blockStartingID + 15)
+	miningLaser = new MiningLaserBlock(blockStartingID + 15)
 			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
-	public final static Block redstoneLaser = new RedstoneLaserBlock(blockStartingID + 14)
-			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
-
-	public final static Block debuffLaser = new DebuffLaserBlock(blockStartingID + 13)
+	redstoneLaser = new RedstoneLaserBlock(blockStartingID + 14)
 			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
 
-	public final static Block grinder = new Grinder(blockStartingID + 7)
+	debuffLaser = new DebuffLaserBlock(blockStartingID + 13)
+			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
+
+	grinder = new Grinder(blockStartingID + 7)
 			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep)
 			.setCreativeTab(creativeTab);
 	
-	public final static Block focalPointControlled = new FocalPointControlled(
+	focalPointControlled = new FocalPointControlled(
 			blockStartingID + 8).setHardness(0.5F)
 			.setStepSound(Block.soundGravelFootstep)
 			.setCreativeTab(creativeTab);
 
-	public final static Block focalPoint = new FocalPoint(blockStartingID + 3)
+	focalPoint = new FocalPoint(blockStartingID + 3)
 			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep)
 			.setCreativeTab(creativeTab);
 
-	public final static Block laserEmitter = new LaserEmitter(
+	laserEmitter = new LaserEmitter(
 			blockStartingID + 9).setHardness(0.5F)
 			.setStepSound(Block.soundGravelFootstep)
 			.setCreativeTab(creativeTab);
 
-	public final static Block laserBlock = new LaserBlock(blockStartingID + 10)
+	laserBlock = new LaserBlock(blockStartingID + 10)
 			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
 
-	public final static Block glassLaserBlock = new GlassLaserBlock(blockStartingID+12)
+	glassLaserBlock = new GlassLaserBlock(blockStartingID+12)
 			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
 	
-	public final static Block harmingLaserBlock = new HarmingLaserBlock(blockStartingID + 11)
+	harmingLaserBlock = new HarmingLaserBlock(blockStartingID + 11)
 	.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
 
 
 
-	public final static Block extractorMachine = new ExtractorMachine(
+	extractorMachine = new ExtractorMachine(
 			blockStartingID + 2).setHardness(0.5F)
 			.setStepSound(Block.soundGravelFootstep)
 			.setCreativeTab(creativeTab);
 
-	public final static Block fillerMachine = new FillerMachine(
+	fillerMachine = new FillerMachine(
 			blockStartingID + 1).setHardness(0.5F)
 			.setStepSound(Block.soundGravelFootstep)
 			.setCreativeTab(creativeTab);
 
-	public final static Block replacerMachine = new ReplacerMachine(
+	replacerMachine = new ReplacerMachine(
 			blockStartingID + 6).setHardness(0.5F)
 			.setStepSound(Block.soundGravelFootstep)
 			.setCreativeTab(creativeTab);
-
-	public final static Block oceanGenerator = new OceanGenerator(
+	oceanGenerator = new OceanGenerator(
 			blockStartingID + 5).setHardness(0.5F)
 			.setStepSound(Block.soundGravelFootstep)
 			.setCreativeTab(creativeTab);
 
-	public final static Block singlePoint = new SinglePointGenerator(
+	singlePoint = new SinglePointGenerator(
 			blockStartingID + 4).setHardness(0.5F)
 			.setStepSound(Block.soundGravelFootstep)
 			.setCreativeTab(creativeTab);
-
+	}
+	
 	// The instance of your mod that Forge uses.
 	@Instance("ComplexMachines")
 	public static ComplexMachines instance;
@@ -157,15 +176,15 @@ public class ComplexMachines {
 	@SidedProxy(clientSide = "pixlepix.complexmachines.client.ClientProxy", serverSide = "pixlepix.complexmachines.common.CommonProxy")
 	public static CommonProxy proxy;
 
-
+	
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event) {
 		Configuration config = new Configuration(
 				event.getSuggestedConfigurationFile());
 		config.load();
 		vanillaRecipies = config.get(Configuration.CATEGORY_GENERAL, "Vanilla (Easy) Recipies Enabled ", false).getBoolean(true);
-		blockStartingID = config.getBlock("BlockStartingID", 670).getInt();
-
+		blockStartingID = config.getBlock("BlockStartingID", 1670).getInt();
+		loadBlocks();
 		config.save();
 	}
 
