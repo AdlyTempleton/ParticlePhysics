@@ -359,7 +359,7 @@ public class ComplexMachines {
 		GameRegistry.registerTileEntity(ElectricLaserBeamTileEntity.class,
 				"Electric Laser");
 		GameRegistry.registerTileEntity(ExtractorMachineTileEntity.class,
-				"Extractor");
+				"Extractor Machine");
 		
 		GameRegistry.registerTileEntity(ReplacerMachineTileEntity.class,
 				"Replacer");
