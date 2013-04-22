@@ -71,7 +71,7 @@ import cpw.mods.fml.relauncher.Side;
 public class ComplexMachines {
 
 	public static int blockStartingID = 670;
-
+	public static int singlePointRadius=5000;
 	private GuiHandler guiHandler = new GuiHandler();
 
 	private boolean vanillaRecipies;
@@ -98,7 +98,7 @@ public class ComplexMachines {
 	
 	public void loadBlocks(){
 	flux = new Flux(blockStartingID + 18)
-			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
+			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep).setCreativeTab(creativeTab);
 
 	stoneLaser = new StoneLaserBlock(blockStartingID + 19)
 			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
@@ -184,6 +184,7 @@ public class ComplexMachines {
 		config.load();
 		vanillaRecipies = config.get(Configuration.CATEGORY_GENERAL, "Vanilla (Easy) Recipies Enabled ", false).getBoolean(true);
 		blockStartingID = config.getBlock("BlockStartingID", 1670).getInt();
+		singlePointRadius = config.get(Configuration.CATEGORY_GENERAL, "Single point generator radius ", 5000).getInt();
 		loadBlocks();
 		config.save();
 	}

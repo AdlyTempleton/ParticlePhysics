@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.lwjgl.input.Keyboard;
 
+import pixlepix.complexmachines.common.ComplexMachines;
 import pixlepix.complexmachines.common.EnumColor;
 
 import cpw.mods.fml.relauncher.Side;
@@ -29,10 +30,14 @@ public class SinglePointItemBlock extends ItemBlock {
 			
 			list.add(EnumColor.AQUA + "This machine will generate power at certain points ");
 			list.add(EnumColor.GREY + "Generates power at:");
-			list.add(EnumColor.DARK_RED+"(5000,60,5000");
-			list.add(EnumColor.DARK_RED+"(-5000,60,5000");
-			list.add(EnumColor.DARK_RED+"(5000,60,-5000");
-			list.add(EnumColor.DARK_RED+"(-5000,60,-5000");
+			int target=ComplexMachines.singlePointRadius;
+			list.add(EnumColor.DARK_RED+"("+target+",60,"+target);
+
+			list.add(EnumColor.DARK_RED+"(-"+target+",60,"+target);
+
+			list.add(EnumColor.DARK_RED+"("+target+",60,-"+target);
+
+			list.add(EnumColor.DARK_RED+"(-"+target+",60,-"+target);
 			list.add(EnumColor.RED + "Generates 500KW");
 		}
 	}
