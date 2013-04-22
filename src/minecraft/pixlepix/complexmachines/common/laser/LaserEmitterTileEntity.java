@@ -164,7 +164,7 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 									suctionEntity.xDirection=-1*laserDirection.offsetX;
 									suctionEntity.zDirection=-1*laserDirection.offsetZ;
 								}
-							} else {
+							 else {
 								return;
 							}
 						}
@@ -184,7 +184,9 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 
 		this.joulesStored = Math.min(this.joulesStored, this.getMaxJoules());
 		this.joulesStored = Math.max(this.joulesStored, 0d);
+				}}}
 	}
+
 
 	@Override
 	public void handlePacketData(INetworkManager inputNetwork, int type,
