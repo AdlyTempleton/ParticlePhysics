@@ -155,8 +155,10 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 							if (worldObj.getBlockId(xCoord + laserDirection.offsetX * i, yCoord, zCoord + laserDirection.offsetZ * i) == 0||worldObj.getBlockTileEntity(xCoord + laserDirection.offsetX * i, yCoord, zCoord + laserDirection.offsetZ * i) instanceof LaserBeamTileEntity) {
 								worldObj.setBlock(xCoord+ laserDirection.offsetX * i, yCoord,zCoord + laserDirection.offsetZ * i,laserBeamId);
 								TileEntity entity=worldObj.getBlockTileEntity(xCoord + laserDirection.offsetX*i, yCoord, zCoord + laserDirection.offsetZ * i);
-								LaserBeamTileEntity laserEntity=(LaserBeamTileEntity)entity;
-								laserEntity.setEntity(this);
+								if(entity instanceof LaserBeamTileEntity){
+									LaserBeamTileEntity laserEntity=(LaserBeamTileEntity)entity;
+									laserEntity.setEntity(this);
+								{
 								if (worldObj.getBlockTileEntity(xCoord+ laserDirection.offsetX * i, yCoord,zCoord + laserDirection.offsetZ * i) instanceof SuctionLaserBeamTileEntity) {
 									SuctionLaserBeamTileEntity suctionEntity = (SuctionLaserBeamTileEntity) worldObj.getBlockTileEntity(xCoord+ laserDirection.offsetX* i, yCoord, zCoord+ laserDirection.offsetZ* i);
 									suctionEntity.xDirection=-1*laserDirection.offsetX;
