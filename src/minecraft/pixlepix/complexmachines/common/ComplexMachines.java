@@ -10,6 +10,7 @@ import pixlepix.complexmachines.common.block.Grinder;
 import pixlepix.complexmachines.common.block.OceanGenerator;
 import pixlepix.complexmachines.common.block.ReplacerMachine;
 import pixlepix.complexmachines.common.block.SinglePointGenerator;
+import pixlepix.complexmachines.common.item.ClusterMinerItem;
 import pixlepix.complexmachines.common.item.FellerItem;
 import pixlepix.complexmachines.common.itemblock.ExtractorItemBlock;
 import pixlepix.complexmachines.common.itemblock.FillerItemBlock;
@@ -80,6 +81,7 @@ public class ComplexMachines {
 	public static ComplexMachinesTab creativeTab = new ComplexMachinesTab();
 	
 	public static Item feller;
+	public static Item clusterMiner;
 	
 	public static Block flux;
 	public static Block stoneLaser;
@@ -173,6 +175,8 @@ public class ComplexMachines {
 			.setCreativeTab(creativeTab);
 	
 	feller=new FellerItem(itemStartingID+1);
+
+	clusterMiner=new ClusterMinerItem(itemStartingID+2);
 	
 	}
 	
@@ -296,6 +300,8 @@ public class ComplexMachines {
 		
 
 		LanguageRegistry.addName(feller, "Feller");
+
+		LanguageRegistry.addName(clusterMiner, "Cluster Miner");
 
 		ItemStack steelPlate = new ItemStack(14239, 1, 3);
 		ItemStack stone = new ItemStack(1, 1, 0);

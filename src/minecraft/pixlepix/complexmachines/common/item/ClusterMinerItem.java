@@ -14,12 +14,12 @@ import net.minecraft.world.World;
 import universalelectricity.core.item.ItemElectric;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-public class FellerItem extends ItemElectric
+public class ClusterMinerItem extends ItemElectric
 {
-    public FellerItem(int par1)
+    public ClusterMinerItem(int par1)
     {
         super(par1);
-        this.setUnlocalizedName("Feller");
+        this.setUnlocalizedName("Cluster Miner");
         maxStackSize=1;
         this.setCreativeTab(ComplexMachines.creativeTab);
     }
@@ -33,16 +33,27 @@ public class FellerItem extends ItemElectric
 		}
 		else {
 			
-			list.add(EnumColor.AQUA + "Mines all logs in a tree");
-			list.add(EnumColor.DARK_GREEN + "100KJ per log mined");
+			list.add(EnumColor.AQUA + "Mines a whole ore deposit at once");
+			list.add(EnumColor.DARK_GREEN + "100KJ per ore mined");
 		}
 	}
+    
+    public boolean isOre(int id){
+    	int[] ores={14,15,16,21,56,73,129,458,688,3002,3880,3970,3989,247,254,2001,2052,3093};
+    	
+    	for(int i=0;i<ores.length;i++){
+    		if(ores[i]==id){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
     @Override
     public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float par8, float par9, float par10)
     {
-    	
+    		
     		int targetId=world.getBlockId(x, y, z);
-    		if(targetId==17){
+    		if(isOre(targetId)){
     			ArrayList<CoordTuple> list=new ArrayList<CoordTuple>();
     			list.add(new CoordTuple(x,y,z));
     			while(list.size()>0&&getJoules(itemStack)>100000){
@@ -61,7 +72,7 @@ public class FellerItem extends ItemElectric
     				nearby.add(new CoordTuple(curX,curY,curZ+1));
     				nearby.add(new CoordTuple(curX,curY,curZ-1));
     				for(int i=0;i<nearby.size();i++){
-    					if(nearby.get(i).getBlock(world)==17){
+    					if(isOre(nearby.get(i).getBlock(world))){
     						list.add(nearby.get(i));
     					}
     				
@@ -94,6 +105,6 @@ public class FellerItem extends ItemElectric
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister par1IconRegister)
     {
-        this.itemIcon = par1IconRegister.registerIcon("ComplexMachines:Feller");
+        this.itemIcon = par1IconRegister.registerIcon("ComplexMachines:ClusterMiner");
     }
 }
