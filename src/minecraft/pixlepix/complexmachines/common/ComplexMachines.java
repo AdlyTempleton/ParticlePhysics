@@ -10,6 +10,7 @@ import pixlepix.complexmachines.common.block.Grinder;
 import pixlepix.complexmachines.common.block.OceanGenerator;
 import pixlepix.complexmachines.common.block.ReplacerMachine;
 import pixlepix.complexmachines.common.block.SinglePointGenerator;
+import pixlepix.complexmachines.common.item.FellerItem;
 import pixlepix.complexmachines.common.itemblock.ExtractorItemBlock;
 import pixlepix.complexmachines.common.itemblock.FillerItemBlock;
 import pixlepix.complexmachines.common.itemblock.GrinderItemBlock;
@@ -75,7 +76,11 @@ public class ComplexMachines {
 	private GuiHandler guiHandler = new GuiHandler();
 
 	private boolean vanillaRecipies;
+	public int itemStartingID;
 	public static ComplexMachinesTab creativeTab = new ComplexMachinesTab();
+	
+	public static Item feller;
+	
 	public static Block flux;
 	public static Block stoneLaser;
 	public static Block suctionLaser;
@@ -166,6 +171,9 @@ public class ComplexMachines {
 			blockStartingID + 4).setHardness(0.5F)
 			.setStepSound(Block.soundGravelFootstep)
 			.setCreativeTab(creativeTab);
+	
+	feller=new FellerItem(itemStartingID+1);
+	
 	}
 	
 	// The instance of your mod that Forge uses.
@@ -185,6 +193,7 @@ public class ComplexMachines {
 		vanillaRecipies = config.get(Configuration.CATEGORY_GENERAL, "Vanilla (Easy) Recipies Enabled ", false).getBoolean(true);
 		blockStartingID = config.getBlock("BlockStartingID", 1670).getInt();
 		singlePointRadius = config.get(Configuration.CATEGORY_GENERAL, "Single point generator radius ", 5000).getInt();
+		itemStartingID = config.get(Configuration.CATEGORY_GENERAL, "ItemStartingID", 11670).getInt();
 		loadBlocks();
 		config.save();
 	}
@@ -284,6 +293,9 @@ public class ComplexMachines {
 
 		LanguageRegistry.instance().addStringLocalization(
 				"itemGroup.tabComplexMachines", "Complex Machines");
+		
+
+		LanguageRegistry.addName(feller, "Feller");
 
 		ItemStack steelPlate = new ItemStack(14239, 1, 3);
 		ItemStack stone = new ItemStack(1, 1, 0);
@@ -305,6 +317,8 @@ public class ComplexMachines {
 		ItemStack goldBlock = new ItemStack(41,1,0);
 		ItemStack ironBlock = new ItemStack(42,1,0);
 		ItemStack ironIngot = new ItemStack(Item.ingotIron);
+		ItemStack feller=new ItemStack(itemStartingID+1,1,0);
+		ItemStack axe=new ItemStack(Item.axeDiamond);
 		
 		if(vanillaRecipies){
 			GameRegistry.addRecipe(emitter, "xyx", "yzy", "xyx", 'x', diamond, 'y',
@@ -330,7 +344,10 @@ public class ComplexMachines {
 					diamond, 'z', ironIngot);
 		}
 		
+		
 
+		GameRegistry.addRecipe(feller, "xxx", "xyx", "xxx", 'x', basicCircuit, 'y', axe);
+		
 		GameRegistry.addRecipe(emitter, "xyx", "yzy", "xyx", 'x', diamond, 'y',
 				glowstone, 'z', eliteCircuit);
 		GameRegistry.addRecipe(grinder, "xxx", "xyx", "xxx", 'x', steelPlate,
