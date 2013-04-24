@@ -5,6 +5,7 @@ import java.util.Random;
 import pixlepix.complexmachines.common.ComplexMachines;
 import pixlepix.complexmachines.common.laser.tileentity.LaserBeamTileEntity;
 import pixlepix.complexmachines.common.laser.tileentity.SuctionLaserBeamTileEntity;
+import pixlepix.complexmachines.common.tileentity.FluxTileEntity;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -152,23 +153,26 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 									
 								}
 							}
-							if (worldObj.getBlockId(xCoord + laserDirection.offsetX * i, yCoord, zCoord + laserDirection.offsetZ * i) == 0||worldObj.getBlockTileEntity(xCoord + laserDirection.offsetX * i, yCoord, zCoord + laserDirection.offsetZ * i) instanceof LaserBeamTileEntity) {
+							TileEntity entity=worldObj.getBlockTileEntity(xCoord + laserDirection.offsetX*i, yCoord, zCoord + laserDirection.offsetZ * i);
+							if (worldObj.getBlockId(xCoord + laserDirection.offsetX * i, yCoord, zCoord + laserDirection.offsetZ * i) == 0||entity instanceof LaserBeamTileEntity||entity instanceof FluxTileEntity) {
 								worldObj.setBlock(xCoord+ laserDirection.offsetX * i, yCoord,zCoord + laserDirection.offsetZ * i,laserBeamId);
-								TileEntity entity=worldObj.getBlockTileEntity(xCoord + laserDirection.offsetX*i, yCoord, zCoord + laserDirection.offsetZ * i);
+								
 								if(entity instanceof LaserBeamTileEntity){
 									LaserBeamTileEntity laserEntity=(LaserBeamTileEntity)entity;
 									laserEntity.setEntity(this);
-								{
-								if (worldObj.getBlockTileEntity(xCoord+ laserDirection.offsetX * i, yCoord,zCoord + laserDirection.offsetZ * i) instanceof SuctionLaserBeamTileEntity) {
-									SuctionLaserBeamTileEntity suctionEntity = (SuctionLaserBeamTileEntity) worldObj.getBlockTileEntity(xCoord+ laserDirection.offsetX* i, yCoord, zCoord+ laserDirection.offsetZ* i);
-									suctionEntity.xDirection=-1*laserDirection.offsetX;
-									suctionEntity.zDirection=-1*laserDirection.offsetZ;
+								
+									if (entity instanceof SuctionLaserBeamTileEntity) {
+										SuctionLaserBeamTileEntity suctionEntity = (SuctionLaserBeamTileEntity)entity;
+										suctionEntity.xDirection=-1*laserDirection.offsetX;
+										suctionEntity.zDirection=-1*laserDirection.offsetZ;
+									}
 								}
-							 else {
+						
+							}else {
 								return;
 							}
 						}
-					}
+					
 
 				}
 
@@ -184,8 +188,12 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 
 		this.joulesStored = Math.min(this.joulesStored, this.getMaxJoules());
 		this.joulesStored = Math.max(this.joulesStored, 0d);
-				}}}
+		
+		
 	}
+		
+	}
+	
 
 
 	@Override

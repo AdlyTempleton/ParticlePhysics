@@ -21,7 +21,7 @@ public class LaserBeamTileEntity extends TileEntity {
 		//System.out.println(ticks);
 		
 		ticks++;
-		if (ticks > 20) {
+		if (ticks > 600) {
 			
 			if(entity!=null){
 				entity.notifyDecay();
