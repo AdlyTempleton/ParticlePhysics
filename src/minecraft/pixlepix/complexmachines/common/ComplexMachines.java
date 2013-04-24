@@ -12,6 +12,7 @@ import pixlepix.complexmachines.common.block.ReplacerMachine;
 import pixlepix.complexmachines.common.block.SinglePointGenerator;
 import pixlepix.complexmachines.common.item.ClusterMinerItem;
 import pixlepix.complexmachines.common.item.FellerItem;
+import pixlepix.complexmachines.common.item.CubeFormerItem;
 import pixlepix.complexmachines.common.itemblock.ExtractorItemBlock;
 import pixlepix.complexmachines.common.itemblock.FillerItemBlock;
 import pixlepix.complexmachines.common.itemblock.GrinderItemBlock;
@@ -82,7 +83,8 @@ public class ComplexMachines {
 	
 	public static Item feller;
 	public static Item clusterMiner;
-	
+	public static Item cubeFormer;
+	public static boolean worldGen;
 	public static Block flux;
 	public static Block stoneLaser;
 	public static Block suctionLaser;
@@ -177,6 +179,8 @@ public class ComplexMachines {
 	feller=new FellerItem(itemStartingID+1);
 
 	clusterMiner=new ClusterMinerItem(itemStartingID+2);
+
+	cubeFormer=new CubeFormerItem(itemStartingID+3);
 	
 	}
 	
@@ -194,10 +198,13 @@ public class ComplexMachines {
 		Configuration config = new Configuration(
 				event.getSuggestedConfigurationFile());
 		config.load();
+
+		worldGen = config.get(Configuration.CATEGORY_GENERAL, "Focal point generation ", false).getBoolean(true);
 		vanillaRecipies = config.get(Configuration.CATEGORY_GENERAL, "Vanilla (Easy) Recipies Enabled ", false).getBoolean(true);
 		blockStartingID = config.getBlock("BlockStartingID", 1670).getInt();
 		singlePointRadius = config.get(Configuration.CATEGORY_GENERAL, "Single point generator radius ", 5000).getInt();
 		itemStartingID = config.get(Configuration.CATEGORY_GENERAL, "ItemStartingID", 11670).getInt();
+		System.out.println(blockStartingID);
 		loadBlocks();
 		config.save();
 	}
@@ -301,6 +308,8 @@ public class ComplexMachines {
 
 		LanguageRegistry.addName(feller, "Feller");
 
+		LanguageRegistry.addName(cubeFormer, "Cube Former");
+
 		LanguageRegistry.addName(clusterMiner, "Cluster Miner");
 
 		ItemStack steelPlate = new ItemStack(14239, 1, 3);
@@ -326,6 +335,7 @@ public class ComplexMachines {
 		ItemStack fellerCrafting=new ItemStack(feller);
 		ItemStack axe=new ItemStack(Item.axeDiamond);
 		ItemStack clusterMinerCrafting=new ItemStack(clusterMiner);
+		ItemStack CubeFormerCrafting=new ItemStack(cubeFormer);
 		
 		if(vanillaRecipies){
 			GameRegistry.addRecipe(emitter, "xyx", "yzy", "xyx", 'x', diamond, 'y',
@@ -359,7 +369,9 @@ public class ComplexMachines {
 
 		GameRegistry.addRecipe(clusterMinerCrafting, "xxx", "xyx", "xxx", 'x', basicCircuit, 'y', diamondPickaxe);
 		GameRegistry.addRecipe(fellerCrafting, "xxx", "xyx", "xxx", 'x', basicCircuit, 'y', axe);
-		
+
+		GameRegistry.addRecipe(CubeFormerCrafting, " x ", "xyx", " x ", 'x', steelPlate, 'y',
+				advancedCircuit);
 		GameRegistry.addRecipe(emitter, "xyx", "yzy", "xyx", 'x', diamond, 'y',
 				glowstone, 'z', eliteCircuit);
 		GameRegistry.addRecipe(grinder, "xxx", "xyx", "xxx", 'x', steelPlate,
