@@ -84,6 +84,7 @@ public class ComplexMachines {
 	public static Item feller;
 	public static Item clusterMiner;
 	public static Item cubeFormer;
+	
 	public static boolean worldGen;
 	public static Block flux;
 	public static Block stoneLaser;
@@ -181,6 +182,7 @@ public class ComplexMachines {
 	clusterMiner=new ClusterMinerItem(itemStartingID+2);
 
 	cubeFormer=new CubeFormerItem(itemStartingID+3);
+
 	
 	}
 	
@@ -312,6 +314,7 @@ public class ComplexMachines {
 
 		LanguageRegistry.addName(clusterMiner, "Cluster Miner");
 
+		
 		ItemStack steelPlate = new ItemStack(14239, 1, 3);
 		ItemStack stone = new ItemStack(1, 1, 0);
 		ItemStack basicCircuit = new ItemStack(14229, 1, 0);
@@ -335,7 +338,7 @@ public class ComplexMachines {
 		ItemStack fellerCrafting=new ItemStack(feller);
 		ItemStack axe=new ItemStack(Item.axeDiamond);
 		ItemStack clusterMinerCrafting=new ItemStack(clusterMiner);
-		ItemStack CubeFormerCrafting=new ItemStack(cubeFormer);
+		ItemStack cubeFormerCrafting=new ItemStack(cubeFormer);
 		
 		if(vanillaRecipies){
 			GameRegistry.addRecipe(emitter, "xyx", "yzy", "xyx", 'x', diamond, 'y',
@@ -370,7 +373,7 @@ public class ComplexMachines {
 		GameRegistry.addRecipe(clusterMinerCrafting, "xxx", "xyx", "xxx", 'x', basicCircuit, 'y', diamondPickaxe);
 		GameRegistry.addRecipe(fellerCrafting, "xxx", "xyx", "xxx", 'x', basicCircuit, 'y', axe);
 
-		GameRegistry.addRecipe(CubeFormerCrafting, " x ", "xyx", " x ", 'x', steelPlate, 'y',
+		GameRegistry.addRecipe(cubeFormerCrafting, " x ", "xyx", " x ", 'x', steelPlate, 'y',
 				advancedCircuit);
 		GameRegistry.addRecipe(emitter, "xyx", "yzy", "xyx", 'x', diamond, 'y',
 				glowstone, 'z', eliteCircuit);
