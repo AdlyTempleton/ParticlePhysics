@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class LaserEmitter extends BlockContainer {
+public class LaserEmitter extends BlockAdvanced {
 	private Icon connectorIcon;
 	private Icon laserIcon;
 	private Icon topIcon;
@@ -73,9 +73,40 @@ public class LaserEmitter extends BlockContainer {
 	 * Called when the block is placed in the world.
 	 * @return 
 	 */
-	
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ){
+    public boolean onUseWrench(World par1World, int x, int y, int z, EntityPlayer par5EntityPlayer, int side,
+            float hitX, float hitY, float hitZ)
+    {
+        int metadata = par1World.getBlockMetadata(x, y, z);
+        
+        int change = 0;
+        
+        // Re-orient the block
+        switch (metadata)
+        {
+            case 0:
+                change = 3;
+                break;
+            case 3:
+                change = 1;
+                break;
+            case 1:
+                change = 2;
+                break;
+            case 2:
+                change = 0;
+                break;
+        }
+        
+        par1World.setBlock(x, y, z, this.blockID, change, 0);
+        par1World.markBlockForRenderUpdate(x, y, z);
+        
+        ((LaserEmitterTileEntity) par1World.getBlockTileEntity(x, y, z)).initiate();
+        
+        return true;
+    }
+	@Override
+	public boolean onMachineActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ){
 		LaserEmitterTileEntity entity=(LaserEmitterTileEntity)world.getBlockTileEntity(x,y,z);
 		return entity.onMachineActivated(world, x, y,z, entityPlayer, side, hitX, hitY, hitZ);
 	}

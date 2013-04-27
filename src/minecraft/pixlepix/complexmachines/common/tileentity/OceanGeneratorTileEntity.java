@@ -133,7 +133,7 @@ public class OceanGeneratorTileEntity extends TileEntityElectrical implements
 				for (int cycleY = lowerBoundY; cycleY < upperBoundY; cycleY++) {
 					for (int cycleZ = lowerBoundZ; cycleZ < upperBoundZ; cycleZ++) {
 						if (worldObj.getBlockId(cycleX, cycleY, cycleZ) == 0) {
-							powerRunning += 0.15;
+							powerRunning += 0.1;
 						}
 					}
 				}

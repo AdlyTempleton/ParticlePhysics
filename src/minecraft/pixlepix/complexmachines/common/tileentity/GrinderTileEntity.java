@@ -96,7 +96,7 @@ public class GrinderTileEntity extends TileEntityElectricityRunnable implements
 			if (this.connectedElectricUnit != null) {
 
 				this.connectedElectricUnit.getNetwork().startProducing(this,
-						(2000 / this.getVoltage()) / 20, this.getVoltage());
+						(5000 / this.getVoltage()) / 20, this.getVoltage());
 				if (ticksOfPowerRemaining <= 0) {
 					this.connectedElectricUnit.getNetwork().stopProducing(this);
 				}

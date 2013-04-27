@@ -46,6 +46,7 @@ import pixlepix.complexmachines.common.tileentity.GrinderTileEntity;
 import pixlepix.complexmachines.common.tileentity.OceanGeneratorTileEntity;
 import pixlepix.complexmachines.common.tileentity.ReplacerMachineTileEntity;
 import pixlepix.complexmachines.common.tileentity.SinglePointTileEntity;
+import universalelectricity.prefab.flag.ModFlag;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -71,14 +72,15 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = "ComplexMachines", name = "Complex Machines", version = "0.3.2")
+@Mod(modid = "ComplexMachines", name = "Complex Machines", version = "0.3.3")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class ComplexMachines {
 
-	public static int blockStartingID = 670;
+	public static int blockStartingID = 2470;
 	public static int singlePointRadius=5000;
 	private GuiHandler guiHandler = new GuiHandler();
-
+	
+	
 	private boolean vanillaRecipies;
 	public int itemStartingID;
 	public static ComplexMachinesTab creativeTab = new ComplexMachinesTab();
@@ -208,7 +210,7 @@ public class ComplexMachines {
 
 		worldGen = config.get(Configuration.CATEGORY_GENERAL, "Focal point generation ", false).getBoolean(true);
 		vanillaRecipies = config.get(Configuration.CATEGORY_GENERAL, "Vanilla (Easy) Recipies Enabled ", false).getBoolean(true);
-		blockStartingID = config.getBlock("BlockStartingID", 1670).getInt();
+		blockStartingID = config.getBlock("BlockStartingID", 2470).getInt();
 		singlePointRadius = config.get(Configuration.CATEGORY_GENERAL, "Single point generator radius ", 5000).getInt();
 		itemStartingID = config.get(Configuration.CATEGORY_GENERAL, "ItemStartingID", 11670).getInt();
 		System.out.println(blockStartingID);
@@ -219,6 +221,9 @@ public class ComplexMachines {
 	@Init
 	public void load(FMLInitializationEvent event) {
 
+		
+		
+		
 		proxy.registerRenderers();
 
 		NetworkRegistry networkRegistry = NetworkRegistry.instance();

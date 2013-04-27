@@ -69,7 +69,7 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 		
 		if(worldObj.getTotalWorldTime()%200==0){
 			worldObj.notifyBlockChange(xCoord, yCoord, zCoord, ComplexMachines.blockStartingID+9);
-			System.out.println("Untripping wire");
+			
 			tripped=false;
 		}
 		

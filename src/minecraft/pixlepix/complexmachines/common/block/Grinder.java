@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class Grinder extends BlockContainer {
+public class Grinder extends BlockAdvanced {
 	private Icon connectorIcon;
 	private Icon topIcon;
 
@@ -42,6 +42,38 @@ public class Grinder extends BlockContainer {
 	/**
 	 * Called when the block is placed in the world.
 	 */
+	@Override
+    public boolean onUseWrench(World par1World, int x, int y, int z, EntityPlayer par5EntityPlayer, int side,
+            float hitX, float hitY, float hitZ)
+    {
+        int metadata = par1World.getBlockMetadata(x, y, z);
+        
+        int change = 0;
+        
+        // Re-orient the block
+        switch (metadata)
+        {
+            case 0:
+                change = 3;
+                break;
+            case 3:
+                change = 1;
+                break;
+            case 1:
+                change = 2;
+                break;
+            case 2:
+                change = 0;
+                break;
+        }
+        
+        par1World.setBlock(x, y, z, this.blockID, change, 0);
+        par1World.markBlockForRenderUpdate(x, y, z);
+        
+        ((GrinderTileEntity) par1World.getBlockTileEntity(x, y, z)).initiate();
+        
+        return true;
+    }
 	@Override
 	public void onBlockPlacedBy(World par1World, int x, int y, int z,
 			EntityLiving par5EntityLiving, ItemStack itemStack) {
@@ -70,7 +102,7 @@ public class Grinder extends BlockContainer {
 	}
 
 	@Override
-	public boolean onBlockActivated(World par1World, int x, int y, int z,
+	public boolean onMachineActivated(World par1World, int x, int y, int z,
 			EntityPlayer par5EntityPlayer, int side, float hitX, float hitY,
 			float hitZ) {
 		if (!par1World.isRemote) {
