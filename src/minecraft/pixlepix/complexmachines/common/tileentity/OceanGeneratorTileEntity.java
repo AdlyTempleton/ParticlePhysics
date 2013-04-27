@@ -103,7 +103,7 @@ public class OceanGeneratorTileEntity extends TileEntityElectrical implements
 	private void getOceanTiles() {
 		// System.out.println(powerRunning);
 		ticks++;
-		if (ticks > 2000 || powerRunning < 10) {
+		if (ticks > 2000 || powerRunning < 1) {
 
 			ticks = 0;
 			int lowerBoundX = xCoord;
@@ -132,8 +132,8 @@ public class OceanGeneratorTileEntity extends TileEntityElectrical implements
 			for (int cycleX = lowerBoundX; cycleX < upperBoundX; cycleX++) {
 				for (int cycleY = lowerBoundY; cycleY < upperBoundY; cycleY++) {
 					for (int cycleZ = lowerBoundZ; cycleZ < upperBoundZ; cycleZ++) {
-						if (worldObj.getBlockId(cycleX, cycleY, cycleZ) == 0) {
-							powerRunning += 0.1;
+						if (worldObj.getBlockId(cycleX, cycleY, cycleZ) == 9) {
+							powerRunning += 0.3;
 						}
 					}
 				}
