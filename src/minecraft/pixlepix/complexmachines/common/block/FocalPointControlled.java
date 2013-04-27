@@ -148,8 +148,7 @@ public class FocalPointControlled extends BlockAdvanced {
 
 	@Override
 	public TileEntity createNewTileEntity(World world) {
-		// TODO Auto-generated method stub
-		return null;
+		return new FocalPointControledTileEntity();
 	}
 
 }
