@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 
 public class RedstoneLaserBlock extends LaserBlock{
 
@@ -13,6 +14,14 @@ public class RedstoneLaserBlock extends LaserBlock{
 		super(id);
 		this.setUnlocalizedName("Redstone Beam");
 		
+	}
+	@Override
+	public int isProvidingWeakPower(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    {
+        return 15;
+    }
+	public boolean canProvidePower(){
+		return true;
 	}
 	@Override
 	public int isProvidingStrongPower(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)

@@ -44,6 +44,9 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 	 * The ItemStacks that hold the items currently being used in the wire mill;
 	 * 0 = battery; 1 = input; 2 = output;
 	 */
+	
+	public boolean tripped;
+	
 	private ItemStack[] inventory = new ItemStack[1];
 
 	private int playersUsing = 0;
@@ -63,8 +66,18 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
+		
+		if(worldObj.getTotalWorldTime()%200==0){
+			worldObj.notifyBlockChange(xCoord, yCoord, zCoord, ComplexMachines.blockStartingID+9);
+			System.out.println("Untripping wire");
+			tripped=false;
+		}
+		
 		// System.out.println(getJoules());
 		if (!this.worldObj.isRemote) {
+			
+			
+			
 
 			ForgeDirection inputDirection = ForgeDirection.getOrientation(this
 					.getBlockMetadata() + 2);
@@ -112,6 +125,10 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 							break;
 						case 399:
 							laserBeamId=ComplexMachines.blockStartingID+13;
+							//System.out.println("Laser of glass");
+							break;
+						case 287:
+							laserBeamId=ComplexMachines.blockStartingID+20;
 							//System.out.println("Laser of glass");
 							break;
 						case 326:
@@ -308,6 +325,11 @@ public class LaserEmitterTileEntity extends TileEntityElectricityRunnable
 
 	public void notifyDecay() {
 		decay=true;
+		
+	}
+
+	public void notifyTripwire() {
+		tripped=true;
 		
 	}
 

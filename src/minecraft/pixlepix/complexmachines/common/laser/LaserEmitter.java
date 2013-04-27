@@ -16,6 +16,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -30,7 +31,37 @@ public class LaserEmitter extends BlockContainer {
 		this.setUnlocalizedName("Laser Emitter");
 		this.setCreativeTab(CreativeTabs.tabMisc);
 	}
-
+	@Override
+	public int isProvidingWeakPower(IBlockAccess iBlockAccess, int x, int y, int z, int par5)
+    {
+		TileEntity tileEntity=iBlockAccess.getBlockTileEntity(x, y, z);
+		if(tileEntity instanceof LaserEmitterTileEntity){
+			LaserEmitterTileEntity laserEmitterTileEntity=(LaserEmitterTileEntity)tileEntity;
+			if(laserEmitterTileEntity.tripped){
+				//System.out.println("Attempting to emit redstone power");
+				return 15;
+			}
+		}
+        return 0;
+    }
+	@Override
+	public boolean canConnectRedstone(IBlockAccess iba, int i, int j, int k, int dir) 
+    { 
+        return true; 
+    }
+	@Override
+	public int isProvidingStrongPower(IBlockAccess iBlockAccess, int x, int y, int z, int side)
+    {
+		TileEntity tileEntity=iBlockAccess.getBlockTileEntity(x, y, z);
+		if(tileEntity instanceof LaserEmitterTileEntity){
+			LaserEmitterTileEntity laserEmitterTileEntity=(LaserEmitterTileEntity)tileEntity;
+			if(laserEmitterTileEntity.tripped){
+				//System.out.println("Attempting to emit redstone power");
+				return 15;
+			}
+		}
+        return 0;
+    }
 	public LaserEmitter() {
 		super(ComplexMachines.blockStartingID + 8, UniversalElectricity.machine);
 		this.setStepSound(soundMetalFootstep);

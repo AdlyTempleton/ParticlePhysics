@@ -31,11 +31,13 @@ import pixlepix.complexmachines.common.laser.block.MiningLaserBlock;
 import pixlepix.complexmachines.common.laser.block.RedstoneLaserBlock;
 import pixlepix.complexmachines.common.laser.block.StoneLaserBlock;
 import pixlepix.complexmachines.common.laser.block.SuctionLaserBlock;
+import pixlepix.complexmachines.common.laser.block.TripwireLaserBlock;
 import pixlepix.complexmachines.common.laser.tileentity.DebuffLaserBeamTileEntity;
 import pixlepix.complexmachines.common.laser.tileentity.ElectricLaserBeamTileEntity;
 import pixlepix.complexmachines.common.laser.tileentity.HarmingLaserBeamTileEntity;
 import pixlepix.complexmachines.common.laser.tileentity.LaserBeamTileEntity;
 import pixlepix.complexmachines.common.laser.tileentity.SuctionLaserBeamTileEntity;
+import pixlepix.complexmachines.common.laser.tileentity.TripwireLaserBeamTileEntity;
 import pixlepix.complexmachines.common.tileentity.ExtractorMachineTileEntity;
 import pixlepix.complexmachines.common.tileentity.FillerMachineTileEntity;
 import pixlepix.complexmachines.common.tileentity.FluxTileEntity;
@@ -87,6 +89,7 @@ public class ComplexMachines {
 	
 	public static boolean worldGen;
 	public static Block flux;
+	public static Block tripwireLaser;
 	public static Block stoneLaser;
 	public static Block suctionLaser;
 	public static Block electricLaser;
@@ -110,6 +113,8 @@ public class ComplexMachines {
 	flux = new Flux(blockStartingID + 18)
 			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep).setCreativeTab(creativeTab);
 
+	tripwireLaser = new TripwireLaserBlock(blockStartingID + 20)
+			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
 	stoneLaser = new StoneLaserBlock(blockStartingID + 19)
 			.setHardness(0.5F).setStepSound(Block.soundGravelFootstep);
 	suctionLaser = new SuctionLaserBlock(blockStartingID + 17)
@@ -229,7 +234,11 @@ public class ComplexMachines {
 		MinecraftForge.setBlockHarvestLevel(suctionLaser, "pickaxe", 0);
 		GameRegistry.registerBlock(suctionLaser, "suction Laser");
 		
-
+		LanguageRegistry.addName(tripwireLaser, "Tripwire Laser");
+		MinecraftForge.setBlockHarvestLevel(tripwireLaser, "pickaxe", 0);
+		GameRegistry.registerBlock(tripwireLaser, "Tripwire Laser");
+		
+		
 		LanguageRegistry.addName(stoneLaser, "Bridge Laser");
 		MinecraftForge.setBlockHarvestLevel(stoneLaser, "pickaxe", 0);
 		GameRegistry.registerBlock(stoneLaser, "Bridge Laser");
@@ -427,6 +436,9 @@ public class ComplexMachines {
 		
 		GameRegistry.registerTileEntity(ReplacerMachineTileEntity.class,
 				"Replacer");
+
+		GameRegistry.registerTileEntity(TripwireLaserBeamTileEntity.class,
+				"Tripbeam");
 		
 
 		GameRegistry.registerTileEntity(FluxTileEntity.class,
