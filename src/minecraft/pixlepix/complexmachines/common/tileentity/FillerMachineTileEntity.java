@@ -1,5 +1,6 @@
 package pixlepix.complexmachines.common.tileentity;
 
+import pixlepix.complexmachines.common.ComplexMachines;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -121,11 +122,11 @@ public class FillerMachineTileEntity extends TileEntityElectricityRunnable
 						for (int cycleX = lowerBoundX; cycleX < upperBoundX; cycleX++) {
 							for (int cycleY = upperBoundY; cycleY > lowerBoundY; cycleY--) {
 								for (int cycleZ = lowerBoundZ; cycleZ < upperBoundZ; cycleZ++) {
-									if (worldObj.getBlockId(cycleX, cycleY,
-											cycleZ) == 0) {
-										worldObj.setBlock(cycleX, cycleY,
-												cycleZ, 1);
-
+									if (worldObj.getBlockId(cycleX, cycleY,cycleZ) == 0) {
+										
+										if(ComplexMachines.isProtected(cycleX, cycleZ)){
+											worldObj.setBlock(cycleX, cycleY,cycleZ, 1);
+										}
 										setJoules(getJoules() - 10000);
 										return;
 

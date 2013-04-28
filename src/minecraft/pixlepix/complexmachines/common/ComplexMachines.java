@@ -46,12 +46,14 @@ import pixlepix.complexmachines.common.tileentity.GrinderTileEntity;
 import pixlepix.complexmachines.common.tileentity.OceanGeneratorTileEntity;
 import pixlepix.complexmachines.common.tileentity.ReplacerMachineTileEntity;
 import pixlepix.complexmachines.common.tileentity.SinglePointTileEntity;
+import universalelectricity.prefab.flag.FlagRegistry;
 import universalelectricity.prefab.flag.ModFlag;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
@@ -83,11 +85,14 @@ public class ComplexMachines {
 	
 	private boolean vanillaRecipies;
 	public int itemStartingID;
+	public static int spawnProtectionRadius;
 	public static ComplexMachinesTab creativeTab = new ComplexMachinesTab();
 	
 	public static Item feller;
 	public static Item clusterMiner;
 	public static Item cubeFormer;
+	
+	public static ModFlag flag;
 	
 	public static boolean worldGen;
 	public static Block flux;
@@ -211,6 +216,7 @@ public class ComplexMachines {
 		worldGen = config.get(Configuration.CATEGORY_GENERAL, "Focal point generation ", false).getBoolean(true);
 		vanillaRecipies = config.get(Configuration.CATEGORY_GENERAL, "Vanilla (Easy) Recipies Enabled ", false).getBoolean(true);
 		blockStartingID = config.getBlock("BlockStartingID", 2770).getInt();
+		spawnProtectionRadius = config.get(Configuration.CATEGORY_GENERAL, "Spawn Protection Radius", 0).getInt();
 		singlePointRadius = config.get(Configuration.CATEGORY_GENERAL, "Single point generator radius ", 5000).getInt();
 		itemStartingID = config.get(Configuration.CATEGORY_GENERAL, "ItemStartingID", 11670).getInt();
 		System.out.println(blockStartingID);
@@ -218,12 +224,24 @@ public class ComplexMachines {
 		config.save();
 	}
 
+	public static boolean isProtected(int x, int z){
+		int distance=(int) Math.sqrt((x*x)+(z*z));
+		if(distance<spawnProtectionRadius){
+			return true;
+		}
+		return false;
+	}
+	
+	
+	
 	@Init
 	public void load(FMLInitializationEvent event) {
 
 		
-		
-		
+		//NBTTagCompound nbt=new NBTTagCompound();
+		//nbt.setString("dim_1","dim_1");
+		//flag=new ModFlag(nbt);
+		FlagRegistry.registerFlag("ComplexMachines");
 		proxy.registerRenderers();
 
 		NetworkRegistry networkRegistry = NetworkRegistry.instance();

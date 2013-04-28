@@ -3,6 +3,8 @@ package pixlepix.complexmachines.common.tileentity;
 import java.util.ArrayList;
 import java.util.Random;
 
+import pixlepix.complexmachines.common.ComplexMachines;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -188,11 +190,10 @@ public class ReplacerMachineTileEntity extends TileEntityElectricityRunnable
 								for (int cycleX = lowerBoundX; cycleX < upperBoundX; cycleX++) {
 									for (int cycleY = lowerBoundY; cycleY < upperBoundY; cycleY++) {
 										for (int cycleZ = lowerBoundZ; cycleZ < upperBoundZ; cycleZ++) {
-											if (worldObj.getBlockId(cycleX,
-													cycleY, cycleZ) == 1) {
-												worldObj.setBlock(cycleX,
-														cycleY, cycleZ,
-														idToReplace);
+											if (worldObj.getBlockId(cycleX,cycleY, cycleZ) == 1) {
+												if(ComplexMachines.isProtected(cycleX, cycleZ)){
+													worldObj.setBlock(cycleX,cycleY, cycleZ,idToReplace);
+												}
 												// System.out.println("X: "+cycleX+"Y: "+cycleY+"Z: "+cycleZ);
 												setJoules(getJoules() - 10000);
 												takeBlockFromChest(inputChest,

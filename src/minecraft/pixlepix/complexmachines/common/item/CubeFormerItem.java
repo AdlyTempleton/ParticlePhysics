@@ -104,7 +104,9 @@ public class CubeFormerItem extends ItemElectric
 						for(int j=0;j<4;j++){
 							for(int k=-2;k<2;k++){
 								if(world.getBlockId(centerX+i, centerY+j, centerZ+k)==0){
-									world.setBlock(centerX+i, centerY+j, centerZ+k, materialId);
+									if(!ComplexMachines.isProtected(centerX+i, centerZ+k)){
+										world.setBlock(centerX+i, centerY+j, centerZ+k, materialId);
+									}
 								}
 
 							}

@@ -3,6 +3,8 @@ package pixlepix.complexmachines.common.tileentity;
 import java.util.ArrayList;
 import java.util.Random;
 
+import pixlepix.complexmachines.common.ComplexMachines;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -126,8 +128,12 @@ public class ExtractorMachineTileEntity extends TileEntityElectricityRunnable
 					}
 				} else {
 					boolean oreFound = false;
+					int tries=0;
 					while (!oreFound && getJoules() > 1000) {
-
+						tries++;
+						if(tries>50){
+							return;
+						}
 						// System.out.println("Scanning");
 						ticks = 0;
 
@@ -155,8 +161,7 @@ public class ExtractorMachineTileEntity extends TileEntityElectricityRunnable
 						// System.out.println("X: "+targetX+"  Y:"+targetY+"   Z:"+targetZ+"   id:"+worldObj.getBlockId(targetX,targetY,targetZ));
 						int matchedSlot = isOre(targetId);
 						// System.out.println(targetId);
-						if (worldObj.getChunkFromBlockCoords(targetX, targetZ).isChunkLoaded
-								&& matchedSlot != -1) {
+						if (worldObj.getChunkFromBlockCoords(targetX, targetZ).isChunkLoaded&& matchedSlot != -1&&ComplexMachines.isProtected(targetX, targetZ)) {
 							oreFound = true;
 							setJoules(getJoules() - COST_ON_ORE);
 
