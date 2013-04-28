@@ -76,7 +76,7 @@ import cpw.mods.fml.relauncher.Side;
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class ComplexMachines {
 
-	public static int blockStartingID = 2470;
+	public static int blockStartingID = 2770;
 	public static int singlePointRadius=5000;
 	private GuiHandler guiHandler = new GuiHandler();
 	
@@ -210,7 +210,7 @@ public class ComplexMachines {
 
 		worldGen = config.get(Configuration.CATEGORY_GENERAL, "Focal point generation ", false).getBoolean(true);
 		vanillaRecipies = config.get(Configuration.CATEGORY_GENERAL, "Vanilla (Easy) Recipies Enabled ", false).getBoolean(true);
-		blockStartingID = config.getBlock("BlockStartingID", 2470).getInt();
+		blockStartingID = config.getBlock("BlockStartingID", 2770).getInt();
 		singlePointRadius = config.get(Configuration.CATEGORY_GENERAL, "Single point generator radius ", 5000).getInt();
 		itemStartingID = config.get(Configuration.CATEGORY_GENERAL, "ItemStartingID", 11670).getInt();
 		System.out.println(blockStartingID);

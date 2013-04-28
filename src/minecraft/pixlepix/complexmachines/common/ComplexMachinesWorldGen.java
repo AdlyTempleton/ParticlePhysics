@@ -15,6 +15,7 @@ public class ComplexMachinesWorldGen implements IWorldGenerator {
 		if(ComplexMachines.worldGen){
 			if(world.provider.isSurfaceWorld()&&world.provider.getAverageGroundLevel()>20){
 				world.setBlock(chunkX * 16 + random.nextInt(16),random.nextInt(10) + 5, chunkZ * 16 + random.nextInt(16), ComplexMachines.blockStartingID + 3);
+				
 			}
 		}
 	}
