@@ -131,18 +131,19 @@ public class ExtractorMachineTileEntity extends TileEntityElectricityRunnable
 					int tries=0;
 					while (!oreFound && getJoules() > 1000) {
 						tries++;
+						
 						if(tries>50){
 							return;
 						}
 						// System.out.println("Scanning");
 						ticks = 0;
 
-						int targetX = xCoord - 100;
+						int targetX = xCoord - 400;
 
-						int targetZ = zCoord - 100;
+						int targetZ = zCoord - 400;
 
-						targetX += (rand.nextGaussian() * 200);
-						targetZ += (rand.nextGaussian() * 200);
+						targetX += (rand.nextInt(800));
+						targetZ += (rand.nextInt(800));
 
 						int targetY = rand.nextInt(15) + 5;
 

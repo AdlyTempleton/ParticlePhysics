@@ -58,36 +58,38 @@ public class ContainerGrinder extends Container {
 
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2) {
-		// Declairing a placeholder;
 		ItemStack itemstack = null;
+        Slot slot = (Slot)this.inventorySlots.get(par2);
 
-		// Retrieving the slot object
-		Slot slot = (Slot) this.inventorySlots.get(par2);
-		// If the slot has items in it-sanity check
-		if (slot != null && slot.getHasStack()) {
-			// Get the itemstack being clicked for easy refrence
-			ItemStack itemstack1 = slot.getStack();
-			// A copy of the itemstack to modify
-			itemstack = itemstack1.copy();
+        if (slot != null && slot.getHasStack())
+        {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+            
+            if (par2 < 36)
+            {
+                if (!this.mergeItemStack(itemstack1, 36, this.inventorySlots.size(), true))
+                {
+                    return null;
+                }
+            }
+            else 
+            if (!this.mergeItemStack(itemstack1, 0, 36, false))
+            {
+                return null;
+            }
 
-			// If the slot is in the chest
-			if (par2 < 6) {
-				if (!this.mergeItemStack(itemstack1, 1,
-						this.inventorySlots.size(), true)) {
-					return null;
-				}
-			} else if (!this.mergeItemStack(itemstack1, 0, 6, false)) {
-				return null;
-			}
+            if (itemstack1.stackSize == 0)
+            {
+                slot.putStack((ItemStack)null);
+            }
+            else
+            {
+                slot.onSlotChanged();
+            }
+        }
 
-			if (itemstack1.stackSize == 0) {
-				slot.putStack((ItemStack) null);
-			} else {
-				slot.onSlotChanged();
-			}
-		}
-
-		return itemstack;
+        return itemstack;
 	}
 
 }
