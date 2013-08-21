@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.class
 bin
 net
@@ -9,3 +10,6 @@ DS_STORE
 *.war
 *.ear
 ixbm
+=======
+Releases
+>>>>>>> 513b92596c78752df1646c65d6e3a0c662271004
