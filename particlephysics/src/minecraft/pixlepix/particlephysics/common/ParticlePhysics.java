@@ -2,7 +2,7 @@ package pixlepix.particlephysics.common;
 
 import pixlepix.particlephysics.common.entity.CoalParticle;
 import pixlepix.particlephysics.common.entity.ConcentratedParticle;
-import pixlepix.particlephysics.common.entity.LapisParticle;
+import pixlepix.particlephysics.common.entity.ClayParticle;
 import pixlepix.particlephysics.common.entity.SplitParticle;
 import pixlepix.particlephysics.common.helper.BetterLoader;
 import pixlepix.particlephysics.common.helper.CommonProxy;
@@ -79,7 +79,7 @@ public class ParticlePhysics {
 		LanguageRegistry.instance().addStringLocalization("itemGroup.tabParticlePhysics", "PartoclePhysics");
 		EntityRegistry.registerModEntity(CoalParticle.class, "Coal Particle", 0, this, 80, 1, true);
 
-		EntityRegistry.registerModEntity(LapisParticle.class, "Lapis Particle", 1, this, 80, 1, true);
+		EntityRegistry.registerModEntity(ClayParticle.class, "Clay Particle", 1, this, 80, 1, true);
 
 		EntityRegistry.registerModEntity(SplitParticle.class, "Split Particle", 2, this, 80, 1, true);
 

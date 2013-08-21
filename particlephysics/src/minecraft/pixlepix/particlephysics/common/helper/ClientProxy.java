@@ -2,7 +2,7 @@ package pixlepix.particlephysics.common.helper;
 
 import pixlepix.particlephysics.common.entity.CoalParticle;
 import pixlepix.particlephysics.common.entity.ConcentratedParticle;
-import pixlepix.particlephysics.common.entity.LapisParticle;
+import pixlepix.particlephysics.common.entity.ClayParticle;
 import pixlepix.particlephysics.common.entity.SplitParticle;
 import pixlepix.particlephysics.common.render.RenderParticle;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -17,7 +17,7 @@ public class ClientProxy extends CommonProxy {
     public void registerRenderers() {
     	RenderingRegistry.registerEntityRenderingHandler(CoalParticle.class, new RenderParticle());
 
-    	RenderingRegistry.registerEntityRenderingHandler(LapisParticle.class, new RenderParticle());
+    	RenderingRegistry.registerEntityRenderingHandler(ClayParticle.class, new RenderParticle());
 
     	RenderingRegistry.registerEntityRenderingHandler(SplitParticle.class, new RenderParticle());
 

@@ -6,7 +6,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import pixlepix.particlephysics.common.render.BlockRenderInfo;
 
-public class LapisParticle extends BaseParticle {
+public class ClayParticle extends BaseParticle {
 	
 	public int ticks=0;
 	
@@ -19,7 +19,7 @@ public class LapisParticle extends BaseParticle {
 	public float potential;
 	public ForgeDirection movementDirection;
 	
-	public LapisParticle(World par1World) {
+	public ClayParticle(World par1World) {
 		super(par1World);
 		
 	}
