@@ -1,0 +1,14 @@
+
+Current:
+Emitter
+Series Receptor
+Coal Particle
+Clay particle
+Split Particle
+Concentrated Particle
+
+Future:
+Scattered Receptor
+Seed Particle
+
+
