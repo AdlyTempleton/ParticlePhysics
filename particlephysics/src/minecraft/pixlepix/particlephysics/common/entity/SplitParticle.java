@@ -1,5 +1,7 @@
 package pixlepix.particlephysics.common.entity;
 
+import pixlepix.particlephysics.common.api.BaseParticle;
+import pixlepix.particlephysics.common.helper.ClientProxy;
 import pixlepix.particlephysics.common.render.BlockRenderInfo;
 import net.minecraft.block.Block;
 import net.minecraft.util.Icon;
@@ -33,7 +35,7 @@ public class SplitParticle extends BaseParticle{
 	@Override
 	public BlockRenderInfo getRenderIcon() {
 		// TODO Auto-generated method stub
-		return new BlockRenderInfo(Block.bedrock);
+		return new BlockRenderInfo(ClientProxy.split);
 	}
 
 	@Override

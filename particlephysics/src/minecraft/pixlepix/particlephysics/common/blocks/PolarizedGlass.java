@@ -2,11 +2,15 @@ package pixlepix.particlephysics.common.blocks;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-import pixlepix.particlephysics.common.entity.BaseParticle;
+import pixlepix.particlephysics.common.api.BaseParticle;
 import pixlepix.particlephysics.common.helper.BasicComplexBlock;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class PolarizedGlass extends BasicComplexBlock {
 
@@ -55,7 +59,7 @@ public class PolarizedGlass extends BasicComplexBlock {
 
 	@Override
 	public void addRecipe() {
-
+		GameRegistry.addRecipe(new ItemStack(this)," R ","RGR"," R ",'R',new ItemStack(Item.redstone),'G',new ItemStack(Block.glass));
 		
 	}
 

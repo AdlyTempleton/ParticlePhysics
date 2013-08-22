@@ -1,11 +1,15 @@
 package pixlepix.particlephysics.common.blocks;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.world.World;
 import pixlepix.particlephysics.common.helper.BasicComplexBlock;
+import pixlepix.particlephysics.common.helper.ClientProxy;
 import pixlepix.particlephysics.common.tile.EmitterTileEntity;
 
 public class Emitter extends BasicComplexBlock {
@@ -41,7 +45,7 @@ public class Emitter extends BasicComplexBlock {
 
 	@Override
 	public void addRecipe() {
-
+		GameRegistry.addRecipe(new ItemStack(this),"I  ","IID","I  ",'I',new ItemStack(Item.ingotIron),'D',new ItemStack(Item.diamond));
 		
 	}
 
@@ -64,6 +68,21 @@ public class Emitter extends BasicComplexBlock {
 	public boolean threeSidedTextures(){
 		return false;
 	}
+	
+	@Override
+	public void registerIcons(IconRegister icon){
+		super.registerIcons(icon);
+		ClientProxy.coal=icon.registerIcon("particlephysics:ParticleCoal");
+
+		ClientProxy.clay=icon.registerIcon("particlephysics:ParticleClay");
+
+		ClientProxy.concentrated=icon.registerIcon("particlephysics:ParticleConcentrated");
+
+		ClientProxy.split=icon.registerIcon("particlephysics:ParticleSplit");
+
+		ClientProxy.seed=icon.registerIcon("particlephysics:ParticleSeed");
+	}
+	
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ){
 		if(!world.isRemote&&entityPlayer.inventory.getCurrentItem()!=null&&EmitterTileEntity.isValidFuel(entityPlayer.inventory.getCurrentItem())){

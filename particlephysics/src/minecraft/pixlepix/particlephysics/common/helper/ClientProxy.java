@@ -1,8 +1,9 @@
 package pixlepix.particlephysics.common.helper;
 
+import net.minecraft.util.Icon;
+import pixlepix.particlephysics.common.entity.ClayParticle;
 import pixlepix.particlephysics.common.entity.CoalParticle;
 import pixlepix.particlephysics.common.entity.ConcentratedParticle;
-import pixlepix.particlephysics.common.entity.ClayParticle;
 import pixlepix.particlephysics.common.entity.SplitParticle;
 import pixlepix.particlephysics.common.render.RenderParticle;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -13,6 +14,12 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ClientProxy extends CommonProxy {
 
     public static int RENDER_ID;
+    
+    public static Icon clay;
+    public static Icon coal;
+    public static Icon concentrated;
+    public static Icon seed;
+    public static Icon split;
     
     public void registerRenderers() {
     	RenderingRegistry.registerEntityRenderingHandler(CoalParticle.class, new RenderParticle());

@@ -4,6 +4,8 @@ import net.minecraft.block.Block;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import pixlepix.particlephysics.common.api.BaseParticle;
+import pixlepix.particlephysics.common.helper.ClientProxy;
 import pixlepix.particlephysics.common.render.BlockRenderInfo;
 
 public class ClayParticle extends BaseParticle {
@@ -29,7 +31,7 @@ public class ClayParticle extends BaseParticle {
 	}
 	@Override
 	public BlockRenderInfo getRenderIcon(){
-		BlockRenderInfo info=new BlockRenderInfo(Block.blockLapis);
+		BlockRenderInfo info=new BlockRenderInfo(ClientProxy.clay);
 		return info;
 	}
 	

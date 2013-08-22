@@ -2,6 +2,7 @@ package pixlepix.particlephysics.common.helper;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
+import pixlepix.particlephysics.common.blocks.Emitter;
 
 public class ParticlePhysicsTab extends CreativeTabs {
 	public static ParticlePhysicsTab instance;
@@ -13,7 +14,7 @@ public class ParticlePhysicsTab extends CreativeTabs {
 	
 	@Override
 	public ItemStack getIconItemStack() {
-		return null;
+		return new ItemStack(BetterLoader.getBlock(Emitter.class));
 		
 	}
 }

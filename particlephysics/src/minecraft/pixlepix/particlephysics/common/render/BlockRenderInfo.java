@@ -19,8 +19,8 @@ public class BlockRenderInfo
     public Icon texture = null;
     /** meta data to use for block the block */
     public int meta = 0;
-    public BlockRenderInfo(Block block){
-    	this.baseBlock=block;
+    public BlockRenderInfo(Icon texture){
+    	this.texture=texture;
     }
     /** Gets the block brightness at the given location */
     public float getBlockBrightness(IBlockAccess iblockaccess, int i, int j, int k)
@@ -31,13 +31,13 @@ public class BlockRenderInfo
     /** Gets the block texture from the given side */
     public Icon getBlockTextureFromSide(int side)
     {
-        return this.getBlockIconFromSideAndMetadata(side, meta);
+        return this.texture;
     }
 
     /** Gets the block texture from side and meta */
     public Icon getBlockIconFromSideAndMetadata(int side, int meta)
     {
-        return this.getIconSafe(baseBlock.getIcon(side, meta));
+        return this.texture;
     }
 
     /** Gets the icon and does some safty checks */

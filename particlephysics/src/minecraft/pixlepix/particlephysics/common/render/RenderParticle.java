@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
-import pixlepix.particlephysics.common.entity.BaseParticle;
+import pixlepix.particlephysics.common.api.BaseParticle;
 import universalelectricity.core.vector.Vector3;
 
 public class RenderParticle extends Render

@@ -20,7 +20,7 @@ public abstract class BasicComplexBlock extends BlockAdvanced implements IBlock 
 	public Icon connectorIcon;
 	public Icon topIcon;
 	static int blockIdIncrement;
-	public String textureBase="ComplexMachines:";
+	public String textureBase="particlephysics:";
 	public abstract String getFront();
 	public abstract String getTop();
 	

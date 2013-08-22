@@ -2,6 +2,8 @@ package pixlepix.particlephysics.common.entity;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
+import pixlepix.particlephysics.common.api.BaseParticle;
+import pixlepix.particlephysics.common.helper.ClientProxy;
 import pixlepix.particlephysics.common.render.BlockRenderInfo;
 
 public class ConcentratedParticle extends BaseParticle {
@@ -19,7 +21,7 @@ public class ConcentratedParticle extends BaseParticle {
 	@Override
 	public BlockRenderInfo getRenderIcon() {
 		// TODO Auto-generated method stub
-		return new BlockRenderInfo(Block.blockDiamond);
+		return new BlockRenderInfo(ClientProxy.concentrated);
 	}
 
 	@Override

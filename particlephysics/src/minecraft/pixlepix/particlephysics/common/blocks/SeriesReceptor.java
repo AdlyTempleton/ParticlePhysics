@@ -1,16 +1,10 @@
 package pixlepix.particlephysics.common.blocks;
 
-import java.util.EnumSet;
-
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
-import pixlepix.particlephysics.common.entity.BaseParticle;
+import net.minecraft.item.ItemStack;
 import pixlepix.particlephysics.common.helper.BasicComplexBlock;
-import pixlepix.particlephysics.common.helper.IParticleReceptor;
-import pixlepix.particlephysics.common.tile.EmitterTileEntity;
 import pixlepix.particlephysics.common.tile.SeriesReceptorTileEntity;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class SeriesReceptor extends BasicComplexBlock {
 
@@ -45,7 +39,7 @@ public class SeriesReceptor extends BasicComplexBlock {
 
 	@Override
 	public void addRecipe() {
-
+		GameRegistry.addRecipe(new ItemStack(this),"III","D  ","III",'I',new ItemStack(Item.ingotIron),'D', new ItemStack(Item.diamond));
 		
 	}
 
