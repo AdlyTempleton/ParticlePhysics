@@ -109,7 +109,7 @@ public abstract class BaseParticle extends EntityLiving {
 	}
 	public void checkForParticleCollision() {
 		
-		List<BaseParticle> nearbyParticles=this.worldObj.getEntitiesWithinAABB(BaseParticle.class, AxisAlignedBB.getBoundingBox(posX-1, posY-1, posZ-1, posX+2, posY+2, posZ+2));
+		List<BaseParticle> nearbyParticles=this.worldObj.getEntitiesWithinAABB(BaseParticle.class, AxisAlignedBB.getBoundingBox(posX-0.6, posY-0.6, posZ-0.6, posX+0.6, posY+0.6, posZ+0.6));
 		
 		for(int i=0;i<nearbyParticles.size();i++){
 			BaseParticle particle=nearbyParticles.get(i);

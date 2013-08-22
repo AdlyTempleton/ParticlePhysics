@@ -6,9 +6,9 @@ Coal Particle
 Clay particle
 Split Particle
 Concentrated Particle
-
+Seed Particle
+Polarized Glass
 Future:
 Scattered Receptor
-Seed Particle
 
 
