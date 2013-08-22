@@ -23,9 +23,9 @@ public abstract class BaseParticle extends EntityLiving {
 	public int iSize=1;
 	public int jSize=1;
 	public int kSize=1;
-	public int rotationX=45;
-	public int rotationY=45;
-	public int rotationZ=45;
+	public int rotationX=0;
+	public int rotationY=0;
+	public int rotationZ=0;
 	public float potential;
 	public ForgeDirection movementDirection;
 	
