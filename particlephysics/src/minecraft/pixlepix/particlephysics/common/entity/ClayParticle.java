@@ -39,11 +39,17 @@ public class ClayParticle extends BaseParticle {
 	public void onCollideWithParticle(BaseParticle particle){
 		if(particle instanceof CoalParticle){
 			if(!worldObj.isRemote){
-				System.out.println("Creating Split Particles");
-				SplitParticle coalDerived=new SplitParticle(worldObj,particle);
-				SplitParticle lapisDerived=new SplitParticle(worldObj,this);
+				SplitParticle coalDerived=new SplitParticle(worldObj);
+				coalDerived.setPosition(particle.posX,particle.posY,particle.posZ);
+				coalDerived.setVelocity(particle.motionX, particle.motionY, particle.motionZ);
+				SplitParticle lapisDerived=new SplitParticle(worldObj);
+
+				lapisDerived.setPosition(this.posX,this.posY,this.posZ);
+				lapisDerived.setVelocity(this.motionX, this.motionY, this.motionZ);
 				coalDerived.setPartner(lapisDerived);
 				lapisDerived.setPartner(coalDerived);
+				lapisDerived.movementDirection=this.movementDirection;
+				coalDerived.movementDirection=particle.movementDirection;
 				worldObj.spawnEntityInWorld(coalDerived);
 				worldObj.spawnEntityInWorld(lapisDerived);
 			}

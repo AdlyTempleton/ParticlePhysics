@@ -1,8 +1,9 @@
 package pixlepix.particlephysics.common;
 
+import pixlepix.particlephysics.common.entity.ClayParticle;
 import pixlepix.particlephysics.common.entity.CoalParticle;
 import pixlepix.particlephysics.common.entity.ConcentratedParticle;
-import pixlepix.particlephysics.common.entity.ClayParticle;
+import pixlepix.particlephysics.common.entity.SeedParticle;
 import pixlepix.particlephysics.common.entity.SplitParticle;
 import pixlepix.particlephysics.common.helper.BetterLoader;
 import pixlepix.particlephysics.common.helper.CommonProxy;
@@ -19,9 +20,10 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import pixlepix.particlephysics.common.helper.*;
 
 @Mod(modid = "particlephysics", name = "Particle Physics", version = "0.3.3")
-@NetworkMod(clientSideRequired = true, serverSideRequired = true)
+@NetworkMod(clientSideRequired = true, serverSideRequired = false,  channels={"Particle"}, packetHandler = PacketHander.class)
 public class ParticlePhysics {
 
 	
@@ -76,7 +78,7 @@ public class ParticlePhysics {
 		
 
 
-		LanguageRegistry.instance().addStringLocalization("itemGroup.tabParticlePhysics", "PartoclePhysics");
+		LanguageRegistry.instance().addStringLocalization("itemGroup.tabParticlePhysics", "ParticlePhysics");
 		EntityRegistry.registerModEntity(CoalParticle.class, "Coal Particle", 0, this, 80, 1, true);
 
 		EntityRegistry.registerModEntity(ClayParticle.class, "Clay Particle", 1, this, 80, 1, true);
@@ -84,6 +86,8 @@ public class ParticlePhysics {
 		EntityRegistry.registerModEntity(SplitParticle.class, "Split Particle", 2, this, 80, 1, true);
 
 		EntityRegistry.registerModEntity(ConcentratedParticle.class, "Concentrated Particle", 3, this, 80, 1, true);
+
+		EntityRegistry.registerModEntity(SeedParticle.class, "Seed Particle", 4, this, 80, 1, true);
 	}
 
 	@PostInit

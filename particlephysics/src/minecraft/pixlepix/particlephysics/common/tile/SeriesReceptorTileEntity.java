@@ -24,7 +24,6 @@ public class SeriesReceptorTileEntity extends TileEntityElectrical implements IP
 	public float powerToDischarge=0;
 	@Override
 	public void onContact(BaseParticle particle) {
-		System.out.println("Collide");
 		if(this.excitedTicks>0){
 			this.receiveElectricity(0.0015F*particle.potential,true);
 		}else{

@@ -79,7 +79,7 @@ public abstract class BasicComplexBlock extends BlockAdvanced implements IBlock 
 
 		@Override
 		public Icon getIcon(int side, int meta) {
-		if(threeSidedTextures()){
+		if(topSidedTextures()){
 				 
 				if (side == 1 || side == 0) {
 					return topIcon;
@@ -188,7 +188,7 @@ public abstract class BasicComplexBlock extends BlockAdvanced implements IBlock 
 		return ItemBlock.class;
 	}
 	
-	public boolean threeSidedTextures(){
+	public boolean topSidedTextures(){
 		return true;
 	}
 	

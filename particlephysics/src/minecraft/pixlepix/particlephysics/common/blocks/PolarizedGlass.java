@@ -79,7 +79,7 @@ public class PolarizedGlass extends BasicComplexBlock {
 		
 	}
 	@Override
-	public boolean threeSidedTextures(){
+	public boolean topSidedTextures(){
 		return false;
 	}
 	@Override

@@ -1,4 +1,4 @@
-<project name="Mission Control" default="build">
+<project name="Particle Physics" default="build">
 
 	<property file="build.properties" prefix="build"/>
 	<property file="build_number.properties" prefix="build_number"/>
@@ -17,7 +17,7 @@
 
 	<target name="prep">
 		<copy todir="${build.dir.development}\mcp\src\minecraft">
-			<fileset dir="${build.dir.development}\source\Modjam" />
+			<fileset dir="${build.dir.development}\source\ParticlePhysics/particlephysics" />
 		</copy>
 	</target>
 
@@ -46,7 +46,7 @@
 	</target>
 
 	<target name="sign_jar">
-		<signjar jar="${build.dir.release}\${build.release.minecraft.version}\${build.release.mod.version}\MissionControl-${build.release.mod.version}-${build_number.build_number}.jar" keystore="${build.keystore.location}" alias="${build.keystore.alias}" storepass="${build.keystore.password}" />
+		<signjar jar="${build.dir.release}\${build.release.minecraft.version}\${build.release.mod.version}\ParticlePhysics-${build.release.mod.version}-${build_number.build_number}.jar" keystore="${build.keystore.location}" alias="${build.keystore.alias}" storepass="${build.keystore.password}" />
 	</target>
 
 	<target name="build">
@@ -59,10 +59,10 @@
 
 		<!-- Build the jar -->
 		<mkdir dir="${build.dir.release}\${build.release.minecraft.version}\${build.release.mod.version}" />
-		<jar destfile="${build.dir.release}\${build.release.minecraft.version}\${build.release.mod.version}\MissionControl-${build.release.mod.version}-${build_number.build_number}.jar">
+		<jar destfile="${build.dir.release}\${build.release.minecraft.version}\${build.release.mod.version}\ParticlePhysics-${build.release.mod.version}-${build_number.build_number}.jar">
 			<fileset dir="${build.dir.development}\mcp\src\minecraft\" includes="mcmod.info" />
 			<fileset dir="${build.dir.development}\mcp\reobf\minecraft" />
-			<fileset dir="${build.dir.development}\source\Modjam\resources" excludes="**/xcf/**" />
+			<fileset dir="${build.dir.development}\source\ParticlePhysics/particlephysics\resources" excludes="**/xcf/**" />
 		</jar>
 
 		<!-- Clean up the MCP source now that we are done -->
@@ -80,10 +80,10 @@
 
 		<!-- Build the jar -->
 		<mkdir dir="${build.dir.release}\${build.release.minecraft.version}\${build.release.mod.version}" />
-		<jar destfile="${build.dir.release}\${build.release.minecraft.version}\${build.release.mod.version}\MissionControl-${build.release.mod.version}-${build_number.build_number}.jar">
+		<jar destfile="${build.dir.release}\${build.release.minecraft.version}\${build.release.mod.version}\ParticlePhysics-${build.release.mod.version}-${build_number.build_number}.jar">
 			<fileset dir="${build.dir.development}\mcp\src\minecraft\" includes="mcmod.info" />
 			<fileset dir="${build.dir.development}\mcp\reobf\minecraft" />
-			<fileset dir="${build.dir.development}\source\Modjam\resources" excludes="**/xcf/**" />
+			<fileset dir="${build.dir.development}\source\ParticlePhysics/particlephysics\resources" excludes="**/xcf/**" />
 		</jar>
 
 		<!-- Sign the finished jar -->

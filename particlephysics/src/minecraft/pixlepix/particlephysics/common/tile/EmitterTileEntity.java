@@ -9,13 +9,14 @@ import net.minecraftforge.common.ForgeDirection;
 import pixlepix.particlephysics.common.api.BaseParticle;
 import pixlepix.particlephysics.common.entity.CoalParticle;
 import pixlepix.particlephysics.common.entity.ClayParticle;
+import pixlepix.particlephysics.common.entity.SeedParticle;
 import pixlepix.particlephysics.common.helper.BasicComplexTileEntity;
 
 public class EmitterTileEntity extends BasicComplexTileEntity implements IInventory {
 
 	
 	public ItemStack inventory;
-	public static int[] validFuel={Item.coal.itemID,Item.clay.itemID};
+	public static int[] validFuel={Item.coal.itemID,Item.clay.itemID, Item.seeds.itemID};
 	@Override
 	public float getRequest(ForgeDirection direction) {
 		// TODO Auto-generated method stub
@@ -73,6 +74,9 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 		}
 		if(fuel==Item.clay){
 			return new ClayParticle(worldObj);
+		}
+		if(fuel==Item.seeds){
+			return new SeedParticle(worldObj);
 		}
 		return null;
 	}

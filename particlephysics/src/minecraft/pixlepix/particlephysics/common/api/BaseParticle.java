@@ -1,19 +1,24 @@
 package pixlepix.particlephysics.common.api;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import pixlepix.particlephysics.common.render.BlockRenderInfo;
+import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.common.network.Player;
 
 public abstract class BaseParticle extends EntityLiving {
 	
@@ -39,6 +44,7 @@ public abstract class BaseParticle extends EntityLiving {
 	
 	public abstract BlockRenderInfo getRenderIcon();
 	public void bounce(int targetX, int targetY, int targetZ, ForgeDirection forward){
+		
 		int x=MathHelper.floor_double(posX);
 		int y=MathHelper.floor_double(posY);
 		int z=MathHelper.floor_double(posZ);
@@ -54,20 +60,45 @@ public abstract class BaseParticle extends EntityLiving {
 			this.potential*=0.9;
 			double f=(this.potential/getStartingPotential());
 			this.setVelocity(targetDirection.offsetX*f,targetDirection.offsetY*f,targetDirection.offsetZ*f);
-			this.hookOnBounce();
+			
+			
 		}else{
 			this.setDead();
 		}
 	}
-	
-	public void hookOnBounce() {
-		// TODO Auto-generated method stub
-		
+	public void sendCompletePositionUpdate(){
+		if(!worldObj.isRemote){
+			ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+			DataOutputStream outputStream = new DataOutputStream(bos);
+			try {
+
+					outputStream.writeInt(this.entityId);
+			        outputStream.writeDouble(this.posX);
+			        outputStream.writeDouble(this.posY);
+
+			        outputStream.writeDouble(this.posZ);
+			        
+
+			        outputStream.writeDouble(this.motionX);
+			        outputStream.writeDouble(this.motionY);
+
+			        outputStream.writeDouble(this.motionZ);
+			} catch (Exception ex) {
+			        ex.printStackTrace();
+			}
+
+			Packet250CustomPayload packet = new Packet250CustomPayload();
+			packet.channel = "Particle";
+			packet.data = bos.toByteArray();
+			packet.length = bos.size();
+			PacketDispatcher.sendPacketToAllAround(posX,posY,posZ,30 , this.worldObj.provider.dimensionId, packet);
+		}
 	}
 	@Override
 	public void onEntityUpdate(){
 		ticks++;
 		super.onEntityUpdate();
+		this.sendCompletePositionUpdate();
 		if(ticks>600){
 			this.setDead();
 		}
@@ -107,13 +138,14 @@ public abstract class BaseParticle extends EntityLiving {
 		this.checkForParticleCollision();
 	}
 	public void checkForParticleCollision() {
-		
-		List<BaseParticle> nearbyParticles=this.worldObj.getEntitiesWithinAABB(BaseParticle.class, AxisAlignedBB.getBoundingBox(posX-0.6, posY-0.6, posZ-0.6, posX+0.6, posY+0.6, posZ+0.6));
-		
-		for(int i=0;i<nearbyParticles.size();i++){
-			BaseParticle particle=nearbyParticles.get(i);
-			if(this!=particle){
-				this.onCollideWithParticle(particle);
+		if(!worldObj.isRemote){
+			List<BaseParticle> nearbyParticles=this.worldObj.getEntitiesWithinAABB(BaseParticle.class, AxisAlignedBB.getBoundingBox(posX-1.5, posY-1.5, posZ-1.5, posX+1.5, posY+1.5, posZ+1.5));
+			
+			for(int i=0;i<nearbyParticles.size();i++){
+				BaseParticle particle=nearbyParticles.get(i);
+				if(this!=particle){
+					this.onCollideWithParticle(particle);
+				}
 			}
 		}
 	}
@@ -122,7 +154,9 @@ public abstract class BaseParticle extends EntityLiving {
 	public abstract void onCollideWithParticle(BaseParticle particle);
 	@Override
 	public void writeToNBT(NBTTagCompound nbt){
-		nbt.setInteger("direction", movementDirection.ordinal());
+		if(movementDirection!=null){
+			nbt.setInteger("direction", movementDirection.ordinal());
+		}
 	}
 	@Override
 	public void readFromNBT(NBTTagCompound nbt){

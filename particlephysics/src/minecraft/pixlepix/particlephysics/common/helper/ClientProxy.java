@@ -4,6 +4,7 @@ import net.minecraft.util.Icon;
 import pixlepix.particlephysics.common.entity.ClayParticle;
 import pixlepix.particlephysics.common.entity.CoalParticle;
 import pixlepix.particlephysics.common.entity.ConcentratedParticle;
+import pixlepix.particlephysics.common.entity.SeedParticle;
 import pixlepix.particlephysics.common.entity.SplitParticle;
 import pixlepix.particlephysics.common.render.RenderParticle;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -29,5 +30,7 @@ public class ClientProxy extends CommonProxy {
     	RenderingRegistry.registerEntityRenderingHandler(SplitParticle.class, new RenderParticle());
 
     	RenderingRegistry.registerEntityRenderingHandler(ConcentratedParticle.class, new RenderParticle());
+
+    	RenderingRegistry.registerEntityRenderingHandler(SeedParticle.class, new RenderParticle());
 	}
 }

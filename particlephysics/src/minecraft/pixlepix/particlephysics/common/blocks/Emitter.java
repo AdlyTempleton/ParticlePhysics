@@ -65,13 +65,14 @@ public class Emitter extends BasicComplexBlock {
 		
 	}
 	@Override
-	public boolean threeSidedTextures(){
-		return false;
+	public boolean topSidedTextures(){
+		return true;
 	}
 	
 	@Override
 	public void registerIcons(IconRegister icon){
 		super.registerIcons(icon);
+		//This is so hacky it makes me ashamed
 		ClientProxy.coal=icon.registerIcon("particlephysics:ParticleCoal");
 
 		ClientProxy.clay=icon.registerIcon("particlephysics:ParticleClay");

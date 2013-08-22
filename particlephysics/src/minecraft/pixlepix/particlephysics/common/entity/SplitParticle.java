@@ -1,11 +1,10 @@
 package pixlepix.particlephysics.common.entity;
 
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 import pixlepix.particlephysics.common.api.BaseParticle;
 import pixlepix.particlephysics.common.helper.ClientProxy;
 import pixlepix.particlephysics.common.render.BlockRenderInfo;
-import net.minecraft.block.Block;
-import net.minecraft.util.Icon;
-import net.minecraft.world.World;
 
 public class SplitParticle extends BaseParticle{
 	boolean derivedFromCoal;
@@ -14,13 +13,7 @@ public class SplitParticle extends BaseParticle{
 	
 	public SplitParticle(World par1World) {
 		super(par1World);
-	}
-	public SplitParticle(World par1World, BaseParticle particle) {
-		super(par1World);
-		this.setPosition(particle.posX, particle.posY, particle.posZ);
-		this.setVelocity(particle.motionX, particle.motionY, particle.motionZ);
-		this.potential=particle.potential;
-		this.derivedFromCoal=particle instanceof CoalParticle; 
+
 		this.birthTime=worldObj.getTotalWorldTime();
 	}
 	public void setPartner(SplitParticle particle){
@@ -29,7 +22,7 @@ public class SplitParticle extends BaseParticle{
 	@Override
 	public float getStartingPotential() {
 		// TODO Auto-generated method stub
-		return this.derivedFromCoal?8000:4000;
+		return 4000;
 	}
 
 	@Override
@@ -40,16 +33,20 @@ public class SplitParticle extends BaseParticle{
 
 	@Override
 	public void onCollideWithParticle(BaseParticle particle) {
-		
-		if(particle instanceof SplitParticle&&particle==this.partner){
-			if(this.derivedFromCoal&&this.birthTime-this.worldObj.getTotalWorldTime()>20){
-				particle.setDead();
-				this.setDead();
+		if(particle instanceof SplitParticle){
+			if(this.birthTime-this.worldObj.getTotalWorldTime()<-2){
+				System.out.println("Fun");
 				ConcentratedParticle produce=new ConcentratedParticle(this.worldObj);
-				produce.setVelocity(this.movementDirection.offsetX, this.movementDirection.offsetY,this.movementDirection.offsetZ);
+				produce.setPosition(this.posX,this.posY,this.posZ);
+				produce.setVelocity(0,1,0);
 				worldObj.spawnEntityInWorld(produce);
+				
+				particle.setDead();
+
+				this.setDead();
 			}
 		}
+		
 		
 	}
 }

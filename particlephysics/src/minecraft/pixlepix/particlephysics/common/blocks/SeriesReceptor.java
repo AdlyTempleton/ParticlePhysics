@@ -28,7 +28,7 @@ public class SeriesReceptor extends BasicComplexBlock {
 	@Override
 	public String getTop() {
 		// TODO Auto-generated method stub
-		return "SeriesReceptor";
+		return "SeriesReceptorTop";
 	}
 
 	
@@ -59,8 +59,8 @@ public class SeriesReceptor extends BasicComplexBlock {
 		
 	}
 	@Override
-	public boolean threeSidedTextures(){
-		return false;
+	public boolean topSidedTextures(){
+		return true;
 	}
 	
 
