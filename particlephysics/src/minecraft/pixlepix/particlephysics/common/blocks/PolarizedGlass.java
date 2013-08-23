@@ -82,11 +82,6 @@ public class PolarizedGlass extends BasicComplexBlock {
 	public boolean topSidedTextures(){
 		return false;
 	}
-	@Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4)
-	{
-		return null;
-	}
 
 	
 

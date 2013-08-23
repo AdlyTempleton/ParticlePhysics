@@ -21,6 +21,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import pixlepix.particlephysics.common.helper.*;
+import universalelectricity.compatibility.Compatibility;
 
 @Mod(modid = "particlephysics", name = "Particle Physics", version = "0.3.3")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false,  channels={"Particle"}, packetHandler = PacketHander.class)
@@ -61,7 +62,7 @@ public class ParticlePhysics {
 	
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
-
+		Compatibility.initiate();
 		/*
 		for(ForgeDirection dir:ForgeDirection.VALID_DIRECTIONS){
 			System.out.println(dir.toString()+dir.ordinal());

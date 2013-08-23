@@ -2,32 +2,29 @@ package pixlepix.particlephysics.common.tile;
 
 import java.util.EnumSet;
 
-import ic2.api.energy.tile.IEnergyTile;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.ForgeDirection;
+import pixlepix.particlephysics.common.api.BaseParticle;
+import pixlepix.particlephysics.common.api.IParticleReceptor;
+import universalelectricity.prefab.tile.TileEntityElectrical;
+import buildcraft.api.power.IPowerEmitter;
 import buildcraft.api.power.IPowerReceptor;
 import buildcraft.api.power.PowerHandler;
 import buildcraft.api.power.PowerHandler.PowerReceiver;
-import pixlepix.particlephysics.common.api.BaseParticle;
-import pixlepix.particlephysics.common.api.IParticleReceptor;
-import pixlepix.particlephysics.common.helper.PowerProducerComplexTileEntity;
-import universalelectricity.core.block.IConnector;
-import universalelectricity.core.block.IElectrical;
-import universalelectricity.core.block.IElectricalStorage;
-import universalelectricity.prefab.tile.TileEntityElectrical;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
 
-public class SeriesReceptorTileEntity extends TileEntityElectrical implements IParticleReceptor {
+public class SeriesReceptorTileEntity extends TileEntityElectrical implements IParticleReceptor, IPowerEmitter {
 
 	
 	public int excitedTicks=0;
+
+	protected PowerHandler powerHandler;
 	public float powerToDischarge=0;
 	@Override
 	public void onContact(BaseParticle particle) {
 		if(this.excitedTicks>0){
-			this.receiveElectricity(0.0015F*particle.potential,true);
+			this.receiveElectricity(0.0003F*particle.potential,true);
 		}else{
-			this.receiveElectricity(0.0005F*particle.potential, true);
+			this.receiveElectricity(0.0001F*particle.potential, true);
 		}
 		this.excitedTicks=20;
 		particle.setDead();
@@ -63,4 +60,20 @@ public class SeriesReceptorTileEntity extends TileEntityElectrical implements IP
 		return EnumSet.allOf(ForgeDirection.class);
 	}
 
+	@Override
+	public boolean canEmitPowerFrom(ForgeDirection side) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
