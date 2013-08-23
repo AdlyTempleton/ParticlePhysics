@@ -22,9 +22,9 @@ public class SeriesReceptorTileEntity extends TileEntityElectrical implements IP
 	@Override
 	public void onContact(BaseParticle particle) {
 		if(this.excitedTicks>0){
-			this.receiveElectricity(0.0003F*particle.potential,true);
+			this.receiveElectricity(0.00003F*particle.potential,true);
 		}else{
-			this.receiveElectricity(0.0001F*particle.potential, true);
+			this.receiveElectricity(0.00001F*particle.potential, true);
 		}
 		this.excitedTicks=20;
 		particle.setDead();
