@@ -19,9 +19,8 @@ public class ConcentratedParticle extends BaseParticle {
 	}
 
 	@Override
-	public BlockRenderInfo getRenderIcon() {
-		// TODO Auto-generated method stub
-		return new BlockRenderInfo(ClientProxy.concentrated);
+	public String getName(){
+		return "Concentrated";
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package pixlepix.particlephysics.common.tile;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -7,8 +8,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
 import pixlepix.particlephysics.common.api.BaseParticle;
-import pixlepix.particlephysics.common.entity.CoalParticle;
 import pixlepix.particlephysics.common.entity.ClayParticle;
+import pixlepix.particlephysics.common.entity.CoalParticle;
+import pixlepix.particlephysics.common.entity.SandParticle;
 import pixlepix.particlephysics.common.entity.SeedParticle;
 import pixlepix.particlephysics.common.helper.BasicComplexTileEntity;
 
@@ -16,7 +18,7 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 
 	
 	public ItemStack inventory;
-	public static int[] validFuel={Item.coal.itemID,Item.clay.itemID, Item.seeds.itemID};
+	public static int[] validFuel={Item.coal.itemID,Item.clay.itemID, Item.seeds.itemID,Block.sand.blockID};
 	@Override
 	public float getRequest(ForgeDirection direction) {
 		// TODO Auto-generated method stub
@@ -34,7 +36,7 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	public Item fuelType;
+	public int fuelType;
 
 	public int fuelMeta;
 	public int fuelStored=0;
@@ -42,10 +44,10 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 		if(!worldObj.isRemote&&worldObj.getTotalWorldTime()%40==0){
 			if(fuelStored<1){
 				if(this.inventory!=null){
-					if(isValidFuel(this.inventory)){
+					if(isValidFuel(this.inventory.itemID)){
 						this.fuelStored=100;
-						this.fuelType=this.inventory.getItem();
-						this.fuelMeta=this.fuelType.getDamage(this.inventory);
+						this.fuelType=this.inventory.itemID;
+						this.fuelMeta=this.inventory.getItemDamage();
 						this.decrStackSize(0, 1);
 					}
 				}
@@ -68,15 +70,18 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 			}
 		}
 	}
-	public BaseParticle getParticleFromFuel(Item fuel){
-		if(fuel==Item.coal){
+	public BaseParticle getParticleFromFuel(int fuel){
+		if(fuel==Item.coal.itemID){
 			return new CoalParticle(worldObj);
 		}
-		if(fuel==Item.clay){
+		if(fuel==Item.clay.itemID){
 			return new ClayParticle(worldObj);
 		}
-		if(fuel==Item.seeds){
+		if(fuel==Item.seeds.itemID){
 			return new SeedParticle(worldObj);
+		}
+		if(fuel==Block.sand.blockID){
+			return new SandParticle(worldObj);
 		}
 		return null;
 	}
@@ -159,12 +164,12 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
 		
-		return isValidFuel(itemstack);
+		return isValidFuel(itemstack.itemID);
 	}
 
-	public static boolean isValidFuel(ItemStack itemstack){
+	public static boolean isValidFuel(int itemstack){
 		for(int fuel : validFuel){
-			if (itemstack.itemID==fuel){
+			if (itemstack==fuel){
 				return true;
 			}
 		}	

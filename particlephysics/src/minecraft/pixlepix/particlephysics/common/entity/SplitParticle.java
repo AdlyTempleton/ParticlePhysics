@@ -26,9 +26,8 @@ public class SplitParticle extends BaseParticle{
 	}
 
 	@Override
-	public BlockRenderInfo getRenderIcon() {
-		// TODO Auto-generated method stub
-		return new BlockRenderInfo(ClientProxy.split);
+	public String getName(){
+		return "Split";
 	}
 
 	@Override

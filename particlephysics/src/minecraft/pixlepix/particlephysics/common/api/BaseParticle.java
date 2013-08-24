@@ -7,18 +7,22 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet250CustomPayload;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import pixlepix.particlephysics.common.helper.ParticleRegistry;
 import pixlepix.particlephysics.common.render.BlockRenderInfo;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.common.network.Player;
+import cpw.mods.fml.relauncher.Side;
 
 public abstract class BaseParticle extends EntityLiving {
 	
@@ -33,6 +37,9 @@ public abstract class BaseParticle extends EntityLiving {
 	public float potential;
 	public ForgeDirection movementDirection;
 	
+	
+	public static Icon icon;
+	
 	public BaseParticle(World par1World) {
 		super(par1World);
 		this.setSize(0.25F, 0.25F);
@@ -40,9 +47,16 @@ public abstract class BaseParticle extends EntityLiving {
 		
 		
 	}
+	public BaseParticle(){
+		super(FMLCommonHandler.instance().getEffectiveSide()==Side.SERVER?MinecraftServer.getServer().worldServers[0]:Minecraft.getMinecraft().theWorld);
+		
+	}
 	public abstract float getStartingPotential();
-	
-	public abstract BlockRenderInfo getRenderIcon();
+	public abstract String getName();
+	public BlockRenderInfo getRenderIcon(){
+		Class key =this.getClass();
+		return new BlockRenderInfo(ParticleRegistry.icons.get(key));
+	}
 	public void bounce(int targetX, int targetY, int targetZ, ForgeDirection forward){
 		
 		int x=MathHelper.floor_double(posX);
@@ -60,11 +74,14 @@ public abstract class BaseParticle extends EntityLiving {
 			this.potential*=0.9;
 			double f=(this.potential/getStartingPotential());
 			this.setVelocity(targetDirection.offsetX*f,targetDirection.offsetY*f,targetDirection.offsetZ*f);
-			
+			this.onBounceHook(x,y,z);
 			
 		}else{
 			this.setDead();
 		}
+	}
+	public void onBounceHook(int x, int y, int z){
+		
 	}
 	public void sendCompletePositionUpdate(){
 		if(!worldObj.isRemote){

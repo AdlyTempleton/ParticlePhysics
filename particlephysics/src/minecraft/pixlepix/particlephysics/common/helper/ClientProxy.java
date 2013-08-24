@@ -1,9 +1,11 @@
 package pixlepix.particlephysics.common.helper;
 
 import net.minecraft.util.Icon;
+import pixlepix.particlephysics.common.api.BaseParticle;
 import pixlepix.particlephysics.common.entity.ClayParticle;
 import pixlepix.particlephysics.common.entity.CoalParticle;
 import pixlepix.particlephysics.common.entity.ConcentratedParticle;
+import pixlepix.particlephysics.common.entity.SandParticle;
 import pixlepix.particlephysics.common.entity.SeedParticle;
 import pixlepix.particlephysics.common.entity.SplitParticle;
 import pixlepix.particlephysics.common.render.RenderParticle;
@@ -21,16 +23,10 @@ public class ClientProxy extends CommonProxy {
     public static Icon concentrated;
     public static Icon seed;
     public static Icon split;
+
+    public static Icon sand;
     
     public void registerRenderers() {
-    	RenderingRegistry.registerEntityRenderingHandler(CoalParticle.class, new RenderParticle());
-
-    	RenderingRegistry.registerEntityRenderingHandler(ClayParticle.class, new RenderParticle());
-
-    	RenderingRegistry.registerEntityRenderingHandler(SplitParticle.class, new RenderParticle());
-
-    	RenderingRegistry.registerEntityRenderingHandler(ConcentratedParticle.class, new RenderParticle());
-
-    	RenderingRegistry.registerEntityRenderingHandler(SeedParticle.class, new RenderParticle());
+    	RenderingRegistry.registerEntityRenderingHandler(BaseParticle.class, new RenderParticle());
 	}
 }

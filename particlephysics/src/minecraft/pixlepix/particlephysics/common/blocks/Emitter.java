@@ -10,6 +10,7 @@ import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.world.World;
 import pixlepix.particlephysics.common.helper.BasicComplexBlock;
 import pixlepix.particlephysics.common.helper.ClientProxy;
+import pixlepix.particlephysics.common.helper.ParticleRegistry;
 import pixlepix.particlephysics.common.tile.EmitterTileEntity;
 
 public class Emitter extends BasicComplexBlock {
@@ -73,20 +74,12 @@ public class Emitter extends BasicComplexBlock {
 	public void registerIcons(IconRegister icon){
 		super.registerIcons(icon);
 		//This is so hacky it makes me ashamed
-		ClientProxy.coal=icon.registerIcon("particlephysics:ParticleCoal");
-
-		ClientProxy.clay=icon.registerIcon("particlephysics:ParticleClay");
-
-		ClientProxy.concentrated=icon.registerIcon("particlephysics:ParticleConcentrated");
-
-		ClientProxy.split=icon.registerIcon("particlephysics:ParticleSplit");
-
-		ClientProxy.seed=icon.registerIcon("particlephysics:ParticleSeed");
+		ParticleRegistry.populateIcons(icon);
 	}
 	
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ){
-		if(!world.isRemote&&entityPlayer.inventory.getCurrentItem()!=null&&EmitterTileEntity.isValidFuel(entityPlayer.inventory.getCurrentItem())){
+		if(!world.isRemote&&entityPlayer.inventory.getCurrentItem()!=null&&EmitterTileEntity.isValidFuel(entityPlayer.inventory.getCurrentItem().itemID)){
 			
 			if(world.getBlockTileEntity(x,y,z) instanceof EmitterTileEntity){
 				EmitterTileEntity emitter=(EmitterTileEntity) world.getBlockTileEntity(x,y,z);

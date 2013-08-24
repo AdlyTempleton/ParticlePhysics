@@ -30,9 +30,8 @@ public class ClayParticle extends BaseParticle {
 		
 	}
 	@Override
-	public BlockRenderInfo getRenderIcon(){
-		BlockRenderInfo info=new BlockRenderInfo(ClientProxy.clay);
-		return info;
+	public String getName(){
+		return "Clay";
 	}
 	
 	@Override

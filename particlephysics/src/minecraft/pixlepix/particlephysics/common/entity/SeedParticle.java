@@ -18,11 +18,9 @@ public class SeedParticle extends BaseParticle {
 	}
 
 	@Override
-	public BlockRenderInfo getRenderIcon() {
-		// TODO Auto-generated method stub
-		return new BlockRenderInfo(ClientProxy.seed);
+	public String getName(){
+		return "Seed";
 	}
-
 	@Override
 	public void onCollideWithParticle(BaseParticle particle) {
 		particle.potential=(float) Math.max(particle.potential*1.1, particle.getStartingPotential()*2);

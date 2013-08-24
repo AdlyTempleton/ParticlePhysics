@@ -20,9 +20,8 @@ public class CoalParticle extends BaseParticle {
 	}
 
 	@Override
-	public BlockRenderInfo getRenderIcon() {
-		// TODO Auto-generated method stub
-		return new BlockRenderInfo(ClientProxy.coal);
+	public String getName(){
+		return "Coal";
 	}
 
 	@Override
