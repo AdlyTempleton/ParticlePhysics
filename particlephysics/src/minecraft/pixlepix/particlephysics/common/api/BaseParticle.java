@@ -47,10 +47,6 @@ public abstract class BaseParticle extends EntityLiving {
 		
 		
 	}
-	public BaseParticle(){
-		super(FMLCommonHandler.instance().getEffectiveSide()==Side.SERVER?MinecraftServer.getServer().worldServers[0]:Minecraft.getMinecraft().theWorld);
-		
-	}
 	public abstract float getStartingPotential();
 	public abstract String getName();
 	public BlockRenderInfo getRenderIcon(){
