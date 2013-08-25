@@ -7,11 +7,10 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet250CustomPayload;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
@@ -20,9 +19,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import pixlepix.particlephysics.common.helper.ParticleRegistry;
 import pixlepix.particlephysics.common.render.BlockRenderInfo;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.relauncher.Side;
 
 public abstract class BaseParticle extends EntityLiving {
 	
@@ -269,7 +266,13 @@ public abstract class BaseParticle extends EntityLiving {
 	 {
 	     return false;
 	 }
-	
+	 @Override
+	 protected void collideWithEntity(Entity par1Entity)
+	 {
+		 if(!(par1Entity instanceof BaseParticle)){
+			 par1Entity.applyEntityCollision(this);
+		 }
+	 }
 		
 	
 	
