@@ -6,8 +6,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import pixlepix.particlephysics.common.api.BaseParticle;
 import pixlepix.particlephysics.common.entity.ClayParticle;
@@ -21,6 +19,7 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 
 	
 	public ItemStack inventory;
+	public static int[] validFuel={Item.coal.itemID,Item.clay.itemID, Item.seeds.itemID,Block.sand.blockID,Item.gunpowder.itemID};
 	@Override
 	public float getRequest(ForgeDirection direction) {
 		// TODO Auto-generated method stub
@@ -72,7 +71,7 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 			}
 		}
 	}
-	public static BaseParticle getParticleFromFuel(int fuel,World worldObj){
+	public BaseParticle getParticleFromFuel(int fuel){
 		if(fuel==Item.coal.itemID){
 			return new CoalParticle(worldObj);
 		}
@@ -85,13 +84,13 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 		if(fuel==Block.sand.blockID){
 			return new SandParticle(worldObj);
 		}
+		if(fuel==Block.sand.blockID){
+			return new SandParticle(worldObj);
+		}
 		if(fuel==Item.gunpowder.itemID){
-			return new GunpowderParticle();
+			return new GunpowderParticle(worldObj);
 		}
 		return null;
-	}
-	public static BaseParticle getParticleFromFuel(int fuel){
-		return getParticleFromFuel(fuel,MinecraftServer.getServer().worldServerForDimension(0));
 	}
 	
 	@Override
@@ -176,8 +175,12 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 	}
 
 	public static boolean isValidFuel(int itemstack){
-		return getParticleFromFuel(itemstack)!=null;
-		
+		for(int fuel : validFuel){
+			if (itemstack==fuel){
+				return true;
+			}
+		}	
+		return false;
 	}
 
 }

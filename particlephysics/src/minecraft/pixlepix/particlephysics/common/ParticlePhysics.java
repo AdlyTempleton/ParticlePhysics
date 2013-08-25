@@ -25,7 +25,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "particlephysics", name = "Particle Physics", version = "0.3.3")
+@Mod(modid = "particlephysics", name = "Particle Physics", version = "0.1.1")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false,  channels={"Particle"}, packetHandler = PacketHander.class)
 public class ParticlePhysics {
 
