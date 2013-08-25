@@ -23,8 +23,10 @@ public class SeedParticle extends BaseParticle {
 	}
 	@Override
 	public void onCollideWithParticle(BaseParticle particle) {
-		particle.potential=(float) Math.max(particle.potential*1.1, particle.getStartingPotential()*2);
-		
+		if(!(particle instanceof SeedParticle)){
+			particle.potential=(float) Math.min(particle.potential*1.1, particle.getStartingPotential()*2);
+			this.setDead();
+		}
 	}
 
 }
