@@ -100,10 +100,19 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 	@Override
 	public void readFromNBT(NBTTagCompound nbt){
 		this.fuelStored=nbt.getInteger("Fuel");
+
+		this.fuelType=nbt.getInteger("FuelType");
+
+		this.inventory=ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("Inventory"));
+		
 	}
 	@Override
 	public void writeToNBT(NBTTagCompound nbt){
 		nbt.setInteger("Fuel", this.fuelStored);
+		nbt.setInteger("FuelType", this.fuelType);
+		NBTTagCompound inv=new NBTTagCompound();
+		this.inventory.writeToNBT(inv);
+		nbt.setCompoundTag("Inventory", inv);
 	}
 
 	@Override
