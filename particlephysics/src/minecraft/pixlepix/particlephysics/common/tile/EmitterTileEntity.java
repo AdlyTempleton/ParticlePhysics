@@ -10,6 +10,7 @@ import net.minecraftforge.common.ForgeDirection;
 import pixlepix.particlephysics.common.api.BaseParticle;
 import pixlepix.particlephysics.common.entity.ClayParticle;
 import pixlepix.particlephysics.common.entity.CoalParticle;
+import pixlepix.particlephysics.common.entity.GlassParticle;
 import pixlepix.particlephysics.common.entity.GunpowderParticle;
 import pixlepix.particlephysics.common.entity.SandParticle;
 import pixlepix.particlephysics.common.entity.SeedParticle;
@@ -19,7 +20,7 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 
 	
 	public ItemStack inventory;
-	public static int[] validFuel={Item.coal.itemID,Item.clay.itemID, Item.seeds.itemID,Block.sand.blockID,Item.gunpowder.itemID};
+	public static int[] validFuel={Item.coal.itemID,Item.clay.itemID, Item.seeds.itemID,Block.sand.blockID,Item.gunpowder.itemID,Block.glass.blockID};
 	@Override
 	public float getRequest(ForgeDirection direction) {
 		// TODO Auto-generated method stub
@@ -89,6 +90,9 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 		}
 		if(fuel==Item.gunpowder.itemID){
 			return new GunpowderParticle(worldObj);
+		}
+		if(fuel==Block.glass.blockID){
+			return new GlassParticle(worldObj);
 		}
 		return null;
 	}

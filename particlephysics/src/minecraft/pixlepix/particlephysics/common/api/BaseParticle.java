@@ -108,7 +108,8 @@ public abstract class BaseParticle extends EntityLiving {
 	public void onEntityUpdate(){
 		ticks++;
 		if(!worldObj.isRemote&&worldObj.getTotalWorldTime()%20==0){
-			System.out.println("Energy: "+this.potential+" Of: "+this.getName());
+			//Debug code when dealing with potentials
+			//System.out.println("Energy: "+this.potential+" Of: "+this.getName());
 		}
 		super.onEntityUpdate();
 		this.sendCompletePositionUpdate();
