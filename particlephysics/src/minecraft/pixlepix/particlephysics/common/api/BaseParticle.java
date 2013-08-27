@@ -17,6 +17,8 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import pixlepix.particlephysics.common.blocks.ControlGlass;
+import pixlepix.particlephysics.common.helper.BetterLoader;
 import pixlepix.particlephysics.common.helper.ParticleRegistry;
 import pixlepix.particlephysics.common.render.BlockRenderInfo;
 import cpw.mods.fml.common.network.PacketDispatcher;
@@ -135,8 +137,19 @@ public abstract class BaseParticle extends EntityLiving {
 
 			int targetZ=MathHelper.floor_double(posZ+(0.5*forward.offsetZ));
 			int id=worldObj.getBlockId(targetX,targetY,targetZ);
+			boolean isReflective=false;
+			System.out.println(1);
+			if(Block.blocksList[id] instanceof IParticleBouncer){
+
+				System.out.println(2);
+				isReflective=((IParticleBouncer)Block.blocksList[id]).canBounce(worldObj, targetX, targetY, targetZ, this);
+
+				System.out.println(isReflective);
+			}
 			
-			if(id==Block.glass.blockID){
+			if(id==Block.glass.blockID||isReflective){
+
+				System.out.println(3);
 				this.bounce(targetX,targetY,targetZ,forward);
 			}else{
 				//Polarized glass

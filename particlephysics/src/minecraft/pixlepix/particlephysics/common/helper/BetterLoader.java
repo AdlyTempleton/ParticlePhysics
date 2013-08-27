@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import net.minecraft.block.Block;
 import net.minecraftforge.common.MinecraftForge;
 import pixlepix.particlephysics.common.ParticlePhysics;
+import pixlepix.particlephysics.common.blocks.ControlGlass;
 import pixlepix.particlephysics.common.blocks.Emitter;
 import pixlepix.particlephysics.common.blocks.PolarizedGlass;
 import pixlepix.particlephysics.common.blocks.SeriesReceptor;
@@ -23,6 +24,8 @@ public class BetterLoader {
 		classes.add(PolarizedGlass.class);
 
 		classes.add(SeriesReceptor.class);
+
+		classes.add(ControlGlass.class);
 		
 		
 	}

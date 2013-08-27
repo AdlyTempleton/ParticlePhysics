@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import pixlepix.particlephysics.common.api.BaseParticle;
 import pixlepix.particlephysics.common.helper.BasicComplexBlock;
@@ -19,6 +20,7 @@ public class PolarizedGlass extends BasicComplexBlock {
 	public PolarizedGlass() {
 		super(1179);
 	}
+	
 	@Override
 	public void addCollisionBoxesToList(World par1World, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity)
     {
