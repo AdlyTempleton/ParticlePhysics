@@ -36,7 +36,7 @@ public abstract class BaseParticle extends EntityLiving {
 	public float potential;
 	public ForgeDirection movementDirection;
 	
-	
+	public boolean isOnFire=false;
 	public static Icon icon;
 	
 	public BaseParticle(World par1World) {
@@ -75,6 +75,11 @@ public abstract class BaseParticle extends EntityLiving {
 			this.setDead();
 		}
 	}
+	@Override
+	public boolean canRenderOnFire()
+    {
+        return this.isOnFire;
+    }
 	public void onBounceHook(int x, int y, int z){
 		
 	}
@@ -95,6 +100,8 @@ public abstract class BaseParticle extends EntityLiving {
 			        outputStream.writeDouble(this.motionY);
 
 			        outputStream.writeDouble(this.motionZ);
+
+			        outputStream.writeBoolean(isOnFire);
 			} catch (Exception ex) {
 			        ex.printStackTrace();
 			}
@@ -112,6 +119,9 @@ public abstract class BaseParticle extends EntityLiving {
 		if(!worldObj.isRemote&&worldObj.getTotalWorldTime()%20==0){
 			//Debug code when dealing with potentials
 			//System.out.println("Energy: "+this.potential+" Of: "+this.getName());
+		}
+		if(this.isOnFire){
+			this.potential*=0.97;
 		}
 		super.onEntityUpdate();
 		this.sendCompletePositionUpdate();
@@ -138,18 +148,13 @@ public abstract class BaseParticle extends EntityLiving {
 			int targetZ=MathHelper.floor_double(posZ+(0.5*forward.offsetZ));
 			int id=worldObj.getBlockId(targetX,targetY,targetZ);
 			boolean isReflective=false;
-			System.out.println(1);
 			if(Block.blocksList[id] instanceof IParticleBouncer){
 
-				System.out.println(2);
 				isReflective=((IParticleBouncer)Block.blocksList[id]).canBounce(worldObj, targetX, targetY, targetZ, this);
 
-				System.out.println(isReflective);
 			}
 			
 			if(id==Block.glass.blockID||isReflective){
-
-				System.out.println(3);
 				this.bounce(targetX,targetY,targetZ,forward);
 			}else{
 				//Polarized glass

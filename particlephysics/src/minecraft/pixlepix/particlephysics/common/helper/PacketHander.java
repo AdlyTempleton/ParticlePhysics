@@ -4,6 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 
+import pixlepix.particlephysics.common.api.BaseParticle;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.INetworkManager;
@@ -32,6 +34,9 @@ public class PacketHander implements IPacketHandler {
         	if(toMove!=null){
         		toMove.setPosition(inputStream.readDouble(), inputStream.readDouble(),inputStream.readDouble());
         		toMove.setVelocity(inputStream.readDouble(),inputStream.readDouble(),inputStream.readDouble());
+        		if(toMove instanceof BaseParticle){
+        			((BaseParticle) toMove).isOnFire=inputStream.readBoolean();
+        		}
         	}
         } catch (IOException e) {
                 e.printStackTrace();
