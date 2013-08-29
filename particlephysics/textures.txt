@@ -1,14 +1,9 @@
 
 Current:
-Emitter
-Series Receptor
-Coal Particle
-Clay particle
-Split Particle
-Concentrated Particle
-Seed Particle
-Polarized Glass
-Future:
-Scattered Receptor
-
-
+Potential Reader(Item)
+Charcoal Particle
+Cactus particle
+Wool Particle
+Paper particle
+Daisy Particle
+Rose Particle
