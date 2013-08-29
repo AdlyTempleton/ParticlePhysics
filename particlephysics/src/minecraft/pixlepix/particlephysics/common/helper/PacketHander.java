@@ -35,7 +35,7 @@ public class PacketHander implements IPacketHandler {
         		toMove.setPosition(inputStream.readDouble(), inputStream.readDouble(),inputStream.readDouble());
         		toMove.setVelocity(inputStream.readDouble(),inputStream.readDouble(),inputStream.readDouble());
         		if(toMove instanceof BaseParticle){
-        			((BaseParticle) toMove).isOnFire=inputStream.readBoolean();
+        			((BaseParticle) toMove).effect=inputStream.readInt();
         		}
         	}
         } catch (IOException e) {

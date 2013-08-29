@@ -13,6 +13,7 @@ import pixlepix.particlephysics.common.entity.ClayParticle;
 import pixlepix.particlephysics.common.entity.CoalParticle;
 import pixlepix.particlephysics.common.entity.GlassParticle;
 import pixlepix.particlephysics.common.entity.GunpowderParticle;
+import pixlepix.particlephysics.common.entity.LeafParticle;
 import pixlepix.particlephysics.common.entity.SandParticle;
 import pixlepix.particlephysics.common.entity.SeedParticle;
 import pixlepix.particlephysics.common.helper.BasicComplexTileEntity;
@@ -21,7 +22,7 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 
 	
 	public ItemStack inventory;
-	public static int[] validFuel={Item.coal.itemID,Item.clay.itemID, Item.seeds.itemID,Block.sand.blockID,Item.gunpowder.itemID,Block.glass.blockID, Item.blazePowder.itemID};
+	public static int[] validFuel={Item.coal.itemID,Item.clay.itemID, Item.seeds.itemID,Block.sand.blockID,Item.gunpowder.itemID,Block.glass.blockID, Item.blazePowder.itemID,Block.leaves.blockID};
 	@Override
 	public float getRequest(ForgeDirection direction) {
 		// TODO Auto-generated method stub
@@ -98,24 +99,30 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 		if(fuel==Item.blazePowder.itemID){
 			return new BlazepowderParticle(worldObj);
 		}
+		if(fuel==Block.leaves.blockID){
+			return new LeafParticle(worldObj);
+		}
 		return null;
 	}
 	
 	@Override
 	public void readFromNBT(NBTTagCompound nbt){
+		super.readFromNBT(nbt);
 		this.fuelStored=nbt.getInteger("Fuel");
 
 		this.fuelType=nbt.getInteger("FuelType");
 
 		this.inventory=ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("Inventory"));
-		
 	}
 	@Override
 	public void writeToNBT(NBTTagCompound nbt){
+		super.writeToNBT(nbt);
 		nbt.setInteger("Fuel", this.fuelStored);
 		nbt.setInteger("FuelType", this.fuelType);
 		NBTTagCompound inv=new NBTTagCompound();
-		this.inventory.writeToNBT(inv);
+		if(this.inventory!=null){
+			this.inventory.writeToNBT(inv);
+		}
 		nbt.setCompoundTag("Inventory", inv);
 	}
 

@@ -17,8 +17,6 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
-import pixlepix.particlephysics.common.blocks.ControlGlass;
-import pixlepix.particlephysics.common.helper.BetterLoader;
 import pixlepix.particlephysics.common.helper.ParticleRegistry;
 import pixlepix.particlephysics.common.render.BlockRenderInfo;
 import cpw.mods.fml.common.network.PacketDispatcher;
@@ -36,7 +34,7 @@ public abstract class BaseParticle extends EntityLiving {
 	public float potential;
 	public ForgeDirection movementDirection;
 	
-	public boolean isOnFire=false;
+	public int effect=0;
 	public static Icon icon;
 	
 	public BaseParticle(World par1World) {
@@ -78,7 +76,7 @@ public abstract class BaseParticle extends EntityLiving {
 	@Override
 	public boolean canRenderOnFire()
     {
-        return this.isOnFire;
+        return this.effect==1;
     }
 	public void onBounceHook(int x, int y, int z){
 		
@@ -101,7 +99,7 @@ public abstract class BaseParticle extends EntityLiving {
 
 			        outputStream.writeDouble(this.motionZ);
 
-			        outputStream.writeBoolean(isOnFire);
+			        outputStream.writeInt(this.effect);
 			} catch (Exception ex) {
 			        ex.printStackTrace();
 			}
@@ -120,8 +118,15 @@ public abstract class BaseParticle extends EntityLiving {
 			//Debug code when dealing with potentials
 			//System.out.println("Energy: "+this.potential+" Of: "+this.getName());
 		}
-		if(this.isOnFire){
+		
+		//Blaze Fire
+		if(this.effect==1){
 			this.potential*=0.97;
+		}
+		//Leaf Regeneration
+		if(this.effect==2){
+			this.potential*=1.01;
+			
 		}
 		super.onEntityUpdate();
 		this.sendCompletePositionUpdate();
@@ -142,6 +147,7 @@ public abstract class BaseParticle extends EntityLiving {
 
 			}
 			int targetX=MathHelper.floor_double(posX+(0.5*forward.offsetX));
+
 
 			int targetY=MathHelper.floor_double(posY+(0.5*forward.offsetY));
 

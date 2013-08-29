@@ -1,4 +1,6 @@
 package pixlepix.particlephysics.common.render;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
@@ -12,6 +14,8 @@ import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 import pixlepix.particlephysics.common.api.BaseParticle;
+import pixlepix.particlephysics.common.entity.LeafParticle;
+import pixlepix.particlephysics.common.helper.ParticleRegistry;
 import universalelectricity.core.vector.Vector3;
 
 public class RenderParticle extends Render
@@ -36,6 +40,10 @@ public class RenderParticle extends Render
         shadowSize = 0;
         World world = entity.worldObj;
         BlockRenderInfo util = entity.getRenderIcon();
+        Random rand=new Random();
+        if(entity.effect==2&&rand.nextInt(2)==0){
+        	util=new BlockRenderInfo(ParticleRegistry.icons.get(LeafParticle.class));
+        }
         func_110776_a(TextureMap.field_110575_b);
 
         for (int iBase = 0; iBase < entity.iSize; ++iBase)
@@ -71,6 +79,7 @@ public class RenderParticle extends Render
                     GL11.glDisable(2896 /* GL_LIGHTING */);
                     renderBlock(util, world, new Vector3(lightX, lightY, lightZ));
                     GL11.glEnable(2896 /* GL_LIGHTING */);
+                    
                     GL11.glPopMatrix();
 
                 }

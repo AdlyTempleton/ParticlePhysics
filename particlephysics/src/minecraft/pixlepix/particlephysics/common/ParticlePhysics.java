@@ -1,16 +1,12 @@
 package pixlepix.particlephysics.common;
 
-import pixlepix.particlephysics.common.entity.ClayParticle;
-import pixlepix.particlephysics.common.entity.CoalParticle;
-import pixlepix.particlephysics.common.entity.ConcentratedParticle;
-import pixlepix.particlephysics.common.entity.SandParticle;
-import pixlepix.particlephysics.common.entity.SeedParticle;
-import pixlepix.particlephysics.common.entity.SplitParticle;
+import net.minecraft.item.Item;
 import pixlepix.particlephysics.common.helper.BetterLoader;
 import pixlepix.particlephysics.common.helper.CommonProxy;
 import pixlepix.particlephysics.common.helper.PacketHander;
 import pixlepix.particlephysics.common.helper.ParticlePhysicsTab;
 import pixlepix.particlephysics.common.helper.ParticleRegistry;
+import pixlepix.particlephysics.common.item.PotentialReader;
 import universalelectricity.compatibility.Compatibility;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -22,7 +18,6 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(modid = "particlephysics", name = "Particle Physics", version = "0.1.1")
@@ -34,7 +29,8 @@ public class ParticlePhysics {
 	
 	public static ParticlePhysicsTab creativeTab = new ParticlePhysicsTab();
 	
-	
+
+    public final static Item potentialReader=new PotentialReader(24567);
 	public void loadBlocks(){
 	
 
@@ -83,7 +79,7 @@ public class ParticlePhysics {
 
 
 		LanguageRegistry.instance().addStringLocalization("itemGroup.tabParticlePhysics", "ParticlePhysics");
-		
+		LanguageRegistry.addName(potentialReader, "Potential Reader");
 		ParticleRegistry.registerEntities();
 	}
 
