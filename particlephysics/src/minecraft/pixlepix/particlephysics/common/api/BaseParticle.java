@@ -271,7 +271,6 @@ public abstract class BaseParticle extends EntityLiving {
             
         }
 
-        this.prevLimbYaw = this.limbYaw;
         d0 = this.posX - this.prevPosX;
         double d1 = this.posZ - this.prevPosZ;
         float f6 = MathHelper.sqrt_double(d0 * d0 + d1 * d1) * 4.0F;
@@ -281,8 +280,6 @@ public abstract class BaseParticle extends EntityLiving {
             f6 = 1.0F;
         }
 
-        this.limbYaw += (f6 - this.limbYaw) * 0.4F;
-        this.limbSwing += this.limbYaw;
     }
 
 		

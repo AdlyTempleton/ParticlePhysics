@@ -44,7 +44,7 @@ public class RenderParticle extends Render
         if(entity.effect==2&&rand.nextInt(2)==0){
         	util=new BlockRenderInfo(ParticleRegistry.icons.get(LeafParticle.class));
         }
-        func_110776_a(TextureMap.field_110575_b);
+        this.bindTexture(TextureMap.locationBlocksTexture);
 
         for (int iBase = 0; iBase < entity.iSize; ++iBase)
         {
@@ -137,8 +137,9 @@ public class RenderParticle extends Render
     }
 
     @Override
-    protected ResourceLocation func_110775_a(Entity entity)
+    protected ResourceLocation getEntityTexture(Entity entity)
     {
         return new ResourceLocation("particlephysics","textures/entity/coal.png");
     }
+
 }

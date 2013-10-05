@@ -1,20 +1,21 @@
 package pixlepix.particlephysics.common.helper;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Hashtable;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.util.Icon;
 import pixlepix.particlephysics.common.ParticlePhysics;
-import pixlepix.particlephysics.common.api.BaseParticle;
+import pixlepix.particlephysics.common.entity.BlankParticle;
 import pixlepix.particlephysics.common.entity.BlazepowderParticle;
+import pixlepix.particlephysics.common.entity.CharcoalParticle;
 import pixlepix.particlephysics.common.entity.ClayParticle;
 import pixlepix.particlephysics.common.entity.CoalParticle;
 import pixlepix.particlephysics.common.entity.ConcentratedParticle;
 import pixlepix.particlephysics.common.entity.GlassParticle;
 import pixlepix.particlephysics.common.entity.GunpowderParticle;
 import pixlepix.particlephysics.common.entity.LeafParticle;
+import pixlepix.particlephysics.common.entity.PaperParticle;
 import pixlepix.particlephysics.common.entity.SandParticle;
 import pixlepix.particlephysics.common.entity.SeedParticle;
 import pixlepix.particlephysics.common.entity.SplitParticle;
@@ -31,7 +32,13 @@ public class ParticleRegistry {
 		particles.add(SeedParticle.class);
 		particles.add(SplitParticle.class);
 
+		particles.add(CharcoalParticle.class);
+
 		particles.add(GlassParticle.class);
+
+		particles.add(PaperParticle.class);
+
+		particles.add(BlankParticle.class);
 		particles.add(GunpowderParticle.class);
 
 		particles.add(BlazepowderParticle.class);

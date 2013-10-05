@@ -1,5 +1,6 @@
 package pixlepix.particlephysics.common.item;
 
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -16,7 +17,10 @@ public class PotentialReader extends Item {
 		setCreativeTab(ParticlePhysicsTab.instance);
 		setUnlocalizedName("potentialReader");
 	}
-	
+	@Override
+	public void registerIcons(IconRegister register){
+		this.itemIcon=register.registerIcon("particlephysics:potentialReader");
+	}
 	@Override
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity)
     {

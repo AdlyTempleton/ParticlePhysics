@@ -40,7 +40,7 @@ public class ModelParticle extends ModelBase
         GL11.glScalef(0.5f, 0.5f, 0.5f);
      
         // Bind the texture, so that OpenGL properly textures our block.
-        FMLClientHandler.instance().getClient().renderEngine.func_110577_a(new ResourceLocation("particlephysics","textures/entity/coal.png"));
+        FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation("particlephysics","textures/entity/coal.png"));
      
         // Render the object, using modelTutBox.renderAll();
         this.render();

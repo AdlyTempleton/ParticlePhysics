@@ -9,11 +9,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
 import pixlepix.particlephysics.common.api.BaseParticle;
 import pixlepix.particlephysics.common.entity.BlazepowderParticle;
+import pixlepix.particlephysics.common.entity.CharcoalParticle;
 import pixlepix.particlephysics.common.entity.ClayParticle;
 import pixlepix.particlephysics.common.entity.CoalParticle;
 import pixlepix.particlephysics.common.entity.GlassParticle;
 import pixlepix.particlephysics.common.entity.GunpowderParticle;
 import pixlepix.particlephysics.common.entity.LeafParticle;
+import pixlepix.particlephysics.common.entity.PaperParticle;
 import pixlepix.particlephysics.common.entity.SandParticle;
 import pixlepix.particlephysics.common.entity.SeedParticle;
 import pixlepix.particlephysics.common.helper.BasicComplexTileEntity;
@@ -22,7 +24,7 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 
 	
 	public ItemStack inventory;
-	public static int[] validFuel={Item.coal.itemID,Item.clay.itemID, Item.seeds.itemID,Block.sand.blockID,Item.gunpowder.itemID,Block.glass.blockID, Item.blazePowder.itemID,Block.leaves.blockID};
+	public static int[] validFuel={Item.coal.itemID,Item.paper.itemID,Item.clay.itemID, Item.seeds.itemID,Block.sand.blockID,Item.gunpowder.itemID,Block.glass.blockID, Item.blazePowder.itemID,Block.leaves.blockID};
 	@Override
 	public float getRequest(ForgeDirection direction) {
 		// TODO Auto-generated method stub
@@ -37,7 +39,7 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 
 	@Override
 	public float getMaxEnergyStored() {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stubnbt
 		return 0;
 	}
 	public int fuelType;
@@ -62,7 +64,7 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 				ForgeDirection[] outputDirections={ForgeDirection.SOUTH,ForgeDirection.NORTH,ForgeDirection.WEST,ForgeDirection.EAST};
 				for(ForgeDirection dir:outputDirections){
 					
-					BaseParticle particle=getParticleFromFuel(fuelType);
+					BaseParticle particle=getParticleFromFuel(fuelType,fuelMeta);
 					if(particle==null){
 						return;
 					}
@@ -74,12 +76,19 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 			}
 		}
 	}
-	public BaseParticle getParticleFromFuel(int fuel){
+	public BaseParticle getParticleFromFuel(int fuel,int meta){
 		if(fuel==Item.coal.itemID){
+			if(meta==1){
+				return new CharcoalParticle(worldObj);
+			}
 			return new CoalParticle(worldObj);
 		}
+		
 		if(fuel==Item.clay.itemID){
 			return new ClayParticle(worldObj);
+		}
+		if(fuel==Item.paper.itemID){
+			return new PaperParticle(worldObj);
 		}
 		if(fuel==Item.seeds.itemID){
 			return new SeedParticle(worldObj);
@@ -112,6 +121,8 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 
 		this.fuelType=nbt.getInteger("FuelType");
 
+		this.fuelMeta=nbt.getInteger("FuelMeta");
+
 		this.inventory=ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("Inventory"));
 	}
 	@Override
@@ -119,6 +130,8 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 		super.writeToNBT(nbt);
 		nbt.setInteger("Fuel", this.fuelStored);
 		nbt.setInteger("FuelType", this.fuelType);
+
+		nbt.setInteger("FuelMeta", this.fuelMeta);
 		NBTTagCompound inv=new NBTTagCompound();
 		if(this.inventory!=null){
 			this.inventory.writeToNBT(inv);
@@ -198,13 +211,8 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 		return isValidFuel(itemstack.itemID);
 	}
 
-	public static boolean isValidFuel(int itemstack){
-		for(int fuel : validFuel){
-			if (itemstack==fuel){
-				return true;
-			}
-		}	
-		return false;
+	public boolean isValidFuel(int itemstack){
+		return this.getParticleFromFuel(itemstack,0)!=null;
 	}
 
 }
