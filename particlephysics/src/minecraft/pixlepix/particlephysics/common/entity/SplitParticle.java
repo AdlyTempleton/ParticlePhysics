@@ -34,7 +34,6 @@ public class SplitParticle extends BaseParticle{
 	public void onCollideWithParticle(BaseParticle particle) {
 		if(particle instanceof SplitParticle){
 			if(this.birthTime-this.worldObj.getTotalWorldTime()<-2){
-				System.out.println("Fun");
 				ConcentratedParticle produce=new ConcentratedParticle(this.worldObj);
 				produce.setPosition(this.posX,this.posY,this.posZ);
 				produce.setVelocity(0,1,0);

@@ -51,6 +51,7 @@ public class ParticlePhysics {
 	public void preInit(FMLPreInitializationEvent event) {
 		ParticleRegistry.populateParticleList();
 		loader=new BetterLoader();
+		Compatibility.initiate();
 		loader.loadBlocks();
 		loadBlocks();
 	}
