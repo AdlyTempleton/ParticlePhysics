@@ -1,6 +1,4 @@
-<project name=“ParticlePhysics” basedir="" default="main">
-<!-- Makefile (Jenkins-Only) by Rushmead And Kepler Sticka-Jones -->
-<!-- Reworking By Mandrake and PixlePix  -->
+<project name="ParticlePhysics" basedir="" default="main">
   <property environment="env"/>
 
   <!-- Properties -->
