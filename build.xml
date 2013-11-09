@@ -45,7 +45,7 @@
 
         <target name="copySRC" >
                 <!-- Copy source -->
-                <copy todir="${commonsrc.dir}">
+                <copy todir="${commonsrc.dir}/particlephysics">
                         <fileset dir="${src.dir}"/>
                 </copy>
         </target>
