@@ -70,7 +70,7 @@
    
                 <!-- Copy resources -->
                 <copy todir="${classes.dir}/client">
-                        <fileset dir="resources"></fileset>
+                        <fileset dir="particlephysics/resources"></fileset>
 
                 </copy>
                 
