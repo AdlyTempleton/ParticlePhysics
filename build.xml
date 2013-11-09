@@ -28,12 +28,18 @@
    
         <!-- Targets -->
         <target name="init-msg">
-        <echo message="Running build # ${build.number}"/> 
+     <echo message="Running build # ${build.number}"/> 
         </target>
 
         <target name="setup">
+           <copy todir="${dir.development}">
+                        <fileset dir="../Minecraft Forge Latest/" />
+                </copy>
 
-           <echo message="MineChem Copied To Build Directory"/>
+                <echo message="MineChem Copied To Build Directory"/>
+
+                
+
         </target>
 
 
