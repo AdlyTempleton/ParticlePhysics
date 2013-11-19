@@ -56,7 +56,7 @@ public class SeriesReceptorTileEntity extends TileEntityUniversalElectrical impl
 	@Override
 	public EnumSet<ForgeDirection> getOutputDirections()
 	{
-		return EnumSet.allOf(ForgeDirection.class);
+		return EnumSet.of(ForgeDirection.UP, ForgeDirection.DOWN);
 	}
 	
 	
