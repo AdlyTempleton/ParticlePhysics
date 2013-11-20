@@ -21,9 +21,9 @@ public class SeriesReceptorTileEntity extends TileEntityUniversalElectrical impl
 	@Override
 	public void onContact(BaseParticle particle) {
 		if(this.excitedTicks>0){
-			this.receiveElectricity(0.030F*particle.potential,true);
+			this.setEnergyStored(this.getEnergyStored()+0.00090F*particle.potential);
 		}else{
-			this.receiveElectricity(0.010F*particle.potential, true);
+			this.setEnergyStored(this.getEnergyStored()+0.00030F*particle.potential);
 		}
 		this.excitedTicks=20;
 		particle.setDead();
@@ -56,7 +56,16 @@ public class SeriesReceptorTileEntity extends TileEntityUniversalElectrical impl
 	@Override
 	public EnumSet<ForgeDirection> getOutputDirections()
 	{
-		return EnumSet.of(ForgeDirection.UP, ForgeDirection.DOWN);
+		return EnumSet.allOf(ForgeDirection.class);
+	}
+	
+	@Override
+	public boolean canConnect(ForgeDirection direction){
+		if(direction.equals(ForgeDirection.UP)||direction.equals(ForgeDirection.DOWN)){
+			return true;
+		}
+		return false;
+		
 	}
 	
 	
