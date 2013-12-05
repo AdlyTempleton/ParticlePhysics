@@ -3,17 +3,44 @@ package pixlepix.particlephysics.common.tile;
 import java.util.EnumSet;
 
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import pixlepix.particlephysics.common.api.BaseParticle;
 import pixlepix.particlephysics.common.api.IParticleReceptor;
+import universalelectricity.compatibility.Compatibility;
 import universalelectricity.compatibility.TileEntityUniversalElectrical;
-import buildcraft.api.power.IPowerReceptor;
-import buildcraft.api.power.PowerHandler;
-import buildcraft.api.power.PowerHandler.PowerReceiver;
+import cofh.api.energy.IEnergyHandler;
 
 public class SeriesReceptorTileEntity extends TileEntityUniversalElectrical implements IParticleReceptor {
-
+	//UE fixes
+	//Thanks to Ybilta
+	@Override
+	public double getOfferedEnergy()
+	{
+	return Math.min(this.getEnergyStored() * Compatibility.TO_IC2_RATIO, this.getProvide(ForgeDirection.UNKNOWN) * Compatibility.TO_IC2_RATIO);
+	}
+	//actually send TE power
+	private void sendTEPower() {
+	    TileEntity tile = this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord - 1, this.zCoord);
+	    if(tile != null && tile instanceof IEnergyHandler) {
+	        IEnergyHandler energy = (IEnergyHandler)tile;
+	        int send = energy.receiveEnergy(ForgeDirection.UP, (int)Math.min(this.getEnergyStored() * Compatibility.TO_TE_RATIO, this.getProvide(ForgeDirection.UNKNOWN) * Compatibility.TO_TE_RATIO), true);
+	        energy.receiveEnergy(ForgeDirection.UP, send, false);
+	        this.provideElectricity((float) send * Compatibility.TE_RATIO, true);
+	    }
+	    tile = this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord + 1, this.zCoord);
+	    if(tile != null && tile instanceof IEnergyHandler) {
+	        IEnergyHandler energy = (IEnergyHandler)tile;
+	        int send = energy.receiveEnergy(ForgeDirection.DOWN, (int)Math.min(this.getEnergyStored() * Compatibility.TO_TE_RATIO, this.getProvide(ForgeDirection.UNKNOWN) * Compatibility.TO_TE_RATIO), true);
+	        energy.receiveEnergy(ForgeDirection.DOWN, send, false);
+	        this.provideElectricity((float) send * Compatibility.TE_RATIO, true);
+	    }
+	}
+	//make sure we can't get energy from TE
+	@Override
+	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate)
+	{
+	    return 0;
+	}
 	
 	public int excitedTicks=0;
 

@@ -63,11 +63,7 @@ public class ParticlePhysics {
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
 		Compatibility.initiate();
-		/*
-		for(ForgeDirection dir:ForgeDirection.VALID_DIRECTIONS){
-			System.out.println(dir.toString()+dir.ordinal());
-		}
-		*/
+		
 
 		
 		proxy.registerRenderers();
