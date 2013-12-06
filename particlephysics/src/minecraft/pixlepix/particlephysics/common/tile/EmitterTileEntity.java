@@ -153,8 +153,11 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 
 	@Override
 	public ItemStack decrStackSize(int i, int j) {
-		// TODO Auto-generated method stub
-		return this.inventory.splitStack(j);
+		this.inventory.splitStack(j);
+		if(this.inventory.stackSize == 0) {
+			this.inventory = null;
+		}
+		return inventory;
 	}
 
 	@Override

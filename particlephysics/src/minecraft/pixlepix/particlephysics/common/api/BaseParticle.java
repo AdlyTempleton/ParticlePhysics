@@ -63,7 +63,7 @@ public abstract class BaseParticle extends EntityLiving {
 		}
 		if(freeDirections.size()!=0){
 			ForgeDirection targetDirection=freeDirections.get((new Random().nextInt(freeDirections.size())));
-			this.setPosition(x+0.5,y+0.5,z+0.5);
+			this.setPosition(x+0.375,y+0.375,z+0.375);
 			this.potential*=0.9;
 			double f=(this.potential/getStartingPotential());
 			this.setVelocity(targetDirection.offsetX*f,targetDirection.offsetY*f,targetDirection.offsetZ*f);

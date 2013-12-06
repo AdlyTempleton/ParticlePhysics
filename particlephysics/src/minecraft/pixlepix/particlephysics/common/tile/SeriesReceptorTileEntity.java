@@ -61,6 +61,7 @@ public class SeriesReceptorTileEntity extends TileEntityUniversalElectrical impl
 		super.updateEntity();
 		this.produce();
 		this.excitedTicks--;
+		sendTEPower();
 	}	
 	
 	@Override
@@ -83,7 +84,7 @@ public class SeriesReceptorTileEntity extends TileEntityUniversalElectrical impl
 	@Override
 	public EnumSet<ForgeDirection> getOutputDirections()
 	{
-		return EnumSet.allOf(ForgeDirection.class);
+		return EnumSet.of(ForgeDirection.UP, ForgeDirection.DOWN);
 	}
 	
 	@Override
@@ -94,10 +95,4 @@ public class SeriesReceptorTileEntity extends TileEntityUniversalElectrical impl
 		return false;
 		
 	}
-	
-	
-	
-	
-	
-	
 }
