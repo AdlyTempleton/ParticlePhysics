@@ -23,7 +23,7 @@ public class LeafParticle extends BaseParticle {
 
 	@Override
 	public void onCollideWithParticle(BaseParticle particle) {
-		if(!(particle instanceof LeafParticle)){
+		if((!(particle instanceof LeafParticle))&&particle.effect!=2){
 			particle.potential*=0.5;
 			particle.effect=2;
 		}
