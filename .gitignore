@@ -1,15 +1,19 @@
-<<<<<<< HEAD
 *.class
-bin
-net
-/net
-DS_STORE
-.DS_STORE
-# Package Files #
 *.jar
-*.war
-*.ear
-ixbm
-=======
-Releases
->>>>>>> 513b92596c78752df1646c65d6e3a0c662271004
+dist
+download
+.DS_Store
+
+## gradle
+/.gradle
+/build
+/eclipse
+## ForgeGradle
+/run
+
+## eclipse
+/.settings
+/.metadata
+/.classpath
+/.project
+/bin
