@@ -25,7 +25,9 @@ configFile.withReader {
     // read config.  it shall from now on be referenced as simply config or as project.config
     def prop = new Properties()
     prop.load(it)
-    version = project.config.mod_version + "-" + ${manager.build.getEnvironment(manager.listener)['BUILD_NUMBER'] }
+    ext.env = System.getenv()
+    ext.buildNumber = env.BUILD_NUMBER?.toInteger()
+    version = project.config.mod_version + "-" + $buildNumber
 }
 
 processResources
