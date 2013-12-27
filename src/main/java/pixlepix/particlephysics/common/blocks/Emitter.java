@@ -1,11 +1,12 @@
 package pixlepix.particlephysics.common.blocks;
 
 import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import pixlepix.particlephysics.common.ParticlePhysics;
 import pixlepix.particlephysics.common.helper.BasicComplexBlock;
 import pixlepix.particlephysics.common.helper.ParticleRegistry;
 import pixlepix.particlephysics.common.tile.EmitterTileEntity;
@@ -77,7 +78,7 @@ public class Emitter extends BasicComplexBlock {
 	
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ){
-		
+			/*
 			if(world.getBlockTileEntity(x,y,z) instanceof EmitterTileEntity){
 				if(!world.isRemote&&entityPlayer.inventory.getCurrentItem()!=null&&((EmitterTileEntity) world.getBlockTileEntity(x,y,z)).isValidFuel(entityPlayer.inventory.getCurrentItem().itemID)){
 					
@@ -93,6 +94,12 @@ public class Emitter extends BasicComplexBlock {
 				entityPlayer.inventory.consumeInventoryItem(entityPlayer.getHeldItem().itemID);
 				return true;
 			}
+		}
+		*/
+		TileEntity te=world.getBlockTileEntity(x, y, z);
+		if(te != null && te instanceof EmitterTileEntity){
+			entityPlayer.openGui(ParticlePhysics.instance, 0, world, x, y, z);
+			return true;
 		}
 		return false;
 	}

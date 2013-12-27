@@ -71,29 +71,6 @@ public class InfiniteEmitter extends BasicComplexBlock {
 	}
 
 
-	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ){
-
-		if(world.getBlockTileEntity(x,y,z) instanceof EmitterTileEntity){
-			if(!world.isRemote&&entityPlayer.inventory.getCurrentItem()!=null&&((EmitterTileEntity) world.getBlockTileEntity(x,y,z)).isValidFuel(entityPlayer.inventory.getCurrentItem().itemID)){
-
-				EmitterTileEntity emitter=(EmitterTileEntity) world.getBlockTileEntity(x,y,z);
-				if(entityPlayer.getHeldItem().stackSize==64){
-					if(emitter.inventory!=null){
-						world.spawnEntityInWorld(new EntityItem(world,x+0.5,y+0.5,z+0.5,emitter.inventory));
-					}
-					emitter.inventory=new ItemStack(entityPlayer.getHeldItem().getItem(),1,entityPlayer.getHeldItem().getItemDamage());
-
-					entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem,null);
-					return true;
-				}
-			}
-		}
-
-		return false;
-
-	}
-
 
 
 }

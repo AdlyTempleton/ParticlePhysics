@@ -6,6 +6,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
 import pixlepix.particlephysics.common.api.BaseParticle;
 import pixlepix.particlephysics.common.blocks.InfiniteEmitter;
@@ -20,12 +21,13 @@ import pixlepix.particlephysics.common.entity.PaperParticle;
 import pixlepix.particlephysics.common.entity.SandParticle;
 import pixlepix.particlephysics.common.entity.SeedParticle;
 import pixlepix.particlephysics.common.helper.BasicComplexTileEntity;
+import pixlepix.particlephysics.common.helper.PacketHandler;
 
 public class EmitterTileEntity extends BasicComplexTileEntity implements IInventory {
 
-
-	public ItemStack inventory;
-	public static int[] validFuel={Item.coal.itemID,Item.paper.itemID,Item.clay.itemID, Item.seeds.itemID,Block.sand.blockID,Item.gunpowder.itemID,Block.glass.blockID, Item.blazePowder.itemID,Block.leaves.blockID};
+	public int interval=40;
+	public ItemStack[] inventory=new ItemStack[7];
+	//public static int[] validFuel={Item.coal.itemID,Item.paper.itemID,Item.clay.itemID, Item.seeds.itemID,Block.sand.blockID,Item.gunpowder.itemID,Block.glass.blockID, Item.blazePowder.itemID,Block.leaves.blockID};
 	@Override
 	public float getRequest(ForgeDirection direction) {
 		// TODO Auto-generated method stub
@@ -48,19 +50,29 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 	public int fuelMeta;
 	public int fuelStored=0;
 	public void updateEntity(){
-		if(!worldObj.isRemote&&worldObj.getTotalWorldTime()%40==0){
+		if(!worldObj.isRemote&&worldObj.getTotalWorldTime()%((20*interval)+20)==0){
 			if(fuelStored<1){
 				if(this.inventory!=null){
-					if(isValidFuel(this.inventory.itemID)){
+					if(this.inventory[0]!=null&&isValidFuel(this.inventory[0].itemID)){
 						this.fuelStored=100;
-						this.fuelType=this.inventory.itemID;
-						this.fuelMeta=this.inventory.getItemDamage();
+						this.fuelType=this.inventory[0].itemID;
+						this.fuelMeta=this.inventory[0].getItemDamage();
 						this.decrStackSize(0, 1);
+						if(this.inventory[0]==null){
+							for(int i=1;i<getSizeInventory();i++){
+								ItemStack item=getStackInSlot(i);
+								if(item != null && this.isValidFuel(item.itemID)){
+									this.setInventorySlotContents(0, item);
+									this.setInventorySlotContents(i, null);
+									break;
+								}
+							}
+						}
 					}
 				}
 			}
 			if(fuelStored>0){
-				if(!(Block.blocksList[worldObj.getBlockId(xCoord, yCoord, zCoord)] instanceof InfiniteEmitter)){
+				if(!(Block.blocksList[worldObj.getBlockId(xCoord, yCoord, zCoord)] instanceof InfiniteEmitter&&getStackInSlot(0).stackSize==64)){
 					this.fuelStored--;
 				}
 				ForgeDirection[] outputDirections={ForgeDirection.SOUTH,ForgeDirection.NORTH,ForgeDirection.WEST,ForgeDirection.EAST};
@@ -124,8 +136,12 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 		this.fuelType=nbt.getInteger("FuelType");
 
 		this.fuelMeta=nbt.getInteger("FuelMeta");
-
-		this.inventory=ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("Inventory"));
+		NBTTagList tagList=nbt.getTagList("Inventory");
+		for(int i=0;i<tagList.tagCount();i++){
+			NBTTagCompound compound=(NBTTagCompound) tagList.tagAt(i);
+			int slot=compound.getInteger("Slot");
+			inventory[slot]=ItemStack.loadItemStackFromNBT(compound);
+		}
 	}
 	@Override
 	public void writeToNBT(NBTTagCompound nbt){
@@ -135,42 +151,58 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 
 		nbt.setInteger("FuelMeta", this.fuelMeta);
 		NBTTagCompound inv=new NBTTagCompound();
-		if(this.inventory!=null){
-			this.inventory.writeToNBT(inv);
+		NBTTagList tagList=new NBTTagList();
+		for(int i=0;i<inventory.length;i++){
+			ItemStack item=getStackInSlot(i);
+			if(item!=null){
+				NBTTagCompound compound=new NBTTagCompound();
+				item.writeToNBT(compound);
+				compound.setInteger("Slot", i);
+				tagList.appendTag(compound);
+			}
 		}
-		nbt.setCompoundTag("Inventory", inv);
+		nbt.setTag("Inventory", tagList);
 	}
 
 	@Override
 	public int getSizeInventory() {
 		// TODO Auto-generated method stub
-		return 1;
+		return 7;
 	}
 
 	@Override
 	public ItemStack getStackInSlot(int i) {
 		// TODO Auto-generated method stub
-		return this.inventory;
+		return this.inventory[i];
 	}
 
 	@Override
 	public ItemStack decrStackSize(int i, int j) {
-		this.inventory.splitStack(j);
-		if(this.inventory.stackSize == 0) {
-			this.inventory = null;
+		ItemStack itemstack = getStackInSlot(i);
+
+		if (itemstack != null) {
+			if (itemstack.stackSize <= j) {
+				setInventorySlotContents(i, null);
+			}else{
+				itemstack = itemstack.splitStack(j);
+			}
 		}
-		return inventory;
+
+		onInventoryChanged();
+		return itemstack;
 	}
 
 	@Override
 	public ItemStack getStackInSlotOnClosing(int i) {
-		// TODO Auto-generated method stub
-		return null;
+		ItemStack item=getStackInSlot(i);
+		setInventorySlotContents(i,null);
+		return item;
 	}
 
 	@Override
 	public void setInventorySlotContents(int i, ItemStack itemStack) {
-		this.inventory=itemStack;
+		this.inventory[i]=itemStack;
+		this.onInventoryChanged();
 
 	}
 
@@ -194,8 +226,7 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-		// TODO Auto-generated method stub
-		return false;
+		return entityplayer.getDistanceSq(xCoord, yCoord, zCoord)<64;
 	}
 
 	@Override
@@ -218,6 +249,18 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 
 	public boolean isValidFuel(int itemstack){
 		return this.getParticleFromFuel(itemstack,0)!=null;
+	}
+
+	public void receiveButton(byte type, byte value) {
+		switch(type){
+		case 0:
+			switch(value){
+			case 0:
+				this.fuelStored=0;
+			}
+		case 1:
+			this.interval=value;
+		}
 	}
 
 }

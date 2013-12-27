@@ -37,8 +37,8 @@ public class GunpowderParticle extends BaseParticle {
 		GunpowderParticle produce=new GunpowderParticle(worldObj);
 		produce.potential=particle.potential;
 		produce.setPosition(particle.posX, particle.posY,particle.posZ);
-		produce.setVelocity(particle.motionX*-1, particle.motionY*-1,particle.motionZ*-1);
-		this.setVelocity(this.motionX*-1, this.motionY*-1,this.motionZ*-1);
+		produce.setVelocity(particle.motionX, particle.motionY,particle.motionZ);
+		//this.setVelocity(this.motionX*-1, this.motionY*-1,this.motionZ*-1);
 		worldObj.spawnEntityInWorld(produce);
 		particle.setDead();
 	}

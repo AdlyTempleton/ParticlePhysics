@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.util.Icon;
 import pixlepix.particlephysics.common.ParticlePhysics;
+import pixlepix.particlephysics.common.api.BaseParticle;
 import pixlepix.particlephysics.common.entity.BlankParticle;
 import pixlepix.particlephysics.common.entity.BlazepowderParticle;
 import pixlepix.particlephysics.common.entity.CharcoalParticle;
@@ -49,13 +49,21 @@ public class ParticleRegistry {
 	public static void populateIcons(IconRegister register){
 		
 		for(int i=0;i<particles.size();i++){
-
-				System.out.println(particles.get(i).getName());
 				icons.put(particles.get(i),register.registerIcon("particlephysics:"+particles.get(i).getName().substring("pixlepix.particlephysics.common.entity.".length())));
 		}	
 		
 		
 	}
+	
+	public static Icon getIconFromInstance(BaseParticle particle){
+		for(int i=0;i<particles.size();i++){
+			if(particles.get(i).isInstance(particle)){
+				return icons.get(particles.get(i));
+			}
+		}
+		return null;
+	}
+	
 	public static void registerEntities(){
 
 		for(int i=0;i<particles.size();i++){
