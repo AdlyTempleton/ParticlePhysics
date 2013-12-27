@@ -72,7 +72,7 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 				}
 			}
 			if(fuelStored>0){
-				if(!(Block.blocksList[worldObj.getBlockId(xCoord, yCoord, zCoord)] instanceof InfiniteEmitter&&getStackInSlot(0).stackSize==64)){
+				if(!(Block.blocksList[worldObj.getBlockId(xCoord, yCoord, zCoord)] instanceof InfiniteEmitter&&getStackInSlot(0).stackSize>=63)){
 					this.fuelStored--;
 				}
 				ForgeDirection[] outputDirections={ForgeDirection.SOUTH,ForgeDirection.NORTH,ForgeDirection.WEST,ForgeDirection.EAST};

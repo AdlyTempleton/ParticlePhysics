@@ -6,7 +6,9 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import pixlepix.particlephysics.common.ParticlePhysics;
 import pixlepix.particlephysics.common.helper.BasicComplexBlock;
 import pixlepix.particlephysics.common.helper.BetterLoader;
 import pixlepix.particlephysics.common.helper.ParticleRegistry;
@@ -68,6 +70,18 @@ public class InfiniteEmitter extends BasicComplexBlock {
 	@Override
 	public boolean topSidedTextures(){
 		return true;
+	}
+	
+
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ){
+		
+		TileEntity te=world.getBlockTileEntity(x, y, z);
+		if(te != null && te instanceof EmitterTileEntity){
+			entityPlayer.openGui(ParticlePhysics.instance, 0, world, x, y, z);
+			return true;
+		}
+		return false;
 	}
 
 
