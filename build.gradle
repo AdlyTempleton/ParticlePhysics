@@ -26,8 +26,12 @@ configFile.withReader {
     def prop = new Properties()
     prop.load(it)
     ext.env = System.getenv()
-    ext.buildNumber = env.BUILD_NUMBER?.toInteger()
-    version = project.config.mod_version + "-" + $buildNumber
+    if (System.getenv().BUILD_NUMBER != null) {
+        ext.buildNum = System.getenv().BUILD_NUMBER
+    } else {
+        ext.buildNum = "DEV"
+    }
+    version = project.config.mod_version + "-" + ext.buildNum
 }
 
 processResources
