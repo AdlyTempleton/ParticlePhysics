@@ -10,14 +10,27 @@ buildscript {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.0-SNAPSHOT'
     }
 }
+task("incrementBuildNumber")
+{
+    // increment build number
+    doFirst {
+        // increment
+        config.build_number = (config.build_number.toString().toInteger()) + 1
+        
+        // write back to the file
+        configFile.withWriter {
+            config.toProperties().store(it, "")
+        }
+    }
+}
 apply plugin: 'forge'
 
 version = 4.2
-group= "pixlepix.particlephysics" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "ParticlePhysics"
+group= "pixlepix.minechem" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "Minechem"
 
 minecraft {
-	version = "1.6.4-9.11.1.964"
+        version = "1.6.4-9.11.1.964"
 }
 
 ext.configFile = file "build.properties"
@@ -25,14 +38,14 @@ configFile.withReader {
     // read config.  it shall from now on be referenced as simply config or as project.config
     def prop = new Properties()
     prop.load(it)
+    project.ext.config = new ConfigSlurper().parse prop
     ext.env = System.getenv()
     if (System.getenv().BUILD_NUMBER != null) {
         ext.buildNum = System.getenv().BUILD_NUMBER
     } else {
         ext.buildNum = "DEV"
     }
-    version = project.config.mod_version + "-" + ext.buildNum
-}
+   }
 
 processResources
 {
