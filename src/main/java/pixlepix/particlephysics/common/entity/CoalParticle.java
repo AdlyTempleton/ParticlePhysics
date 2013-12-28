@@ -18,7 +18,11 @@ public class CoalParticle extends BaseParticle {
 		// TODO Auto-generated method stub
 		return 4000;
 	}
-
+	@Override
+	public void onEntityUpdate() {
+		
+		super.onEntityUpdate();
+	}
 	@Override
 	public String getName(){
 		return "Coal";

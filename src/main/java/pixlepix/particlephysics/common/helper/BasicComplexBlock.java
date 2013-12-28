@@ -1,5 +1,6 @@
 package pixlepix.particlephysics.common.helper;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -10,12 +11,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import universalelectricity.core.UniversalElectricity;
-import universalelectricity.prefab.block.BlockAdvanced;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public abstract class BasicComplexBlock extends BlockAdvanced implements IBlock {
+public abstract class BasicComplexBlock extends Block implements IBlock {
 
 	public Icon connectorIcon;
 	public Icon topIcon;
@@ -45,7 +44,7 @@ public abstract class BasicComplexBlock extends BlockAdvanced implements IBlock 
 		
 	}
 	public BasicComplexBlock(int id) {
-		super(id, UniversalElectricity.machine);
+		super(id, Material.iron);
 
 		this.setUnlocalizedName(this.getName());
 		
@@ -89,38 +88,7 @@ public abstract class BasicComplexBlock extends BlockAdvanced implements IBlock 
 			
 		}
 	
-	@Override
-    public boolean onUseWrench(World par1World, int x, int y, int z, EntityPlayer par5EntityPlayer, int side,
-            float hitX, float hitY, float hitZ)
-    {
-        int metadata = par1World.getBlockMetadata(x, y, z);
-        
-        int change = 0;
-        
-        // Re-orient the block
-        switch (metadata)
-        {
-            case 0:
-                change = 3;
-                break;
-            case 3:
-                change = 1;
-                break;
-            case 1:
-                change = 2;
-                break;
-            case 2:
-                change = 0;
-                break;
-        }
-        
-        par1World.setBlock(x, y, z, this.blockID, change, 0);
-        par1World.markBlockForRenderUpdate(x, y, z);
-        
-        ((BasicComplexTileEntity) par1World.getBlockTileEntity(x, y, z)).initiate();
-        
-        return true;
-    }
+	
 	@Override
 	public void onBlockPlacedBy(World par1World, int x,int y, int z, EntityLivingBase par5EntityLiving, ItemStack par6ItemStack){
 

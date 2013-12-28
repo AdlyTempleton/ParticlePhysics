@@ -68,8 +68,10 @@ public class PacketHandler implements IPacketHandler {
 			if(toMove!=null){
 				toMove.setPosition(inputStream.readDouble(), inputStream.readDouble(),inputStream.readDouble());
 				toMove.setVelocity(inputStream.readDouble(),inputStream.readDouble(),inputStream.readDouble());
+
 				if(toMove instanceof BaseParticle){
 					((BaseParticle) toMove).effect=inputStream.readInt();
+
 				}
 			}
 		} catch (IOException e) {

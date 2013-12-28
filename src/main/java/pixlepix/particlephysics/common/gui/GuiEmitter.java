@@ -45,7 +45,12 @@ public class GuiEmitter extends GuiContainer {
 			int srcY = 29 - barHeight;
 			drawTexturedModalRect(guiLeft+4, guiTop+ 46+29 - barHeight, srcX, srcY, 28, barHeight);
 		}
+		
+		if(!this.isDragging){
 
+			this.tempHeightSetting=tile.interval;
+		}
+		
 		bar.draw(this, 0, 250);
 		this.updateSliderPosition();
 		slider.draw(this, 0, 239);

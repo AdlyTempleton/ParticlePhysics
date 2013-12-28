@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import pixlepix.particlephysics.common.api.BaseParticle;
 import pixlepix.particlephysics.common.blocks.InfiniteEmitter;
@@ -20,31 +21,13 @@ import pixlepix.particlephysics.common.entity.LeafParticle;
 import pixlepix.particlephysics.common.entity.PaperParticle;
 import pixlepix.particlephysics.common.entity.SandParticle;
 import pixlepix.particlephysics.common.entity.SeedParticle;
-import pixlepix.particlephysics.common.helper.BasicComplexTileEntity;
-import pixlepix.particlephysics.common.helper.PacketHandler;
 
-public class EmitterTileEntity extends BasicComplexTileEntity implements IInventory {
+public class EmitterTileEntity extends TileEntity implements IInventory {
 
 	public int interval=40;
 	public ItemStack[] inventory=new ItemStack[7];
 	//public static int[] validFuel={Item.coal.itemID,Item.paper.itemID,Item.clay.itemID, Item.seeds.itemID,Block.sand.blockID,Item.gunpowder.itemID,Block.glass.blockID, Item.blazePowder.itemID,Block.leaves.blockID};
-	@Override
-	public float getRequest(ForgeDirection direction) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public float getProvide(ForgeDirection direction) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public float getMaxEnergyStored() {
-		// TODO Auto-generated method stubnbt
-		return 0;
-	}
+	
 	public int fuelType;
 
 	public int fuelMeta;
@@ -134,7 +117,7 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 		this.fuelStored=nbt.getInteger("Fuel");
 
 		this.fuelType=nbt.getInteger("FuelType");
-
+		this.interval=nbt.getInteger("Interval");
 		this.fuelMeta=nbt.getInteger("FuelMeta");
 		NBTTagList tagList=nbt.getTagList("Inventory");
 		for(int i=0;i<tagList.tagCount();i++){
@@ -146,6 +129,7 @@ public class EmitterTileEntity extends BasicComplexTileEntity implements IInvent
 	@Override
 	public void writeToNBT(NBTTagCompound nbt){
 		super.writeToNBT(nbt);
+		nbt.setInteger("Interval", this.interval);
 		nbt.setInteger("Fuel", this.fuelStored);
 		nbt.setInteger("FuelType", this.fuelType);
 

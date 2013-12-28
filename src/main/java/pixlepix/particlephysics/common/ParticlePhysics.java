@@ -8,7 +8,6 @@ import pixlepix.particlephysics.common.helper.PacketHandler;
 import pixlepix.particlephysics.common.helper.ParticlePhysicsTab;
 import pixlepix.particlephysics.common.helper.ParticleRegistry;
 import pixlepix.particlephysics.common.item.PotentialReader;
-import universalelectricity.compatibility.Compatibility;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -50,7 +49,6 @@ public class ParticlePhysics {
 	public void preInit(FMLPreInitializationEvent event) {
 		ParticleRegistry.populateParticleList();
 		loader=new BetterLoader();
-		Compatibility.initiate();
 		loader.loadBlocks();
 		loadBlocks();
 	}
@@ -61,7 +59,6 @@ public class ParticlePhysics {
 	
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
-		Compatibility.initiate();
 		
 
 		

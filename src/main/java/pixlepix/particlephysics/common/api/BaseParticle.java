@@ -86,7 +86,7 @@ public abstract class BaseParticle extends EntityLiving {
 			ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
 			DataOutputStream outputStream = new DataOutputStream(bos);
 			try {
-
+				outputStream.writeByte(0);
 				outputStream.writeInt(this.entityId);
 				outputStream.writeDouble(this.posX);
 				outputStream.writeDouble(this.posY);
@@ -130,7 +130,7 @@ public abstract class BaseParticle extends EntityLiving {
 		}
 		super.onEntityUpdate();
 		this.sendCompletePositionUpdate();
-		if(ticks>600){
+		if(ticks>600||this.posY>257){
 			this.setDead();
 		}
 		if(worldObj.isRemote){
