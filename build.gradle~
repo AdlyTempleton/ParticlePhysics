@@ -39,8 +39,6 @@ configFile.withReader {
     def prop = new Properties()
     prop.load(it)
     project.ext.config = new ConfigSlurper().parse prop
-    def prop = new Properties()
-    prop.load(it)
     ext.env = System.getenv()
     if (System.getenv().BUILD_NUMBER != null) {
         ext.buildNum = System.getenv().BUILD_NUMBER

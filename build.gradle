@@ -25,9 +25,9 @@ task("incrementBuildNumber")
 }
 apply plugin: 'forge'
 
-version = 4.2
-group= "pixlepix.minechem" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "Minechem"
+version = 1.1
+group= "pixlepix.particlephysics" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "ParticlePhysics"
 
 minecraft {
         version = "1.6.4-9.11.1.964"
