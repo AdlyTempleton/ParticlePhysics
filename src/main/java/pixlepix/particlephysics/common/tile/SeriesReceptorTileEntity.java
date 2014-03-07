@@ -4,6 +4,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import pixlepix.particlephysics.common.api.BaseParticle;
 import pixlepix.particlephysics.common.api.IParticleReceptor;
+import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyHandler;
 import cofh.api.energy.TileEnergyHandler;
 
@@ -13,21 +14,24 @@ public class SeriesReceptorTileEntity extends TileEnergyHandler implements IPart
 
 	public float powerToDischarge=0;
 	
+	protected EnergyStorage storage = new EnergyStorage(320000000);
 	
 	//28000 RF per coal
 	//280 RF per emission
 	//70 RF per coal particle
 	//Potential of 4000
 	
-	public static final float constant=.0175F;
+	public static final float constant = .0175F;
+	public static final float excitedConstant = constant * 3;
 	
 	@Override
 	public void onContact(BaseParticle particle) {
 
 		if(this.excitedTicks>0){
-			this.storage.modifyEnergyStored(((int)(constant*particle.potential)));
+			//excited state, energy generated is 3 times the normal amount, state lasts for 20 ticks
+			this.storage.modifyEnergyStored(((int)(excitedConstant*particle.potential)));
 		}else{
-
+			
 			this.storage.modifyEnergyStored(((int)(constant*particle.potential)));
 		}
 		this.excitedTicks=20;
@@ -37,8 +41,8 @@ public class SeriesReceptorTileEntity extends TileEnergyHandler implements IPart
 	@Override
 	public void updateEntity(){
 		super.updateEntity();
-		this.storage.setCapacity(320000000);
 		this.excitedTicks--;
+		//send power out to adjacent storage units
 		for(ForgeDirection dir:ForgeDirection.VALID_DIRECTIONS){
 			TileEntity te=worldObj.getBlockTileEntity(xCoord+dir.offsetX, yCoord+dir.offsetY, zCoord+dir.offsetZ);
 			if(te !=null && te instanceof IEnergyHandler){
