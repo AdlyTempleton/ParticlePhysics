@@ -11,13 +11,11 @@ public class LeafParticle extends BaseParticle {
 
 	@Override
 	public float getStartingPotential() {
-		// TODO Auto-generated method stub
 		return 500;
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return "Leaf";
 	}
 
