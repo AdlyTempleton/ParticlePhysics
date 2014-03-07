@@ -21,7 +21,7 @@ public class BlazepowderParticle extends BaseParticle {
 
 	@Override
 	public void onCollideWithParticle(BaseParticle particle) {
-		if(!(particle instanceof BlazepowderParticle)){
+		if((!(particle instanceof BlazepowderParticle))&&(particle.effect!=1)){
 			particle.potential*=2;
 			particle.effect=1;
 		}

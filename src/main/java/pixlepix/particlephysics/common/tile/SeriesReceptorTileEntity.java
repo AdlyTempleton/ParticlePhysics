@@ -21,7 +21,8 @@ public class SeriesReceptorTileEntity extends TileEnergyHandler implements IPart
 	//70 RF per coal particle
 	//Potential of 4000
 	
-	public static final float constant = .0175F;
+	//keep this constant matched to equal 1 coal in steam dynamo
+	public static final float constant = .02F;
 	public static final float excitedConstant = constant * 3;
 	
 	@Override
